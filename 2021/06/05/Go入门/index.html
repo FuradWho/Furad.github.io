@@ -20,28 +20,49 @@
     var CONFIG = {"hostname":"furadwho.github.io","root":"/Furad.github.io/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="Go入门Go语言的起源一个成功的编程语言的后代一般都会继承它们祖先的优点；当然有时多种语言杂合也可能会产生令人惊讶的特性；还有一些激进的新特性可能并没有先例。下图展示了有哪些早期的编程语言对Go语言的设计产生了重要影响。Go语言有时候被描述为“C类似语言”，或者是“21世纪的C语言”。Go从C语言继承了相似的表达式语法、控制流结构、基础数据类型、调用参数传值、指针等很多思想，还有C语言一直所看中的">
+<meta property="og:type" content="article">
 <meta property="og:title" content="The world of Furad">
-<meta property="og:url" content="https://furadwho.github.io/Furad.github.io/index.html">
+<meta property="og:url" content="https://furadwho.github.io/Furad.github.io/2021/06/05/Go%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="The world of Furad">
+<meta property="og:description" content="Go入门Go语言的起源一个成功的编程语言的后代一般都会继承它们祖先的优点；当然有时多种语言杂合也可能会产生令人惊讶的特性；还有一些激进的新特性可能并没有先例。下图展示了有哪些早期的编程语言对Go语言的设计产生了重要影响。Go语言有时候被描述为“C类似语言”，或者是“21世纪的C语言”。Go从C语言继承了相似的表达式语法、控制流结构、基础数据类型、调用参数传值、指针等很多思想，还有C语言一直所看中的">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://note.youdao.com/yws/res/0/WEBRESOURCE3ea3a5db8c8c2a0cecc55d1cdaa97de0">
+<meta property="og:image" content="https://note.youdao.com/yws/res/4/WEBRESOURCE7a2160314361ca666940c56c361a6d44">
+<meta property="og:image" content="https://note.youdao.com/yws/res/b/WEBRESOURCE33a0a1721ce7ec9a01f3d5cec3cd236b">
+<meta property="og:image" content="https://note.youdao.com/yws/res/a/WEBRESOURCE96e376c5b978bb030c7bbe6447241f0a">
+<meta property="og:image" content="https://note.youdao.com/yws/res/e/WEBRESOURCEa22c93a3f6ed1e15bc33ab2c4267193e">
+<meta property="og:image" content="https://note.youdao.com/yws/res/7/WEBRESOURCE7ceccfd83f317748865379e59dfa7ab7">
+<meta property="og:image" content="https://note.youdao.com/yws/res/e/WEBRESOURCE0f6c00a1b0868a8b2f1bf6023d89330e">
+<meta property="og:image" content="https://note.youdao.com/yws/res/5/WEBRESOURCEbe6386346490f33972661a4cabe60945">
+<meta property="og:image" content="https://note.youdao.com/yws/res/1/WEBRESOURCE3bbbaf5b76d24d49f09715934d02aa81">
+<meta property="og:image" content="https://note.youdao.com/yws/res/6/WEBRESOURCEbcf3610cd4a8f207d29b030154980a06">
+<meta property="og:image" content="https://note.youdao.com/yws/res/5/WEBRESOURCE0db05a6885f76396038f2e7452410d75">
+<meta property="og:image" content="https://note.youdao.com/yws/res/c/WEBRESOURCE41be0b3fca93159149f6a7744643eedc">
+<meta property="og:image" content="https://note.youdao.com/yws/res/a/WEBRESOURCEdcab568bc2e94d2db78e6b34b631f4da">
+<meta property="og:image" content="https://note.youdao.com/yws/res/2/WEBRESOURCE18fc0b0e0bd52739cdc068b8d2800802">
+<meta property="og:image" content="https://note.youdao.com/yws/res/e/WEBRESOURCEbbb415d0c4ae409da371002de02ce5ee">
+<meta property="og:image" content="https://note.youdao.com/yws/res/0/WEBRESOURCE8a21662b3b69e638a8a877e8c9b560d0">
+<meta property="article:published_time" content="2021-06-05T12:23:13.934Z">
+<meta property="article:modified_time" content="2021-08-04T11:30:24.898Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://note.youdao.com/yws/res/0/WEBRESOURCE3ea3a5db8c8c2a0cecc55d1cdaa97de0">
 
-<link rel="canonical" href="https://furadwho.github.io/Furad.github.io/">
+<link rel="canonical" href="https://furadwho.github.io/Furad.github.io/2021/06/05/Go%E5%85%A5%E9%97%A8/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>The world of Furad</title>
+  <title> | The world of Furad</title>
   
 
 
@@ -139,73 +160,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://furadwho.github.io/Furad.github.io/2021/06/05/firstBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Furad.github.io/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="The world of Furad">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Furad.github.io/2021/06/05/firstBlog/" class="post-title-link" itemprop="url">firstBlog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-05 20:24:07" itemprop="dateCreated datePublished" datetime="2021-06-05T20:24:07+08:00">2021-06-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-04 19:27:36" itemprop="dateModified" datetime="2021-08-04T19:27:36+08:00">2021-08-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -221,10 +179,9 @@
       <meta itemprop="name" content="The world of Furad">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/Furad.github.io/2021/06/05/Go%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -254,7 +211,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Go入门"><a href="#Go入门" class="headerlink" title="Go入门"></a>Go入门</h1><h2 id="Go语言的起源"><a href="#Go语言的起源" class="headerlink" title="Go语言的起源"></a>Go语言的起源</h2><p>一个成功的编程语言的后代一般都会继承它们祖先的优点；当然有时多种语言杂合也可能会产生令人惊讶的特性；还有一些激进的新特性可能并没有先例。<br>下图展示了有哪些早期的编程语言对Go语言的设计产生了重要影响。<br><img src="https://note.youdao.com/yws/res/0/WEBRESOURCE3ea3a5db8c8c2a0cecc55d1cdaa97de0" alt="image.png"><br>Go语言有时候被描述为“C类似语言”，或者是“21世纪的C语言”。Go从C语言继承了相似的表达式语法、控制流结构、基础数据类型、调用参数传值、指针等很多思想，还有C语言一直所看中的编译后机器码的运行效率以及和现有操作系统的无缝适配。 </p>
+        <h1 id="Go入门"><a href="#Go入门" class="headerlink" title="Go入门"></a>Go入门</h1><h2 id="Go语言的起源"><a href="#Go语言的起源" class="headerlink" title="Go语言的起源"></a>Go语言的起源</h2><p>一个成功的编程语言的后代一般都会继承它们祖先的优点；当然有时多种语言杂合也可能会产生令人惊讶的特性；还有一些激进的新特性可能并没有先例。<br>下图展示了有哪些早期的编程语言对Go语言的设计产生了重要影响。<br><img src="https://note.youdao.com/yws/res/0/WEBRESOURCE3ea3a5db8c8c2a0cecc55d1cdaa97de0" alt="image.png"><br>Go语言有时候被描述为“C类似语言”，或者是“21世纪的C语言”。Go从C语言继承了相似的表达式语法、控制流结构、基础数据类型、调用参数传值、指针等很多思想，还有C语言一直所看中的编译后机器码的运行效率以及和现有操作系统的无缝适配。 </p>
 <p>官网:<a target="_blank" rel="noopener" href="https://golang.google.cn/">https://golang.google.cn/</a><br>API文档:<a target="_blank" rel="noopener" href="https://golang.google.cn/doc/">https://golang.google.cn/doc/</a></p>
 <h2 id="Go语言开发环境的搭建"><a href="#Go语言开发环境的搭建" class="headerlink" title="Go语言开发环境的搭建"></a>Go语言开发环境的搭建</h2><h3 id="Go-语言环境安装"><a href="#Go-语言环境安装" class="headerlink" title="Go 语言环境安装"></a>Go 语言环境安装</h3><p>Go 语言支持以下系统：</p>
 <ul>
@@ -402,21 +359,30 @@
 </ul>
 <p>另外你会发现 example.com/pear 的后面会有一个 indirect 标识，indirect 标识表示该模块为间接依赖，也就是在当前应用程序中的 import 语句中，并没有发现这个模块的明确引用</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/Furad.github.io/2021/06/05/firstBlog/" rel="next" title="firstBlog">
+      firstBlog <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -469,6 +435,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">Go入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E7%9A%84%E8%B5%B7%E6%BA%90"><span class="nav-number">1.1.</span> <span class="nav-text">Go语言的起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="nav-number">1.2.</span> <span class="nav-text">Go语言开发环境的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.1.</span> <span class="nav-text">Go 语言环境安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.2.</span> <span class="nav-text">Windows 系统下安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Windows%E4%B8%8B%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-msi%E5%90%8E%E7%BC%80%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85%E6%9D%A5%E5%AE%89%E8%A3%85%EF%BC%8C%E5%8F%8C%E5%87%BB%E4%B8%8B%E8%BD%BD%E5%A5%BD%E7%9A%84%E6%96%87%E4%BB%B6%EF%BC%8C%E7%84%B6%E5%90%8E%E7%9B%B4%E6%8E%A5%E5%AE%89%E8%A3%85%E5%8D%B3%E5%8F%AF%E3%80%82"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1.Windows下可以使用.msi后缀的安装包来安装，双击下载好的文件，然后直接安装即可。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%EF%BC%8C%E6%89%93%E5%BC%80%E7%BB%88%E7%AB%AF%EF%BC%8C%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.安装完成，打开终端，检查是否成功</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-GOROOT%E5%92%8CGOPATH"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3.GOROOT和GOPATH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Go%E5%BC%80%E5%8F%91%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">4.Go开发编辑器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E8%A1%A5%E5%85%85"><span class="nav-number">1.3.</span> <span class="nav-text">内容补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-Modules-%E5%92%8C-GOPATH"><span class="nav-number">1.3.1.</span> <span class="nav-text">Go Modules 和 GOPATH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFGo-Modules"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">什么是Go Modules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFGOPATH"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">什么是GOPATH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%83%E7%94%A8GOPATH%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">为什么弃用GOPATH模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-Modules%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">Go Modules基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%80%E6%8F%90%E4%BE%9B%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.1.4.1.</span> <span class="nav-text">所提供的命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%80%E6%8F%90%E4%BE%9B%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.1.4.2.</span> <span class="nav-text">所提供的环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GO111MODULE"><span class="nav-number">1.3.1.4.3.</span> <span class="nav-text">GO111MODULE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GOPROXY"><span class="nav-number">1.3.1.4.4.</span> <span class="nav-text">GOPROXY</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AFGo-Modules"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">开启Go Modules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE%EF%BC%8C%E6%9F%A5%E7%9C%8Bgo-mod-%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">初始化项目，查看go.mod 文件</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
