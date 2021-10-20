@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>The world of Furad</title>
+  <title>Hexo</title>
   
   
   <link href="http://www.furadwho.top/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://www.furadwho.top/</id>
   
   <author>
-    <name>Furad</name>
+    <name>John Doe</name>
     
   </author>
   
