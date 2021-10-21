@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo 常用命令</title>
+    <url>/2021/10/21/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="常用-hexo-命令"><a href="#常用-hexo-命令" class="headerlink" title="常用 hexo 命令"></a><strong>常用 hexo 命令</strong></h1><h2 id="初始化命令"><a href="#初始化命令" class="headerlink" title="初始化命令"></a>初始化命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo -g		 //安装hexo</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> npm update hexo -g		 //更新hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init			     //初始化博客</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">&quot;博客名称&quot;</span> = hexo new <span class="string">&quot;博客名称&quot;</span>	//新建一篇博客</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g = hexo generate				 //生成页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d = hexo deploy				     //部署</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo new page <span class="string">&quot;name&quot;</span>  				 //新建页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d                                //生成页面并部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s = hexo server	                   //启动服务器、本地预览</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo server	                //hexo会监视文件变动并自动更新，无须重启服务器</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -s	            //静态模式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -p 5000	        //更改端口</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -i 192.168.1.1	//自定义 IP地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo clean	                //清除缓存和已生成的静态文件，若是网页正常情况下可以忽略这条命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo <span class="built_in">help</span>                     //帮助</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="博客头格式"><a href="#博客头格式" class="headerlink" title="博客头格式"></a>博客头格式</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 通过如下字段,Hexo会自动添加博文分类和博文标签的相关配置</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">title</span> <span class="comment"># 添加博文标题</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">categories</span> <span class="comment"># 添加博文分类</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">tags</span> <span class="comment"># 添加博文标签</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>奇巧淫技</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一元线性回归及Java实现</title>
     <url>/2021/08/15/%E4%B8%80%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%8F%8AJava%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="一元线性回归及Java实现"><a href="#一元线性回归及Java实现" class="headerlink" title="一元线性回归及Java实现"></a>一元线性回归及Java实现</h1><h2 id="回归问题"><a href="#回归问题" class="headerlink" title="回归问题"></a>回归问题</h2><p>回归问题是研究自变量和因变量之间关系的一种预测模型技术。例如我们可以通过回归模型去预测房价与房子面积之间的关系，一个人每周花在微信上的时间和他微信好友数量之间的关系等。</p>
@@ -40,25 +59,6 @@
       </categories>
       <tags>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo 常用命令</title>
-    <url>/2021/10/21/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="常用-hexo-命令"><a href="#常用-hexo-命令" class="headerlink" title="常用 hexo 命令"></a><strong>常用 hexo 命令</strong></h1><h2 id="初始化命令"><a href="#初始化命令" class="headerlink" title="初始化命令"></a>初始化命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo -g		 //安装hexo</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> npm update hexo -g		 //更新hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init			     //初始化博客</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">&quot;博客名称&quot;</span> = hexo new <span class="string">&quot;博客名称&quot;</span>	//新建一篇博客</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g = hexo generate				 //生成页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d = hexo deploy				     //部署</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo new page <span class="string">&quot;name&quot;</span>  				 //新建页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d                                //生成页面并部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s = hexo server	                   //启动服务器、本地预览</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo server	                //hexo会监视文件变动并自动更新，无须重启服务器</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -s	            //静态模式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -p 5000	        //更改端口</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -i 192.168.1.1	//自定义 IP地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo clean	                //清除缓存和已生成的静态文件，若是网页正常情况下可以忽略这条命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo <span class="built_in">help</span>                     //帮助</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="博客头格式"><a href="#博客头格式" class="headerlink" title="博客头格式"></a>博客头格式</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 通过如下字段,Hexo会自动添加博文分类和博文标签的相关配置</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">title</span> <span class="comment"># 添加博文标题</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">categories</span> <span class="comment"># 添加博文分类</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">tags</span> <span class="comment"># 添加博文标签</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>奇巧淫技</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
