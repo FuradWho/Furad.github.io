@@ -51,13 +51,6 @@
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/about/index.html</loc>
-    
-    <lastmod>2021-10-20</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.furadwho.top/books/index.html</loc>
     
     <lastmod>2021-10-20</lastmod>
@@ -66,6 +59,13 @@
   
   <url>
     <loc>http://www.furadwho.top/categories/index.html</loc>
+    
+    <lastmod>2021-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/about/index.html</loc>
     
     <lastmod>2021-10-20</lastmod>
     
@@ -88,6 +88,13 @@
 
   
   <url>
+    <loc>http://www.furadwho.top/tags/Fabric/</loc>
+    <lastmod>2021-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://www.furadwho.top/tags/hexo/</loc>
     <lastmod>2021-10-21</lastmod>
     <changefreq>daily</changefreq>
@@ -108,14 +115,14 @@
     <priority>0.6</priority>
   </url>
   
+
+  
   <url>
-    <loc>http://www.furadwho.top/tags/Fabric/</loc>
+    <loc>http://www.furadwho.top/categories/Hyperledger-Fabric/</loc>
     <lastmod>2021-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
-  
-
   
   <url>
     <loc>http://www.furadwho.top/categories/%E5%A5%87%E5%B7%A7%E6%B7%AB%E6%8A%80/</loc>
@@ -133,13 +140,6 @@
   
   <url>
     <loc>http://www.furadwho.top/categories/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A/</loc>
-    <lastmod>2021-10-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.furadwho.top/categories/Hyperledger-Fabric/</loc>
     <lastmod>2021-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
