@@ -82,13 +82,12 @@
     <url>/2021/10/21/Fabric-%E5%8C%BA%E5%9D%97%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<h1 id="Fabric-区块数据解析"><a href="#Fabric-区块数据解析" class="headerlink" title="Fabric 区块数据解析"></a>Fabric 区块数据解析</h1><p>这个文章主要是使用 Go 对于 Fabric 的区块数据进行解析。</p>
 <h2 id="区块分析"><a href="#区块分析" class="headerlink" title="区块分析"></a>区块分析</h2><p>英文的区块结构说明：</p>
-<img src="D:\hexo\source\_posts\Fabric-区块数据解析.assets\1177632-20210201215309005-823518458.png" alt="1177632-20210201215309005-823518458" style="zoom:80%;" />
+<img src="Fabric-区块数据解析.assets/1177632-20210201215309005-823518458.png" alt="1177632-20210201215309005-823518458" style="zoom:80%;" />
 
 <p>中文的区块结构说明：</p>
-<p><img src="D:\hexo\source_posts\Fabric-区块数据解析.assets\1177632-20210201215345755-928464081.png" alt="1177632-20210201215345755-928464081"></p>
+<p><img src="Fabric-%E5%8C%BA%E5%9D%97%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90.assets/1177632-20210201215345755-928464081.png" alt="1177632-20210201215345755-928464081"></p>
 <p>数据结构：</p>
-<img src="D:\hexo\source\_posts\Fabric-区块数据解析.assets\1177632-20210201215422417-1609853608.png" alt="1177632-20210201215422417-1609853608" style="zoom: 80%;" />
-
+<p><img src="Fabric-%E5%8C%BA%E5%9D%97%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90.assets/1177632-20210201215422417-1609853608.png" alt="1177632-20210201215422417-1609853608"></p>
 ]]></content>
       <categories>
         <category>Hyperledger Fabric</category>
