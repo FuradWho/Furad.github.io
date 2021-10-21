@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo 常用命令</title>
-    <url>/2021/10/21/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="常用-hexo-命令"><a href="#常用-hexo-命令" class="headerlink" title="常用 hexo 命令"></a><strong>常用 hexo 命令</strong></h1><h2 id="初始化命令"><a href="#初始化命令" class="headerlink" title="初始化命令"></a>初始化命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo -g		 //安装hexo</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> npm update hexo -g		 //更新hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init			     //初始化博客</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">&quot;博客名称&quot;</span> = hexo new <span class="string">&quot;博客名称&quot;</span>	//新建一篇博客</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g = hexo generate				 //生成页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d = hexo deploy				     //部署</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo new page <span class="string">&quot;name&quot;</span>  				 //新建页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d                                //生成页面并部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s = hexo server	                   //启动服务器、本地预览</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo server	                //hexo会监视文件变动并自动更新，无须重启服务器</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -s	            //静态模式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -p 5000	        //更改端口</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -i 192.168.1.1	//自定义 IP地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo clean	                //清除缓存和已生成的静态文件，若是网页正常情况下可以忽略这条命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo <span class="built_in">help</span>                     //帮助</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="博客头格式"><a href="#博客头格式" class="headerlink" title="博客头格式"></a>博客头格式</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 通过如下字段,Hexo会自动添加博文分类和博文标签的相关配置</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">title</span> <span class="comment"># 添加博文标题</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">categories</span> <span class="comment"># 添加博文分类</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">tags</span> <span class="comment"># 添加博文标签</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>奇巧淫技</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Fabric 区块数据解析</title>
     <url>/2021/10/21/Fabric-%E5%8C%BA%E5%9D%97%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<h1 id="Fabric-区块数据解析"><a href="#Fabric-区块数据解析" class="headerlink" title="Fabric 区块数据解析"></a>Fabric 区块数据解析</h1><p>这个文章主要是使用 Go 对于 Fabric 的区块数据进行解析。</p>
@@ -36,6 +17,25 @@
       </categories>
       <tags>
         <tag>Fabric</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo 常用命令</title>
+    <url>/2021/10/21/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="常用-hexo-命令"><a href="#常用-hexo-命令" class="headerlink" title="常用 hexo 命令"></a><strong>常用 hexo 命令</strong></h1><h2 id="初始化命令"><a href="#初始化命令" class="headerlink" title="初始化命令"></a>初始化命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo -g		 //安装hexo</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> npm update hexo -g		 //更新hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init			     //初始化博客</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">&quot;博客名称&quot;</span> = hexo new <span class="string">&quot;博客名称&quot;</span>	//新建一篇博客</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g = hexo generate				 //生成页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d = hexo deploy				     //部署</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo new page <span class="string">&quot;name&quot;</span>  				 //新建页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d                                //生成页面并部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s = hexo server	                   //启动服务器、本地预览</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo server	                //hexo会监视文件变动并自动更新，无须重启服务器</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -s	            //静态模式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -p 5000	        //更改端口</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -i 192.168.1.1	//自定义 IP地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo clean	                //清除缓存和已生成的静态文件，若是网页正常情况下可以忽略这条命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo <span class="built_in">help</span>                     //帮助</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="博客头格式"><a href="#博客头格式" class="headerlink" title="博客头格式"></a>博客头格式</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 通过如下字段,Hexo会自动添加博文分类和博文标签的相关配置</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">title</span> <span class="comment"># 添加博文标题</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">categories</span> <span class="comment"># 添加博文分类</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">tags</span> <span class="comment"># 添加博文标签</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>奇巧淫技</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
