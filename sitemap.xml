@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.furadwho.top/2021/08/15/%E4%B8%80%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%8F%8AJava%E5%AE%9E%E7%8E%B0/</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/2021/08/14/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.furadwho.top/2021/10/21/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
     
     <lastmod>2021-10-21</lastmod>
@@ -57,20 +71,6 @@
     
   </url>
   
-  <url>
-    <loc>http://www.furadwho.top/2021/08/15/%E4%B8%80%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%8F%8AJava%E5%AE%9E%E7%8E%B0/</loc>
-    
-    <lastmod>2021-08-15</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.furadwho.top/2021/08/14/%E6%88%91%E7%88%B1%E4%BD%A0/</loc>
-    
-    <lastmod>2021-08-14</lastmod>
-    
-  </url>
-  
 
   <url>
     <loc>http://www.furadwho.top/</loc>
@@ -87,10 +87,38 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>http://www.furadwho.top/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2021-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/tags/emo/</loc>
+    <lastmod>2021-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
     <loc>http://www.furadwho.top/categories/%E5%A5%87%E5%B7%A7%E6%B7%AB%E6%8A%80/</loc>
+    <lastmod>2021-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/categories/Machine-learning/</loc>
+    <lastmod>2021-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/categories/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A/</loc>
     <lastmod>2021-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
