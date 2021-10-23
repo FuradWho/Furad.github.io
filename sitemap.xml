@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.furadwho.top/2021/10/24/Xshell%E3%80%81Idea%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E8%BF%9E%E6%8E%A5/</loc>
+    
+    <lastmod>2021-10-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.furadwho.top/links/index.html</loc>
     
     <lastmod>2021-10-23</lastmod>
@@ -159,6 +166,13 @@
   
   <url>
     <loc>http://www.furadwho.top/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <lastmod>2021-10-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/tags/ubuntu/</loc>
     <lastmod>2021-10-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -6,7 +6,7 @@
   <link href="http://www.furadwho.top/atom.xml" rel="self"/>
   
   <link href="http://www.furadwho.top/"/>
-  <updated>2021-10-23T13:57:09.346Z</updated>
+  <updated>2021-10-23T16:53:47.298Z</updated>
   <id>http://www.furadwho.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Xshell、Idea与虚拟机Ubuntu连接</title>
+    <link href="http://www.furadwho.top/2021/10/24/Xshell%E3%80%81Idea%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E8%BF%9E%E6%8E%A5/"/>
+    <id>http://www.furadwho.top/2021/10/24/Xshell%E3%80%81Idea%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E8%BF%9E%E6%8E%A5/</id>
+    <published>2021-10-23T16:31:39.000Z</published>
+    <updated>2021-10-23T16:53:47.298Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Xshell、Idea与虚拟机Ubuntu连接"><a href="#Xshell、Idea与虚拟机Ubuntu连接" class="headerlink" title="Xshell、Idea与虚拟机Ubuntu连接"></a>Xshell、Idea与虚拟机Ubuntu连接</h1><h2 id="一、安装-Ubuntu-虚拟机"><a href="#一、安装-Ubuntu-虚拟机" class="headerlink" title="一、安装 Ubuntu 虚拟机"></a>一、安装 Ubuntu 虚拟机</h2><p>默认VMware的网路是NAT模式，保持不变即可。获取</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Xshell、Idea与虚拟机Ubuntu连接&quot;&gt;&lt;a href=&quot;#Xshell、Idea与虚拟机Ubuntu连接&quot; class=&quot;headerlink&quot; title=&quot;Xshell、Idea与虚拟机Ubuntu连接&quot;&gt;&lt;/a&gt;Xshell、Idea与虚拟机Ub</summary>
+      
+    
+    
+    
+    <category term="奇巧淫技" scheme="http://www.furadwho.top/categories/%E5%A5%87%E5%B7%A7%E6%B7%AB%E6%8A%80/"/>
+    
+    
+    <category term="ubuntu" scheme="http://www.furadwho.top/tags/ubuntu/"/>
+    
+  </entry>
   
   <entry>
     <title>《鲨鱼：起点》二刷</title>

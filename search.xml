@@ -309,4 +309,16 @@
         <tag>Fabric</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Xshell、Idea与虚拟机Ubuntu连接</title>
+    <url>/2021/10/24/Xshell%E3%80%81Idea%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E8%BF%9E%E6%8E%A5/</url>
+    <content><![CDATA[<h1 id="Xshell、Idea与虚拟机Ubuntu连接"><a href="#Xshell、Idea与虚拟机Ubuntu连接" class="headerlink" title="Xshell、Idea与虚拟机Ubuntu连接"></a>Xshell、Idea与虚拟机Ubuntu连接</h1><h2 id="一、安装-Ubuntu-虚拟机"><a href="#一、安装-Ubuntu-虚拟机" class="headerlink" title="一、安装 Ubuntu 虚拟机"></a>一、安装 Ubuntu 虚拟机</h2><p>默认VMware的网路是NAT模式，保持不变即可。获取</p>
+]]></content>
+      <categories>
+        <category>奇巧淫技</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+      </tags>
+  </entry>
 </search>
