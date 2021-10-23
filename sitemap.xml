@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.furadwho.top/links/index.html</loc>
+    
+    <lastmod>2021-10-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.furadwho.top/2021/10/23/%E3%80%8A%E9%B2%A8%E9%B1%BC%EF%BC%9A%E8%B5%B7%E7%82%B9%E3%80%8B%E4%BA%8C%E5%88%B7/</loc>
     
     <lastmod>2021-10-23</lastmod>
@@ -79,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/links/index.html</loc>
-    
-    <lastmod>2021-10-20</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.furadwho.top/repository/index.html</loc>
     
     <lastmod>2021-10-20</lastmod>
@@ -93,14 +93,14 @@
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/categories/index.html</loc>
+    <loc>http://www.furadwho.top/books/index.html</loc>
     
     <lastmod>2021-10-20</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/books/index.html</loc>
+    <loc>http://www.furadwho.top/categories/index.html</loc>
     
     <lastmod>2021-10-20</lastmod>
     
@@ -130,14 +130,21 @@
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/tags/%E7%AE%97%E6%B3%95/</loc>
+    <loc>http://www.furadwho.top/tags/Fabric/</loc>
     <lastmod>2021-10-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/tags/Fabric/</loc>
+    <loc>http://www.furadwho.top/tags/%E7%94%B5%E5%BD%B1/</loc>
+    <lastmod>2021-10-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2021-10-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -157,13 +164,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>http://www.furadwho.top/tags/%E7%94%B5%E5%BD%B1/</loc>
-    <lastmod>2021-10-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
@@ -174,14 +174,21 @@
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/categories/Machine-learning/</loc>
+    <loc>http://www.furadwho.top/categories/Hyperledger-Fabric/</loc>
     <lastmod>2021-10-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.furadwho.top/categories/Hyperledger-Fabric/</loc>
+    <loc>http://www.furadwho.top/categories/%E7%94%B5%E5%BD%B1/</loc>
+    <lastmod>2021-10-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.furadwho.top/categories/Machine-learning/</loc>
     <lastmod>2021-10-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -196,13 +203,6 @@
   
   <url>
     <loc>http://www.furadwho.top/categories/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A/</loc>
-    <lastmod>2021-10-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.furadwho.top/categories/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2021-10-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
