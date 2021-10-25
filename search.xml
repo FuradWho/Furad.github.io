@@ -374,7 +374,8 @@
   <entry>
     <title>Fabric-Go-SDk 学习（一）</title>
     <url>/2021/10/25/Fabric-Go-SDk-%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="Fabric-Go-SDk-学习（一）"><a href="#Fabric-Go-SDk-学习（一）" class="headerlink" title="Fabric-Go-SDk 学习（一）"></a>Fabric-Go-SDk 学习（一）</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为最近公司让我去学习 Hyperledger Fabric 并且用这个玩应儿和他的 Go SDK 做一个区块链浏览器，所以就有了这一阶段的学习。惯例吐槽一顿，按理说，Fabric本身都是用 Golang 开发的，那么 fabric-sdk-go 作为其亲儿子，功能应该是最为完善的，哈哈哈，事与愿违，Golang 版本的 sdk 反而是最不完备的，开发进度滞后，功能缺失。只能说，文档全是代码，一句介绍就完事了，真是有够简介的呢，草！</p>
+    <content><![CDATA[<h1 id="Fabric-Go-SDk-学习（一）"><a href="#Fabric-Go-SDk-学习（一）" class="headerlink" title="Fabric-Go-SDk 学习（一）"></a>Fabric-Go-SDk 学习（一）</h1><p><img src="t012bfb923747f02480.jpg" alt="t012bfb923747f02480"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为最近公司让我去学习 Hyperledger Fabric 并且用这个玩应儿和他的 Go SDK 做一个区块链浏览器，所以就有了这一阶段的学习。惯例吐槽一顿，按理说，Fabric本身都是用 Golang 开发的，那么 fabric-sdk-go 作为其亲儿子，功能应该是最为完善的，哈哈哈，事与愿违，Golang 版本的 sdk 反而是最不完备的，开发进度滞后，功能缺失。只能说，文档全是代码，一句介绍就完事了，真是有够简介的呢，草！</p>
 <p>网上有较多的学习方式都是借鉴 nodejs 版本的 sdk ，但是，我也没有深入的学习了解。换句话来说就是，有什么需求，我就去完成什么样的功能，石锤的工具人了!</p>
 <h2 id="大致说明"><a href="#大致说明" class="headerlink" title="大致说明"></a>大致说明</h2><p>GO SDK 还有很多的包，包里面也有乱七八糟的功能：</p>
 <ul>
@@ -445,8 +446,16 @@
 <li><code>func (cc *Client) InvokeHandler(handler invoke.Handler, request Request, options ...RequestOption) (Response, error)</code>：InvokeHandler （调用处理程序）使用提供的请求和可选请求选项来调用处理程序。参数：<br>要调用的处理程序，请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
 <li><code>func (cc *Client) Query(request Request, options ...RequestOption) (Response, error)</code>：Query （查询）使用请求和可选请求选项查询链代码。参数：请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
 <li><code>func (cc *Client) RegisterChaincodeEvent(chainCodeID string, eventFilter string) (fab.Registration, &lt;-chan *fab.CCEvent, error)</code>：RegisterChaincodeEvent（注册链码事件）注册链代码事件。 不再需要注册时，必须调用取消注册。参数：chaincodeID 是要为其接收事件的链代码 ID ，eventFilter 是要为其接收事件的 chaincode 事件过滤器（正则表达式）。返回：注册和用于接收事件的频道。 调用取消注册时，通道将关闭。</li>
-<li><code>func (cc *Client) UnregisterChaincodeEvent(registration fab.Registration)</code>：UnregisterChaincodeEvent（注销链码事件）删除给定的链码事件注册并关闭事件通道。</li>
+<li><code>func (cc *Client) UnregisterChaincodeEvent(registration fab.Registration)</code>：UnregisterChaincodeEvent（注销链码事件）删除给定的链码事件注册并关闭事件通道。参数：RegisterChaincodeEvent 方法返回的句柄。</li>
 </ol>
+<h4 id="类型-RequestOption"><a href="#类型-RequestOption" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> ClientOption <span class="function"><span class="keyword">func</span><span class="params">(*Client)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
+
+<p>ClientOption 描述了 New 构造函数的功能参数</p>
+<h4 id="类型-Request"><a href="#类型-Request" class="headerlink" title="类型 Request"></a>类型 Request</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Request <span class="keyword">struct</span> &#123;</span><br><span class="line">	ChaincodeID  <span class="keyword">string</span></span><br><span class="line">	Fcn          <span class="keyword">string</span></span><br><span class="line">	Args         [][]<span class="keyword">byte</span></span><br><span class="line">	TransientMap <span class="keyword">map</span>[<span class="keyword">string</span>][]<span class="keyword">byte</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// InvocationChain contains meta-data that&#x27;s used by some Selection Service implementations</span></span><br><span class="line">	<span class="comment">// to choose endorsers that satisfy the endorsement policies of all chaincodes involved</span></span><br><span class="line">	<span class="comment">// in an invocation chain (i.e. for CC-to-CC invocations).</span></span><br><span class="line">	<span class="comment">// Each chaincode may also be associated with a set of private data collection names</span></span><br><span class="line">	<span class="comment">// which are used by some Selection Services (e.g. Fabric Selection) to exclude endorsers</span></span><br><span class="line">	<span class="comment">// that do NOT have read access to the collections.</span></span><br><span class="line">	<span class="comment">// The invoked chaincode (specified by ChaincodeID) may optionally be added to the invocation</span></span><br><span class="line">	<span class="comment">// chain along with any collections, otherwise it may be omitted.</span></span><br><span class="line">	InvocationChain []*fab.ChaincodeCall</span><br><span class="line">	IsInit          <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Request 包含查询和执行调用事务的参数。</p>
+<h4 id="类型-RequestOption-1"><a href="#类型-RequestOption-1" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> RequestOption <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Client, opts *requestOptions)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Go</category>
