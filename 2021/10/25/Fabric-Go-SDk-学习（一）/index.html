@@ -26,7 +26,7 @@
 <meta property="og:description" content="Fabric-Go-SDk 学习（一）前言因为最近公司让我去学习 Hyperledger Fabric 并且用这个玩应儿和他的 Go SDK 做一个区块链浏览器，所以就有了这一阶段的学习。惯例吐槽一顿，按理说，Fabric本身都是用 Golang 开发的，那么 fabric-sdk-go 作为其亲儿子，功能应该是最为完善的，哈哈哈，事与愿违，Golang 版本的 sdk 反而是最不完备的，开发进度">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-25T13:41:36.000Z">
-<meta property="article:modified_time" content="2021-10-25T14:57:55.483Z">
+<meta property="article:modified_time" content="2021-10-25T15:13:30.121Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Fabric">
 <meta name="twitter:card" content="summary">
@@ -271,10 +271,10 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/25/Fabric-Go-SDk-%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.5k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.9k(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
 	
 
       </div>
@@ -348,8 +348,11 @@
 <p>客户端可以访问Fabric网络上的通道。通道客户端实例提供处理程序以与指定通道上的对等方交互。 需要与多个通道交互的应用程序应为每个通道创建一个单独的通道客户端实例。 通道客户端仅支持非管理功能。</p>
 <ol>
 <li><code>func New(channelProvider context.ChannelProvider, opts ...ClientOption) (*Client, error)</code>：New 返回一个 Client 实例。通道客户端可以在特定通道上查询链码、执行链码和注册/取消注册链码事件。</li>
-<li><code>func (cc *Client) Execute(request Request, options ...RequestOption) (Response, error)</code>：Execute 使用请求和可选请求选项准备和执行事务。</li>
-<li></li>
+<li><code>func (cc *Client) Execute(request Request, options ...RequestOption) (Response, error)</code>：Execute （执行）使用请求和可选请求选项准备和执行事务。参数：请求包含有关强制链代码ID和功能的信息， options 包含可选的请求选项。返回：来自 peer 的提案回复。</li>
+<li><code>func (cc *Client) InvokeHandler(handler invoke.Handler, request Request, options ...RequestOption) (Response, error)</code>：InvokeHandler （调用处理程序）使用提供的请求和可选请求选项来调用处理程序。参数：<br>要调用的处理程序，请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
+<li><code>func (cc *Client) Query(request Request, options ...RequestOption) (Response, error)</code>：Query （查询）使用请求和可选请求选项查询链代码。参数：请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
+<li><code>func (cc *Client) RegisterChaincodeEvent(chainCodeID string, eventFilter string) (fab.Registration, &lt;-chan *fab.CCEvent, error)</code>：RegisterChaincodeEvent（注册链码事件）注册链代码事件。 不再需要注册时，必须调用取消注册。参数：chaincodeID 是要为其接收事件的链代码 ID ，eventFilter 是要为其接收事件的 chaincode 事件过滤器（正则表达式）。返回：注册和用于接收事件的频道。 调用取消注册时，通道将关闭。</li>
+<li><code>func (cc *Client) UnregisterChaincodeEvent(registration fab.Registration)</code>：UnregisterChaincodeEvent（注销链码事件）删除给定的链码事件注册并关闭事件通道。</li>
 </ol>
 
       
