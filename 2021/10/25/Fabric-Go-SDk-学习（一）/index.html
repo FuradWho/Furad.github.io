@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.furadwho.top/2021/10/25/Fabric-Go-SDk-%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/t012bfb923747f02480.jpg">
 <meta property="article:published_time" content="2021-10-25T13:41:36.000Z">
-<meta property="article:modified_time" content="2021-10-25T15:44:51.067Z">
+<meta property="article:modified_time" content="2021-10-25T15:51:02.088Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Fabric">
 <meta name="twitter:card" content="summary">
@@ -273,7 +273,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/25/Fabric-Go-SDk-%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
@@ -365,6 +365,13 @@
 <p>Request 包含查询和执行调用事务的参数。</p>
 <h4 id="类型-RequestOption-1"><a href="#类型-RequestOption-1" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> RequestOption <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Client, opts *requestOptions)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
 
+<p>每个 Opts 参数的 RequestOption func。</p>
+<ol>
+<li><code>func WithBeforeRetry(beforeRetry retry.BeforeRetryHandler) RequestOption</code>：WithBeforeRetry （重试前）指定在重试尝试之前调用的函数。</li>
+<li><code>func WithChaincodeFilter(ccFilter invoke.CCFilter) RequestOption</code>：WithChaincodeFilter （链码过滤器）添加了一个链代码过滤器，用于计算额外的背书人。</li>
+<li><code>func WithParentContext(parentContext reqContext.Context) RequestOption</code>：WithParentContext（带父上下文）封装了 grpc 父上下文。</li>
+<li></li>
+</ol>
 
       
     </div>

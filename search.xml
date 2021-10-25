@@ -456,6 +456,13 @@
 <p>Request 包含查询和执行调用事务的参数。</p>
 <h4 id="类型-RequestOption-1"><a href="#类型-RequestOption-1" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> RequestOption <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Client, opts *requestOptions)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
 
+<p>每个 Opts 参数的 RequestOption func。</p>
+<ol>
+<li><code>func WithBeforeRetry(beforeRetry retry.BeforeRetryHandler) RequestOption</code>：WithBeforeRetry （重试前）指定在重试尝试之前调用的函数。</li>
+<li><code>func WithChaincodeFilter(ccFilter invoke.CCFilter) RequestOption</code>：WithChaincodeFilter （链码过滤器）添加了一个链代码过滤器，用于计算额外的背书人。</li>
+<li><code>func WithParentContext(parentContext reqContext.Context) RequestOption</code>：WithParentContext（带父上下文）封装了 grpc 父上下文。</li>
+<li></li>
+</ol>
 ]]></content>
       <categories>
         <category>Go</category>
