@@ -6,7 +6,7 @@
   <link href="http://www.furadwho.top/atom.xml" rel="self"/>
   
   <link href="http://www.furadwho.top/"/>
-  <updated>2021-10-27T07:31:13.182Z</updated>
+  <updated>2021-10-27T07:41:47.012Z</updated>
   <id>http://www.furadwho.top/</id>
   
   <author>
@@ -21,11 +21,15 @@
     <link href="http://www.furadwho.top/2021/10/27/docker-%E5%AD%A6%E4%B9%A0/"/>
     <id>http://www.furadwho.top/2021/10/27/docker-%E5%AD%A6%E4%B9%A0/</id>
     <published>2021-10-27T07:31:13.000Z</published>
-    <updated>2021-10-27T07:31:13.182Z</updated>
+    <updated>2021-10-27T07:41:47.012Z</updated>
     
     
     
     
+    <category term="Docker" scheme="http://www.furadwho.top/categories/Docker/"/>
+    
+    
+    <category term="docker" scheme="http://www.furadwho.top/tags/docker/"/>
     
   </entry>
   
