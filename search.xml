@@ -60,6 +60,8 @@
 <li>还可以一次性拉取多个分支的代码：<code>git fetch origin master stable oldstable</code>；</li>
 <li>也还可以一次性合并多个分支的代码：<code>git merge origin/master hotfix-2275 hotfix-2276 hotfix-2290</code>；</li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置ss</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global http.proxy <span class="string">&#x27;socks5://127.0.0.1:7890&#x27;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global https.proxy <span class="string">&#x27;socks5://127.0.0.1:7890&#x27;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置代理</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global https.proxy http://127.0.0.1:7890</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global https.proxy https://127.0.0.1:7890</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 取消代理</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global --<span class="built_in">unset</span> http.proxy</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global --<span class="built_in">unset</span> https.proxy</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>奇巧淫技</category>
