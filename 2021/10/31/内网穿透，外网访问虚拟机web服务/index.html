@@ -18,15 +18,22 @@
   
   
   <title>内网穿透，外网访问虚拟机web服务 | FuradWho</title>
-  <meta property="og:type" content="article">
+  <meta name="description" content="内网穿透，外网访问虚拟机web服务什么是内网穿透简单的说，就是想要外网访问内网的服务。 内网穿透，即NAT（Network Address Translator）穿透，是指计算机在内网（局域网）内使用私有IP地址，在连接外网（互联网）时使用全局IP地址的技术。该技术被普遍使用在有多台主机但只通过一个公有IP地址访问的私有网络中。 举个例子：配置了一个服务器 Server A，在同一个局域网，就可以">
+<meta property="og:type" content="article">
 <meta property="og:title" content="内网穿透，外网访问虚拟机web服务">
 <meta property="og:url" content="http://www.furadwho.top/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="内网穿透，外网访问虚拟机web服务什么是内网穿透简单的说，就是想要外网访问内网的服务。 内网穿透，即NAT（Network Address Translator）穿透，是指计算机在内网（局域网）内使用私有IP地址，在连接外网（互联网）时使用全局IP地址的技术。该技术被普遍使用在有多台主机但只通过一个公有IP地址访问的私有网络中。 举个例子：配置了一个服务器 Server A，在同一个局域网，就可以">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.furadwho.top/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/image-20211031111401720.png">
+<meta property="og:image" content="http://www.furadwho.top/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/image-20211031111539684.png">
+<meta property="og:image" content="http://www.furadwho.top/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/image-20211031111608403.png">
 <meta property="article:published_time" content="2021-10-31T03:00:34.000Z">
-<meta property="article:modified_time" content="2021-10-31T03:00:34.219Z">
+<meta property="article:modified_time" content="2021-10-31T03:16:47.476Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="http">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.furadwho.top/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/image-20211031111401720.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://www.furadwho.top/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/index.html">
   
@@ -194,7 +201,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hyperledger-Fabric/">Hyperledger Fabric</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A5%87%E5%B7%A7%E6%B7%AB%E6%8A%80/">奇巧淫技</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E5%BD%B1/">电影</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A/">阅后即焚</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hyperledger-Fabric/">Hyperledger Fabric</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A5%87%E5%B7%A7%E6%B7%AB%E6%8A%80/">奇巧淫技</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E5%BD%B1/">电影</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A/">阅后即焚</a><span class="category-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -204,7 +211,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/Fabric/" style="font-size: 13.5px;">Fabric</a> <a href="/tags/Https/" style="font-size: 13px;">Https</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/emo/" style="font-size: 14px;">emo</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/ubuntu/" style="font-size: 13px;">ubuntu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E7%94%B5%E5%BD%B1/" style="font-size: 13px;">电影</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a>
+      <a href="/tags/Fabric/" style="font-size: 13.67px;">Fabric</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/emo/" style="font-size: 14px;">emo</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/http/" style="font-size: 13.33px;">http</a> <a href="/tags/ubuntu/" style="font-size: 13px;">ubuntu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E7%94%B5%E5%BD%B1/" style="font-size: 13px;">电影</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a>
     </div>
   </div>
 
@@ -246,7 +253,17 @@
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%A5%87%E5%B7%A7%E6%B7%AB%E6%8A%80/">奇巧淫技</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/http/" rel="tag">http</a>
+  </span>
+
 
         
 
@@ -258,17 +275,33 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 0(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 636(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        
+        <h1 id="内网穿透，外网访问虚拟机web服务"><a href="#内网穿透，外网访问虚拟机web服务" class="headerlink" title="内网穿透，外网访问虚拟机web服务"></a>内网穿透，外网访问虚拟机web服务</h1><h2 id="什么是内网穿透"><a href="#什么是内网穿透" class="headerlink" title="什么是内网穿透"></a>什么是内网穿透</h2><p>简单的说，就是想要外网访问内网的服务。</p>
+<p>内网穿透，即NAT（Network Address Translator）穿透，是<strong>指计算机在内网（局域网）内使用私有IP地址，在连接外网（互联网）时使用全局IP地址的技术</strong>。该技术被普遍使用在有多台主机但只通过一个公有IP地址访问的私有网络中。</p>
+<p>举个例子：配置了一个服务器 Server A，在同一个局域网，就可以通过自己的笔记本使用SSH连接，当不在统一局域网，就没有办法直接使用SSH连接了，这个时候就需要进行NAT穿透，可以使用SSH连接Server A。</p>
+<h2 id="NAT原理解析"><a href="#NAT原理解析" class="headerlink" title="NAT原理解析"></a>NAT原理解析</h2><p>NAT（Network Address Translation，网络地址转换），也叫做网络掩蔽或者IP掩蔽。NAT是一种网络地址翻译技术，主要是将内部的私有IP地址（private IP）转换成可以在公网使用的公网IP（public IP）。</p>
+<ul>
+<li>当信息由局域网向因特网传递时，<strong>源地址从专有地址转换为公用地址</strong>。由路由器跟踪每个连接上的目的地址和端口。</li>
+<li>当数据返回路由器时，通过记录的连接跟踪数据来决定该转发给内部网的哪个主机；如果此时如果有多个公用地址可用，当数据包返回时，则会客户机的端口号可以用来分解数据包。</li>
+</ul>
+<p><img src="image-20211031111401720.png" alt="image-20211031111401720"></p>
+<p><strong>首先NAT路由器将发送源地址从私有IP地址(10.0.0.10)转换为全局的IP地址 (202.244.174.37)再发送数据</strong></p>
+<p><strong>当数据从地址163.221.120.9发过来时，NAT路由器将目标地址从原句IP地址(202.244.174.37)先转换成私有IP地址10.0.0.10以后再转发</strong></p>
+<h2 id="NAT实现方式及主要类型"><a href="#NAT实现方式及主要类型" class="headerlink" title="NAT实现方式及主要类型"></a>NAT实现方式及主要类型</h2><p>1.NAT实现方式</p>
+<p>1）静态NAT：也就是静态地址转换。是指一个公网IP对应一个私有IP，是一对一的转换，同时注意，这里只进行了IP转换，而没有进行端口的转换。举个栗子：</p>
+<p><img src="image-20211031111539684.png" alt="image-20211031111539684"></p>
+<p>2）NAPT：端口多路复用技术。与静态NAT的差别是，NAPT不但要转换IP地址，还要进行传输层的端口转换。具体的表现形式就是，对外只有一个公网IP，通过端口来区别不同私有IP主机的数据。再举个栗子。</p>
+<p><img src="image-20211031111608403.png" alt="image-20211031111608403"></p>
+<h2 id="NAT的主要类型"><a href="#NAT的主要类型" class="headerlink" title="NAT的主要类型"></a>NAT的主要类型</h2>
       
     </div>
     <div class="article-footer">
