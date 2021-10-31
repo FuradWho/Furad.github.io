@@ -714,7 +714,8 @@
   <entry>
     <title>内网穿透，外网访问虚拟机web服务</title>
     <url>/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/</url>
-    <content><![CDATA[<h1 id="内网穿透，外网访问虚拟机web服务"><a href="#内网穿透，外网访问虚拟机web服务" class="headerlink" title="内网穿透，外网访问虚拟机web服务"></a>内网穿透，外网访问虚拟机web服务</h1><h2 id="什么是内网穿透"><a href="#什么是内网穿透" class="headerlink" title="什么是内网穿透"></a>什么是内网穿透</h2><p>简单的说，就是想要外网访问内网的服务。</p>
+    <content><![CDATA[<h1 id="内网穿透，外网访问虚拟机web服务"><a href="#内网穿透，外网访问虚拟机web服务" class="headerlink" title="内网穿透，外网访问虚拟机web服务"></a>内网穿透，外网访问虚拟机web服务</h1><p><img src="t01a43701d07df28985.jpg" alt="t01a43701d07df28985"></p>
+<h2 id="什么是内网穿透"><a href="#什么是内网穿透" class="headerlink" title="什么是内网穿透"></a>什么是内网穿透</h2><p>简单的说，就是想要外网访问内网的服务。</p>
 <p>内网穿透，即NAT（Network Address Translator）穿透，是<strong>指计算机在内网（局域网）内使用私有IP地址，在连接外网（互联网）时使用全局IP地址的技术</strong>。该技术被普遍使用在有多台主机但只通过一个公有IP地址访问的私有网络中。</p>
 <p>举个例子：配置了一个服务器 Server A，在同一个局域网，就可以通过自己的笔记本使用SSH连接，当不在统一局域网，就没有办法直接使用SSH连接了，这个时候就需要进行NAT穿透，可以使用SSH连接Server A。</p>
 <h2 id="NAT原理解析"><a href="#NAT原理解析" class="headerlink" title="NAT原理解析"></a>NAT原理解析</h2><p>NAT（Network Address Translation，网络地址转换），也叫做网络掩蔽或者IP掩蔽。NAT是一种网络地址翻译技术，主要是将内部的私有IP地址（private IP）转换成可以在公网使用的公网IP（public IP）。</p>
