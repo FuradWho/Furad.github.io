@@ -1,22 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo 常用命令</title>
-    <url>/2021/10/21/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="常用-hexo-命令"><a href="#常用-hexo-命令" class="headerlink" title="常用 hexo 命令"></a><strong>常用 hexo 命令</strong></h1><h2 id="初始化命令"><a href="#初始化命令" class="headerlink" title="初始化命令"></a>初始化命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo -g		 //安装hexo</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> npm update hexo -g		 //更新hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init			     //初始化博客</span></span><br></pre></td></tr></table></figure>
+    <title>Fabric-Go-SDk 学习（一）</title>
+    <url>/2021/10/25/Fabric-Go-SDk-%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="Fabric-Go-SDk-学习（一）"><a href="#Fabric-Go-SDk-学习（一）" class="headerlink" title="Fabric-Go-SDk 学习（一）"></a>Fabric-Go-SDk 学习（一）</h1><p><img src="t012bfb923747f02480.jpg" alt="t012bfb923747f02480"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为最近公司让我去学习 Hyperledger Fabric 并且用这个玩应儿和他的 Go SDK 做一个区块链浏览器，所以就有了这一阶段的学习。惯例吐槽一顿，按理说，Fabric本身都是用 Golang 开发的，那么 fabric-sdk-go 作为其亲儿子，功能应该是最为完善的，哈哈哈，事与愿违，Golang 版本的 sdk 反而是最不完备的，开发进度滞后，功能缺失。只能说，文档全是代码，一句介绍就完事了，真是有够简介的呢，草！</p>
+<p>网上有较多的学习方式都是借鉴 nodejs 版本的 sdk ，但是，我也没有深入的学习了解。换句话来说就是，有什么需求，我就去完成什么样的功能，石锤的工具人了!</p>
+<h2 id="大致说明"><a href="#大致说明" class="headerlink" title="大致说明"></a>大致说明</h2><p>GO SDK 还有很多的包，包里面也有乱七八糟的功能：</p>
+<ul>
+<li>pkg/fabsdk：主 package，主要用来生成 fabsdk 以及各种其他 pkg 使用的 option context (上下文)， 这些上下文由下面列出的客户端软件包使用。</li>
+<li>pkg/client/channel：主要用来调用、查询链码，或者注册链码事件，提供频道交易相关功能。</li>
+<li>pkg/client/resmgmt：主要用来 fabric 网络的管理，比如创建、加入通道，安装、实例化和升级链码。</li>
+<li>pkg/client/event：配合 channel 模块来进行链码事件注册和过滤。</li>
+<li>pkg/client/ledger：主要用来账本的查询，查询区块、交易、配置等。</li>
+<li>pkg/client/msp：主要用来管理 fabric 的成员关系，身份管理相关功能。</li>
+</ul>
+<p>一般情况的时候，使用这几个包就差不多完事了，够用！</p>
+<h2 id="大致开发流程"><a href="#大致开发流程" class="headerlink" title="大致开发流程"></a>大致开发流程</h2><ol>
+<li>使用配置实例化 fabsdk 实例。</li>
+<li>使用 fabsdk 实例，基于用户和组织创建上下文</li>
+<li>使用 New func 创建客户端实例，传递上下文。</li>
+<li>使用每个客户提供的功能。</li>
+<li>调用 fabsdk.Close（）来释放资源和缓存。</li>
+</ol>
+<p>用官网给的一个例子：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestLedgerClientQueries</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	<span class="comment">// Using shared SDK instance to increase test speed.</span></span><br><span class="line">	sdk := mainSDK</span><br><span class="line">	testSetup := mainTestSetup</span><br><span class="line"></span><br><span class="line">	<span class="comment">//prepare contexts</span></span><br><span class="line">	org1AdminChannelContext := sdk.ChannelContext(testSetup.ChannelID, fabsdk.WithUser(org1AdminUser), fabsdk.WithOrg(org1Name))</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Ledger client</span></span><br><span class="line">	client, err := ledger.New(org1AdminChannelContext)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		t.Fatalf(<span class="string">&quot;Failed to create new resource management client: %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ledgerInfo, err := client.QueryInfo()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		t.Fatalf(<span class="string">&quot;QueryInfo return error: %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">&quot;博客名称&quot;</span> = hexo new <span class="string">&quot;博客名称&quot;</span>	//新建一篇博客</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g = hexo generate				 //生成页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d = hexo deploy				     //部署</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo new page <span class="string">&quot;name&quot;</span>  				 //新建页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d                                //生成页面并部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s = hexo server	                   //启动服务器、本地预览</span></span><br></pre></td></tr></table></figure>
+<p>就可发现真的很好的说明了上面的过程，good！</p>
+<h2 id="Go-SDK-包的学习"><a href="#Go-SDK-包的学习" class="headerlink" title="Go SDK 包的学习"></a>Go SDK 包的学习</h2><p>只是一个大概的说明，具体的功能还是直接去查官网。</p>
+<h3 id="pkg-fabsdk-fabsdk-包"><a href="#pkg-fabsdk-fabsdk-包" class="headerlink" title="pkg/fabsdk fabsdk 包"></a>pkg/fabsdk fabsdk 包</h3><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>主 package，主要用来生成 fabsdk 以及各种其他 pkg 使用的 option context (上下文)， 这些上下文由下面列出的客户端软件包使用。</p>
+<p>官网：<a href="https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/fabsdk">https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/fabsdk</a></p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><ol>
+<li><code>var ErrAnonymousIdentity = errors.New(&quot;missing credentials&quot;)</code> ：当身份创建选项既不包含用户名也不包含身份时，将返回ErrAnonymousIdentity。</li>
+</ol>
+<h4 id="类型-ContextOption"><a href="#类型-ContextOption" class="headerlink" title="类型 ContextOption"></a>类型 ContextOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> ContextOption <span class="function"><span class="keyword">func</span><span class="params">(s *identityOptions)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
 
-<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo server	                //hexo会监视文件变动并自动更新，无须重启服务器</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -s	            //静态模式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -p 5000	        //更改端口</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -i 192.168.1.1	//自定义 IP地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo clean	                //清除缓存和已生成的静态文件，若是网页正常情况下可以忽略这条命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo <span class="built_in">help</span>                     //帮助</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>type ContextOption func(s *identityOptions) error: ContextOption</code>：提供用于创建会话的参数（主要来自结构标识/用户）。</li>
+<li><code>func WithIdentity(signingIdentity msp.SigningIdentity) ContextOption</code>： WithIdentity 使用预先构造的身份对象作为会话的凭证。</li>
+<li><code>func WithOrg(org string) ContextOption</code>： WithOrg 使用指定的组织。</li>
+<li><code>func WithUser(username string) ContextOption</code>：WithUser 使用指定用户加载标识/身份。</li>
+</ol>
+<h4 id="类型-FabricSDK"><a href="#类型-FabricSDK" class="headerlink" title="类型 FabricSDK"></a>类型 FabricSDK</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> FabricSDK <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// contains filtered or unexported fields</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="博客头格式"><a href="#博客头格式" class="headerlink" title="博客头格式"></a>博客头格式</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 通过如下字段,Hexo会自动添加博文分类和博文标签的相关配置</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">title</span> <span class="comment"># 添加博文标题</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">categories</span> <span class="comment"># 添加博文分类</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">tags</span> <span class="comment"># 添加博文标签</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>FabricSDK 为 SDK 管理的客户端提供访问（和上下文）。</li>
+<li><code>func New(configProvider core.ConfigProvider, opts ...Option) (*FabricSDK, error)</code>： New 根据提供的选项集初始化 SDK ， ConfigOptions提供应用程序配置。</li>
+<li><code>func (sdk *FabricSDK) ChannelContext(channelID string, options ...ContextOption) contextApi.ChannelProvider</code>：ChannelContext 创建并返回频道上下文。</li>
+<li><code>func (sdk *FabricSDK) Close()</code>：关闭释放 SDK 维护的缓存和连接。</li>
+<li><code>func (sdk *FabricSDK) Config() (core.ConfigBackend, error)</code>：Config 返回所有 SDK 配置类型使用的配置后端。</li>
+<li><code>func (sdk *FabricSDK) Context(options ...ContextOption) contextApi.ClientProvider</code>： Context 创建并返回具有所有必需提供者的上下文客户端。</li>
+</ol>
+<h4 id="类型-Option"><a href="#类型-Option" class="headerlink" title="类型 Option"></a>类型 Option</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Option <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
 
+<ol>
+<li><code>type Option func(opts *options) error</code>：选项配置 SDK。</li>
+<li><code>func WithCorePkg(core sdkApi.CoreProviderFactory) Option</code>：WithCorePkg 将核心实现注入 SDK。</li>
+<li><code>func WithCryptoSuiteConfig(cryptoConfigs ...interface&#123;&#125;) Option</code>： WithCryptoSuiteConfig 向 SDK 注入。CryptoSuiteConfig 接口，它接受 CryptoSuiteConfig 的完整接口或每个实现 CryptoSuiteConfig 的一个（或多个）功能的子接口列表。</li>
+<li><code>func WithEndpointConfig(endpointConfigs ...interface&#123;&#125;) Option</code>：WithEndpointConfig 向 SDK 注入EndpointConfig 接口，它接受 EndpointConfig 的完整接口或每个实现 EndpointConfig 的一个（或多个）功能的子接口列表。</li>
+<li><code>func WithIdentityConfig(identityConfigs ...interface&#123;&#125;) Option</code>： WithIdentityConfig 向 SDK 注入IdentityConfig 接口，它接受 IdentityConfig 的完整接口或每个实现 IdentityConfig 的一个（或多个）功能的子接口列表。</li>
+<li><code>func WithLoggerPkg(logger api.LoggerProvider) Option</code>： WithLoggerPkg 将日志记录器实现注入到 SDK 中。</li>
+<li><code>func WithMSPPkg(msp sdkApi.MSPProviderFactory) Option</code>： WithMSPPkg 将 MSP 实现注入 SDK。</li>
+<li><code>func WithServicePkg(service sdkApi.ServiceProviderFactory) Option</code>： WithServicePkg 将服务实现注入 SDK。</li>
+</ol>
+<h3 id="pkg-client-channel-channel-包"><a href="#pkg-client-channel-channel-包" class="headerlink" title="pkg/client/channel channel 包"></a>pkg/client/channel channel 包</h3><h4 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h4><p>主要用来调用、查询链码，或者注册链码事件，提供频道交易相关功能。</p>
+<p>官网：<a href="https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/client/channel">https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/client/channel</a></p>
+<p>允许访问 Fabric 网络上的通道。通道客户端实例提供了一个处理程序来与指定通道上的对等点进行交互。通道客户端可以在特定通道上查询链码、执行链码和注册/取消注册链码事件。需要与多个通道交互的应用程序应该为每个通道创建一个单独的通道客户端实例。</p>
+<h4 id="类型-Client"><a href="#类型-Client" class="headerlink" title="类型 Client"></a>类型 Client</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Client <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// contains filtered or unexported fields</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端可以访问Fabric网络上的通道。通道客户端实例提供处理程序以与指定通道上的对等方交互。 需要与多个通道交互的应用程序应为每个通道创建一个单独的通道客户端实例。 通道客户端仅支持非管理功能。</p>
+<ol>
+<li><code>func New(channelProvider context.ChannelProvider, opts ...ClientOption) (*Client, error)</code>：New 返回一个 Client 实例。通道客户端可以在特定通道上查询链码、执行链码和注册/取消注册链码事件。</li>
+<li><code>func (cc *Client) Execute(request Request, options ...RequestOption) (Response, error)</code>：Execute （执行）使用请求和可选请求选项准备和执行事务。参数：请求包含有关强制链代码ID和功能的信息， options 包含可选的请求选项。返回：来自 peer 的提案回复。</li>
+<li><code>func (cc *Client) InvokeHandler(handler invoke.Handler, request Request, options ...RequestOption) (Response, error)</code>：InvokeHandler （调用处理程序）使用提供的请求和可选请求选项来调用处理程序。参数：<br>要调用的处理程序，请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
+<li><code>func (cc *Client) Query(request Request, options ...RequestOption) (Response, error)</code>：Query （查询）使用请求和可选请求选项查询链代码。参数：请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
+<li><code>func (cc *Client) RegisterChaincodeEvent(chainCodeID string, eventFilter string) (fab.Registration, &lt;-chan *fab.CCEvent, error)</code>：RegisterChaincodeEvent（注册链码事件）注册链代码事件。 不再需要注册时，必须调用取消注册。参数：chaincodeID 是要为其接收事件的链代码 ID ，eventFilter 是要为其接收事件的 chaincode 事件过滤器（正则表达式）。返回：注册和用于接收事件的频道。 调用取消注册时，通道将关闭。</li>
+<li><code>func (cc *Client) UnregisterChaincodeEvent(registration fab.Registration)</code>：UnregisterChaincodeEvent（注销链码事件）删除给定的链码事件注册并关闭事件通道。参数：RegisterChaincodeEvent 方法返回的句柄。</li>
+</ol>
+<h4 id="类型-RequestOption"><a href="#类型-RequestOption" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> ClientOption <span class="function"><span class="keyword">func</span><span class="params">(*Client)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
+
+<p>ClientOption 描述了 New 构造函数的功能参数</p>
+<h4 id="类型-Request"><a href="#类型-Request" class="headerlink" title="类型 Request"></a>类型 Request</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Request <span class="keyword">struct</span> &#123;</span><br><span class="line">	ChaincodeID  <span class="keyword">string</span></span><br><span class="line">	Fcn          <span class="keyword">string</span></span><br><span class="line">	Args         [][]<span class="keyword">byte</span></span><br><span class="line">	TransientMap <span class="keyword">map</span>[<span class="keyword">string</span>][]<span class="keyword">byte</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// InvocationChain contains meta-data that&#x27;s used by some Selection Service implementations</span></span><br><span class="line">	<span class="comment">// to choose endorsers that satisfy the endorsement policies of all chaincodes involved</span></span><br><span class="line">	<span class="comment">// in an invocation chain (i.e. for CC-to-CC invocations).</span></span><br><span class="line">	<span class="comment">// Each chaincode may also be associated with a set of private data collection names</span></span><br><span class="line">	<span class="comment">// which are used by some Selection Services (e.g. Fabric Selection) to exclude endorsers</span></span><br><span class="line">	<span class="comment">// that do NOT have read access to the collections.</span></span><br><span class="line">	<span class="comment">// The invoked chaincode (specified by ChaincodeID) may optionally be added to the invocation</span></span><br><span class="line">	<span class="comment">// chain along with any collections, otherwise it may be omitted.</span></span><br><span class="line">	InvocationChain []*fab.ChaincodeCall</span><br><span class="line">	IsInit          <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Request 包含查询和执行调用事务的参数。</p>
+<h4 id="类型-RequestOption-1"><a href="#类型-RequestOption-1" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> RequestOption <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Client, opts *requestOptions)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
+
+<p>每个 Opts 参数的 RequestOption func。</p>
+<ol>
+<li><code>func WithBeforeRetry(beforeRetry retry.BeforeRetryHandler) RequestOption</code>：WithBeforeRetry （重试前）指定在重试尝试之前调用的函数。</li>
+<li><code>func WithChaincodeFilter(ccFilter invoke.CCFilter) RequestOption</code>：WithChaincodeFilter （链码过滤器）添加了一个链代码过滤器，用于计算额外的背书人。</li>
+<li><code>func WithParentContext(parentContext reqContext.Context) RequestOption</code>：WithParentContext（带父上下文）封装了 grpc 父上下文。</li>
+<li></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>Fabric</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Drive my car</title>
+    <url>/2021/10/31/Drive-my-car/</url>
+    <content><![CDATA[<h1 id="Drive-my-car-always-on-the-way"><a href="#Drive-my-car-always-on-the-way" class="headerlink" title="Drive my car always on the way"></a>Drive my car always on the way</h1><p><img src="image-20211031205023907.png" alt="image-20211031205023907"></p>
+<hr>
+<blockquote>
+<p>生き残った二人ははじめて同一フレーム内で距離を無化し、触れあうことになる。<br>幸存下来的两人第一次在同一个框架内消除距离，触碰彼此。</p>
+</blockquote>
+<p>要是问起我看了这个电影有什么感受的话，其实我也有一些搞不清楚。倒是开始对于一直坚信的爱情观念产生出了一些的怀疑，曾以为两个相爱的人都会对于彼此包容以及理解，我有很过分的想法，“如果你不在爱我，就去寻找你的爱情，我不会有一丝的阻拦！”。这部电影里的男主就是这样做的，他发现了妻子的出轨但是他并没有去质问，他相信他们之间的爱情是真挚，深情的。就和我认为的一致，妻子在等待，等待着丈夫的质问，他的愤怒。但是，他没有！“和平常一样地爱她”。</p>
+<p>虽然这部电影的核心出发点是背叛，但这个故事真正的精髓在于，我们生活中的任何希望，终归还是来源于彼此相互的信任。</p>
+<p>要是问我对于上面的看法怎么想，其实我真有一些搞不清楚了……</p>
+<p><img src="image-20211031205802990.png" alt="image-20211031205802990"></p>
+<p>可能就真的是：</p>
+<blockquote>
+<p>在极度失望、极度悲观面前，</p>
+<p>人还是要坚忍地生活下去。</p>
+</blockquote>
+<p>今天得知草东的鼓手离开了，第一时间的想法就是他们音乐怎么办，还能听到好的作品吗。看起来真的有一些自私呢！</p>
+]]></content>
+      <categories>
+        <category>电影</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Xshell、Idea与虚拟机Ubuntu连接</title>
+    <url>/2021/10/24/Xshell%E3%80%81Idea%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E8%BF%9E%E6%8E%A5/</url>
+    <content><![CDATA[<h1 id="Xshell、Idea与虚拟机Ubuntu连接"><a href="#Xshell、Idea与虚拟机Ubuntu连接" class="headerlink" title="Xshell、Idea与虚拟机Ubuntu连接"></a>Xshell、Idea与虚拟机Ubuntu连接</h1><h2 id="一、安装-Ubuntu-虚拟机"><a href="#一、安装-Ubuntu-虚拟机" class="headerlink" title="一、安装 Ubuntu 虚拟机"></a>一、安装 Ubuntu 虚拟机</h2><p>默认VMware的网路是NAT模式，保持不变即可。获取宿主机以及虚拟机 IP 地址。</p>
+<h2 id="二、建立-IP-映射"><a href="#二、建立-IP-映射" class="headerlink" title="二、建立 IP 映射"></a>二、建立 IP 映射</h2><p>将<strong>宿主机</strong>和<strong>虚拟机</strong>的IP映射起来。</p>
+<p>打开VMware的<strong>虚拟网络编辑器</strong>（编辑&gt;虚拟网络编辑器）：</p>
+<p><img src="image-20211024092338034.png" alt="image-20211024092338034"></p>
+<p>选择 <strong>VMnet8 <strong>，点击</strong>更改设置</strong></p>
+<p><img src="image-20211024092359845.png" alt="image-20211024092359845"></p>
+<p>选择 <strong>VMnet8</strong> ，点击 <strong>NAT 设置</strong></p>
+<p><img src="image-20211024092422869.png" alt="image-20211024092422869"></p>
+<p>点击<strong>添加</strong></p>
+<p><img src="image-20211024092439004.png" alt="image-20211024092439004"></p>
+<ol>
+<li>主机端口，填写默认 22 即可</li>
+<li>填入之前查到的虚拟机 IP 地址</li>
+<li>虚拟机端口，填写默认的 22 即可</li>
+</ol>
+<p>相当于将 <strong>宿主机 IP （192.168.80.106:22）</strong> 与<strong>虚拟机 IP （192.168.240.129:22)</strong> 建立起了映射关系。</p>
+<h2 id="三、配置虚拟机SSH"><a href="#三、配置虚拟机SSH" class="headerlink" title="三、配置虚拟机SSH"></a>三、配置虚拟机SSH</h2><ol>
+<li><strong>安装openssh-client：</strong>sudo apt-get install openssh-client</li>
+<li><strong>安装openssh-server：</strong>sudo apt-get install openssh-server</li>
+<li><strong>启动ssh-server：</strong>sudo /etc/init.d/ssh restart</li>
+<li><strong>确认ssh-server工作正常：</strong>netstat -tpl （看到ssh表示工作正常）</li>
+</ol>
+<h2 id="四、配置虚拟机防火墙"><a href="#四、配置虚拟机防火墙" class="headerlink" title="四、配置虚拟机防火墙"></a>四、配置虚拟机防火墙</h2><p>启用22端口并重启防火墙：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> firewall-cmd --permanent --add-port=22/tcp</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> firewall-cmd --reload</span></span><br></pre></td></tr></table></figure>
+
+<p>或者直接关闭防火墙：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> systemctl stop firewalld.service</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="五、使用-shell-连接虚拟机"><a href="#五、使用-shell-连接虚拟机" class="headerlink" title="五、使用 shell 连接虚拟机"></a>五、使用 shell 连接虚拟机</h2><p><img src="image-20211024092805617.png" alt="image-20211024092805617"></p>
+<h2 id="六、配置-Idea-连接虚拟机"><a href="#六、配置-Idea-连接虚拟机" class="headerlink" title="六、配置 Idea 连接虚拟机"></a>六、配置 Idea 连接虚拟机</h2><h3 id="在-Idea-上面点击如下菜单：Tools—Deployment—Configuration…"><a href="#在-Idea-上面点击如下菜单：Tools—Deployment—Configuration…" class="headerlink" title="在 Idea 上面点击如下菜单：Tools—Deployment—Configuration…"></a>在 Idea 上面点击如下菜单：Tools—Deployment—Configuration…</h3><p><img src="image-20211024093004450.png" alt="image-20211024093004450"></p>
+<h3 id="新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK"><a href="#新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK" class="headerlink" title="新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK"></a>新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK</h3><p><img src="image-20211024093047226.png" alt="image-20211024093047226"></p>
+<h3 id="点击Tools—Deployment—Browse-RemoteHost"><a href="#点击Tools—Deployment—Browse-RemoteHost" class="headerlink" title="点击Tools—Deployment—Browse RemoteHost"></a>点击Tools—Deployment—Browse RemoteHost</h3><p><img src="image-20211024093145068.png" alt="image-20211024093145068"></p>
+<h3 id="右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机"><a href="#右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机" class="headerlink" title="右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机"></a>右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机</h3><p><img src="image-20211024093210893.png" alt="image-20211024093210893"></p>
+<h3 id="点击Tools—Start-SSH-session…可以打开远程界面"><a href="#点击Tools—Start-SSH-session…可以打开远程界面" class="headerlink" title="点击Tools—Start SSH session…可以打开远程界面"></a>点击Tools—Start SSH session…可以打开远程界面</h3><p><img src="image-20211024093255417.png" alt="image-20211024093255417"></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这样就可以在宿主机连接到虚拟机进行代码编辑，并且上传了。</p>
 ]]></content>
       <categories>
         <category>奇巧淫技</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
+        <tag>ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -71,25 +224,44 @@
       </tags>
   </entry>
   <entry>
-    <title>《鲨鱼：起点》二刷</title>
-    <url>/2021/10/23/%E3%80%8A%E9%B2%A8%E9%B1%BC%EF%BC%9A%E8%B5%B7%E7%82%B9%E3%80%8B%E4%BA%8C%E5%88%B7/</url>
-    <content><![CDATA[<p><img src="image-20211023205618110.png" alt="image-20211023205618110"></p>
-<h3 id="鲨鱼：起点-샤크-더-비기닝-2021"><a href="#鲨鱼：起点-샤크-더-비기닝-2021" class="headerlink" title="鲨鱼：起点 샤크: 더 비기닝 (2021)"></a>鲨鱼：起点 샤크: 더 비기닝 (2021)</h3><p>之前片荒的时候无意之中找到的一部韩国片子（还是漫改的），说实话，真论敢拍的话还得数大韩人民的电影。</p>
-<p>从一开始的入坑韩国灾难片系列，像《流感》《潘多拉》之类，还有那些黑涩会片子，马东锡这种我觉得无敌的。就很少有觉得比较可以戳我点的韩国电影了。</p>
-<p>这部片子总体上来说，故事情节也算是老套了。一个高中生因“校园霸凌”戳了对头的右眼，郎当入狱，被判了一个“杀人未遂”。同时，这不巧了，监狱里面有一个全国拳击冠军“哥”，在“哥”的带领之下，男主逐渐变得强大，一路打怪升级，最后打赢了对头。这种剧情确实感觉都已经被拍烂了，回想我当初为什么被这个片子戳到了，一方面应该就是韩国片的敢拍程度，真的算得上“拳拳到肉了”，相比于《悲伤》《少年的你》露骨程度已经超出了几个维度了。</p>
-<p>在就可能是当时觉得，自己可能有的时候和里面的男主有点相似，不能说“校园霸凌”，只是觉得自己也想变得“强大”，至少不被人欺负，“想好好地做一个平凡人”。有的时候觉得，在当今这个社会，平平淡淡真的也是蛮难的。应该很多人都深有这种感受吧！所求平淡，又何来“平淡”……</p>
-<p>片子里面有一句，算是最戳动我：</p>
-<blockquote>
-<p>鲨鱼因为没有鱼鰾，只要一刻不游动就会沉下去死掉</p>
-<p>所以从出生到死亡，都要一刻不停地游动，不要停下！</p>
-</blockquote>
-<p>Over……</p>
+    <title>hexo 常用命令</title>
+    <url>/2021/10/21/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="常用-hexo-命令"><a href="#常用-hexo-命令" class="headerlink" title="常用 hexo 命令"></a><strong>常用 hexo 命令</strong></h1><h2 id="初始化命令"><a href="#初始化命令" class="headerlink" title="初始化命令"></a>初始化命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo -g		 //安装hexo</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> npm update hexo -g		 //更新hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init			     //初始化博客</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">&quot;博客名称&quot;</span> = hexo new <span class="string">&quot;博客名称&quot;</span>	//新建一篇博客</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g = hexo generate				 //生成页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d = hexo deploy				     //部署</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo new page <span class="string">&quot;name&quot;</span>  				 //新建页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d                                //生成页面并部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s = hexo server	                   //启动服务器、本地预览</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo server	                //hexo会监视文件变动并自动更新，无须重启服务器</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -s	            //静态模式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -p 5000	        //更改端口</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server -i 192.168.1.1	//自定义 IP地址</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo clean	                //清除缓存和已生成的静态文件，若是网页正常情况下可以忽略这条命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo <span class="built_in">help</span>                     //帮助</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="博客头格式"><a href="#博客头格式" class="headerlink" title="博客头格式"></a>博客头格式</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 通过如下字段,Hexo会自动添加博文分类和博文标签的相关配置</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">title</span> <span class="comment"># 添加博文标题</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">categories</span> <span class="comment"># 添加博文分类</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">tags</span> <span class="comment"># 添加博文标签</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>电影</category>
+        <category>奇巧淫技</category>
       </categories>
       <tags>
-        <tag>电影</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker 学习</title>
+    <url>/2021/10/27/docker-%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><img src="image-20211028122117944.png" alt="image-20211028122117944"></p>
+<p><img src="image-20211028122203718.png" alt="image-20211028122203718"></p>
+<p><img src="image-20211028122244522.png" alt="image-20211028122244522"></p>
+<p><img src="image-20211028122332456.png" alt="image-20211028122332456"></p>
+<p><img src="image-20211028122413431.png" alt="image-20211028122413431"></p>
+<p><img src="image-20211028122515705.png" alt="image-20211028122515705"></p>
+<p><img src="image-20211028122451207.png" alt="image-20211028122451207"></p>
+<p><img src="image-20211028122614820.png" alt="image-20211028122614820"></p>
+<p><img src="image-20211028122643174.png" alt="image-20211028122643174"></p>
+<p><img src="image-20211028122718547.png" alt="image-20211028122718547"></p>
+<p><img src="image-20211028122800278.png" alt="image-20211028122800278"></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
@@ -135,6 +307,94 @@
       </tags>
   </entry>
   <entry>
+    <title>《鲨鱼：起点》二刷</title>
+    <url>/2021/10/23/%E3%80%8A%E9%B2%A8%E9%B1%BC%EF%BC%9A%E8%B5%B7%E7%82%B9%E3%80%8B%E4%BA%8C%E5%88%B7/</url>
+    <content><![CDATA[<p><img src="image-20211023205618110.png" alt="image-20211023205618110"></p>
+<h3 id="鲨鱼：起点-샤크-더-비기닝-2021"><a href="#鲨鱼：起点-샤크-더-비기닝-2021" class="headerlink" title="鲨鱼：起点 샤크: 더 비기닝 (2021)"></a>鲨鱼：起点 샤크: 더 비기닝 (2021)</h3><p>之前片荒的时候无意之中找到的一部韩国片子（还是漫改的），说实话，真论敢拍的话还得数大韩人民的电影。</p>
+<p>从一开始的入坑韩国灾难片系列，像《流感》《潘多拉》之类，还有那些黑涩会片子，马东锡这种我觉得无敌的。就很少有觉得比较可以戳我点的韩国电影了。</p>
+<p>这部片子总体上来说，故事情节也算是老套了。一个高中生因“校园霸凌”戳了对头的右眼，郎当入狱，被判了一个“杀人未遂”。同时，这不巧了，监狱里面有一个全国拳击冠军“哥”，在“哥”的带领之下，男主逐渐变得强大，一路打怪升级，最后打赢了对头。这种剧情确实感觉都已经被拍烂了，回想我当初为什么被这个片子戳到了，一方面应该就是韩国片的敢拍程度，真的算得上“拳拳到肉了”，相比于《悲伤》《少年的你》露骨程度已经超出了几个维度了。</p>
+<p>在就可能是当时觉得，自己可能有的时候和里面的男主有点相似，不能说“校园霸凌”，只是觉得自己也想变得“强大”，至少不被人欺负，“想好好地做一个平凡人”。有的时候觉得，在当今这个社会，平平淡淡真的也是蛮难的。应该很多人都深有这种感受吧！所求平淡，又何来“平淡”……</p>
+<p>片子里面有一句，算是最戳动我：</p>
+<blockquote>
+<p>鲨鱼因为没有鱼鰾，只要一刻不游动就会沉下去死掉</p>
+<p>所以从出生到死亡，都要一刻不停地游动，不要停下！</p>
+</blockquote>
+<p>Over……</p>
+]]></content>
+      <categories>
+        <category>电影</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>内网穿透，外网访问虚拟机web服务</title>
+    <url>/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<h1 id="内网穿透，外网访问虚拟机web服务"><a href="#内网穿透，外网访问虚拟机web服务" class="headerlink" title="内网穿透，外网访问虚拟机web服务"></a>内网穿透，外网访问虚拟机web服务</h1><p><img src="t01a43701d07df28985.jpg" alt="t01a43701d07df28985"></p>
+<h2 id="什么是内网穿透"><a href="#什么是内网穿透" class="headerlink" title="什么是内网穿透"></a>什么是内网穿透</h2><p>简单的说，就是想要外网访问内网的服务。</p>
+<p>内网穿透，即NAT（Network Address Translator）穿透，是<strong>指计算机在内网（局域网）内使用私有IP地址，在连接外网（互联网）时使用全局IP地址的技术</strong>。该技术被普遍使用在有多台主机但只通过一个公有IP地址访问的私有网络中。</p>
+<p>举个例子：配置了一个服务器 Server A，在同一个局域网，就可以通过自己的笔记本使用SSH连接，当不在统一局域网，就没有办法直接使用SSH连接了，这个时候就需要进行NAT穿透，可以使用SSH连接Server A。</p>
+<h2 id="NAT原理解析"><a href="#NAT原理解析" class="headerlink" title="NAT原理解析"></a>NAT原理解析</h2><p>NAT（Network Address Translation，网络地址转换），也叫做网络掩蔽或者IP掩蔽。NAT是一种网络地址翻译技术，主要是将内部的私有IP地址（private IP）转换成可以在公网使用的公网IP（public IP）。</p>
+<ul>
+<li>当信息由局域网向因特网传递时，<strong>源地址从专有地址转换为公用地址</strong>。由路由器跟踪每个连接上的目的地址和端口。</li>
+<li>当数据返回路由器时，通过记录的连接跟踪数据来决定该转发给内部网的哪个主机；如果此时如果有多个公用地址可用，当数据包返回时，则会客户机的端口号可以用来分解数据包。</li>
+</ul>
+<p><img src="image-20211031111401720.png" alt="image-20211031111401720"></p>
+<p><strong>首先NAT路由器将发送源地址从私有IP地址(10.0.0.10)转换为全局的IP地址 (202.244.174.37)再发送数据</strong></p>
+<p><strong>当数据从地址163.221.120.9发过来时，NAT路由器将目标地址从原句IP地址(202.244.174.37)先转换成私有IP地址10.0.0.10以后再转发</strong></p>
+<h2 id="NAT实现方式及主要类型"><a href="#NAT实现方式及主要类型" class="headerlink" title="NAT实现方式及主要类型"></a>NAT实现方式及主要类型</h2><p>1.NAT实现方式</p>
+<p>1）静态NAT：也就是静态地址转换。是指一个公网IP对应一个私有IP，是一对一的转换，同时注意，这里只进行了IP转换，而没有进行端口的转换。举个栗子：</p>
+<p><img src="image-20211031111539684.png" alt="image-20211031111539684"></p>
+<p>2）NAPT：端口多路复用技术。与静态NAT的差别是，NAPT不但要转换IP地址，还要进行传输层的端口转换。具体的表现形式就是，对外只有一个公网IP，通过端口来区别不同私有IP主机的数据。再举个栗子。</p>
+<p><img src="image-20211031111608403.png" alt="image-20211031111608403"></p>
+<h2 id="NAT的主要类型"><a href="#NAT的主要类型" class="headerlink" title="NAT的主要类型"></a>NAT的主要类型</h2><p>对于NAPT我们主要分为两大类：锥型NAT和对称型NAT。</p>
+<p>其中锥型NAT又分：完全锥型，受限锥型和端口受限锥型。</p>
+<p>概括的说：对称型NAT是一个请求对应一个端口；锥型NAT（非对称NAT）是多个请求（外部发向内部）对应一个端口，只要源IP端口不变，无论发往的目的IP是否相同，在NAT上都映射为同一个端口，形象的看起来就像锥子一样。下面分别介绍这四种类型及其差异。</p>
+<h3 id="client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果client-192-168-0-3-100-又给-2-2-2-2-2222-发送数据，路由器该怎么处理呢"><a href="#client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果client-192-168-0-3-100-又给-2-2-2-2-2222-发送数据，路由器该怎么处理呢" class="headerlink" title="client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果client(192.168.0.3, 100)又给(2.2.2.2, 2222)发送数据，路由器该怎么处理呢?"></a>client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果client(192.168.0.3, 100)又给(2.2.2.2, 2222)发送数据，路由器该怎么处理呢?</h3><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>,  复用旧的映射关系(<span class="number">8.8.8.8</span>, <span class="number">800</span>)&lt;---&gt;(<span class="number">192.168.0.3</span>, <span class="number">100</span>)和(<span class="number">2.2.2.2</span>, <span class="number">2222</span>)通信, 这就是锥型(Cone) NAT---（分为下面的<span class="number">3</span>个小类）</span><br><span class="line"></span><br><span class="line"><span class="attribute">2</span>,  创建新的映射关系(<span class="number">8.8.8.8</span>, <span class="number">801</span>)&lt;---&gt;(<span class="number">192.168.0.3</span>, <span class="number">100</span>)和(<span class="number">2.2.2.2</span>, <span class="number">2222</span>)通信, 这就是对称型NAT</span><br></pre></td></tr></table></figure>
+
+<p>注: (8.8.8.8, 801)只是举例，到底用什么端口取决于路由器的端口管理策略，总之是另外的一个端口，有的路由器有多个公网IP，不同的IP也会参与到这个映射关系中。</p>
+<h3 id="client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果这个时候路由器-8-8-8-8-在800端口上收到从另外一台server-2-2-2-2-2222-发来的数据，是不是应该转发给-192-168-0-3-100-呢？"><a href="#client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果这个时候路由器-8-8-8-8-在800端口上收到从另外一台server-2-2-2-2-2222-发来的数据，是不是应该转发给-192-168-0-3-100-呢？" class="headerlink" title="client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果这个时候路由器(8.8.8.8)在800端口上收到从另外一台server(2.2.2.2, 2222)发来的数据，是不是应该转发给(192.168.0.3, 100)呢？"></a>client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果这个时候路由器(8.8.8.8)在800端口上收到从另外一台server(2.2.2.2, 2222)发来的数据，是不是应该转发给(192.168.0.3, 100)呢？</h3><p>有四种情况:</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>, 无条件转发给(<span class="number">192.168.0.3</span>, <span class="number">100</span>)， 这就是全锥型(Full Cone)NAT。</span><br><span class="line"></span><br><span class="line"><span class="attribute">2</span>, 如果(<span class="number">192.168.0.3</span>, <span class="number">100</span>)之前给(<span class="number">2.2.2.2</span>)发送过数据，则转发， 这就是受限锥型(Restricted Cone)。</span><br><span class="line"></span><br><span class="line"><span class="attribute">3</span>, 如果(<span class="number">192.168.0.3</span>, <span class="number">100</span>)之前给(<span class="number">2.2.2.2</span>, <span class="number">2222</span>)发送过数据，则转发， 这就是端口受限锥型(Port Restricted Cone)。</span><br><span class="line"></span><br><span class="line"><span class="attribute">4</span>, 丢弃报文，拒绝转发, 这就是对称型NAT。</span><br></pre></td></tr></table></figure>
+
+<p>从上面也描述也可以看出，安全性系数, 对称型 &gt; 端口受限锥型 &gt; 受限锥型 &gt; 全锥型</p>
+<p><img src="image-20211031131731042.png" alt="image-20211031131731042"></p>
+<h3 id="（一）完全圆锥型NAT-Full-Cane-NAT"><a href="#（一）完全圆锥型NAT-Full-Cane-NAT" class="headerlink" title="（一）完全圆锥型NAT (Full Cane NAT)"></a>（一）完全圆锥型NAT (Full Cane NAT)</h3><p> <strong>完全圆锥型的NAT,将从同一内部IP地址和端口来的所有请求，都映射到相同的外部IP地址和端口。而且，任何外部主机通过向映射的外部地址发送报文，可以实现和内部主机进行通信。</strong></p>
+<p>这是一种<strong>比较宽松的策略</strong>，<strong>只要建立了内部网络的IP地址和端口与公网IP地址和端口的映射关系，则所有Internet上的主机都可以访问该NAT之后的主机！！！</strong> </p>
+<p><img src="image-20211031131815110.png" alt="image-20211031131815110"></p>
+<p>在图中，对称型NAT会将内网地址{X:y}转换成公网地址{A:b}<strong>并绑定为{X:y}|{A:b}&lt;一&gt;{P:q}<strong>。这就意味着NAT只允许地址{A:b}接收来自{P:q}的分组，将它转给{X:y} 。</strong>当客户机请求一个不同的公网地址{M:n}时，NAT会新分配一个外部端口{<a href="https://www.baidu.com/s?wd=C:&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd">C:</a>d}</strong> 。 </p>
+<h3 id="（二）受限圆锥型NAT-Restricted-Cone-NAT-–IP受限"><a href="#（二）受限圆锥型NAT-Restricted-Cone-NAT-–IP受限" class="headerlink" title="（二）受限圆锥型NAT ( Restricted Cone NAT)–IP受限"></a>（二）受限圆锥型NAT ( Restricted Cone NAT)–IP受限</h3><p>受限圆锥型NAT也是将从相同的内部IP地址和端口来的所有请求，映射到相同的公网IP地址和端口。</p>
+<p>但是与完全圆锥型NAT不同，当且仅当内网主机之前己经向公网主机(假设IP地址为P)发送过数据分组，此公网主机才能够向内网主机发送数据分组。</p>
+<p><img src="image-20211031131914766.png" alt="image-20211031131914766"></p>
+<p>在图中，<strong>NAT会将内网地址{x:y}映射成公网地址{A:b〕并绑定，只有源地址为P的分组才能和此内网主机通信。</strong></p>
+<h3 id="（三）端口受限圆锥型NAT-Port-Restricted-Cone-NAT-–IP-port受限"><a href="#（三）端口受限圆锥型NAT-Port-Restricted-Cone-NAT-–IP-port受限" class="headerlink" title="（三）端口受限圆锥型NAT ( Port Restricted Cone NAT)–IP+port受限"></a>（三）端口受限圆锥型NAT ( Port Restricted Cone NAT)–IP+port受限</h3><p>类似于受限圆锥型NAT，但更严格。<strong>端口受限圆锥型NAT增加了端口号的限制，当且仅当内网主机之前已经向公网主机发送了数据分组，公网主机才能和此内网主机通信。</strong></p>
+<p><img src="image-20211031131946606.png" alt="image-20211031131946606"></p>
+<p>在图中，NAT会将内网地址{X:y}映射成公网地址{A:b}并绑定，<strong>由于内网主机之前己经分别与地址为M,端口为n的公网主机以及地址为P,端口为q的公网主机通信</strong>，所以<strong>只有来自这两个公网地址和端口的分组才能到达内网主机</strong>。</p>
+<h3 id="（四）对称型NAT-CSymmetric-NAT-—-重点理解"><a href="#（四）对称型NAT-CSymmetric-NAT-—-重点理解" class="headerlink" title="（四）对称型NAT CSymmetric NAT)—-重点理解"></a>（四）对称型NAT CSymmetric NAT)—-重点理解</h3><p>对称型NAT把从<strong>同一内网地址和端口****到相同的地址和端口的所有请求</strong>，<strong>都映射到同一个公网地址和端口</strong>。</p>
+<p>如果<strong>同一个内网主机，用相同的内网地址和端口向另一个地址发送数据分组，则会使用不同的映射</strong>，<strong>而且公网主机只有在接收到数据分组后，才能向与发送分组的内网主机进行通信</strong>。可见，对称性NAT是所有NAT类型中限制最为严格的。</p>
+<p><img src="image-20211031132014799.png" alt="image-20211031132014799"></p>
+<p>在图中，对称型NAT会将内网地址{X:y}转换成公网地址{A:b}<strong>并绑定为{X:y}|{A:b}&lt;一&gt;{P:q}<strong>。这就意味着NAT只允许地址{A:b}接收来自{P:q}的分组，将它转给{X:y} 。</strong>当客户机请求一个不同的公网地址{M:n}时，NAT会新分配一个外部端口{<a href="https://www.baidu.com/s?wd=C:&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd">C:</a>d}</strong> 。 </p>
+<h2 id="判断过程"><a href="#判断过程" class="headerlink" title="判断过程"></a>判断过程</h2><p>1.首先是我们的客户端，向服务端的第一IP地址和端口，发送一个请求;之后服务端回送一个响应（包含客户端的官网IP和端口信息）给客户端。如果回来这个地址（响应信息中获取得到的IP地址）和我们之前发送的地址（NAT内网地址）是一致的，那就是公网的。如果不一致说明我们是在NAT之后，这是第一次检测。**—-检测是公网主机还是位于NAT网关后面的内网主机（不用太考虑下图中的客户端的端口信息）**</p>
+<p><img src="image-20211031132136229.png" alt="image-20211031132136229"></p>
+<p>2.再接下来就是<strong>检测是对称型还是限制性NAT</strong>。首先，如左图所示客户端向服务器第一个IP地址发送了一个请求 ，然后再如右图所示，客户端向服务端第二个IP地址发送一个请求。<strong>如果两次回复的响应中的主机公网IP地址和端口与上次回来的公网IP地址与端口是不一样的，它就是对称型NAT；如果一样还需要进一步判断。</strong></p>
+<p><img src="image-20211031132155049.png" alt="image-20211031132155049"></p>
+<p>3.接下来检测<strong>是否是完全锥型NAT</strong>。是否再接下来就是客户端向服务端第一个IP地址发送了一个请求 ，然后它通过第二个IP地址给我回一个请求，如果可以接收到，就表示为完全椎型，否则不是完全椎型。<strong>（不用太考虑下图中的客户端的端口信息）</strong></p>
+<p><img src="image-20211031132210313.png" alt="image-20211031132210313"></p>
+<p>4.紧接着再发送一个请求到第一个这个地址，那么它用这个地址的第二个端口向我回消息，如果这时候我是能收到的，说明是<strong>IP地址限制锥型NAT</strong>，如果不能收到说明是<strong>端口限制锥型</strong>。</p>
+<p><img src="image-20211031132245443.png" alt="image-20211031132245443"></p>
+<p>以上就是我们NAT检测基本的一个过程。</p>
+<h2 id="个人实践总结"><a href="#个人实践总结" class="headerlink" title="个人实践总结"></a>个人实践总结</h2><p>因为之前使用 Fabric 一直在虚拟机里面使用，就懒得在服务器配置一遍了，然后就想着使用内网穿透的这个方式和他们进行网络测试。就有了两种尝试，上面我也是看别人的整理，感觉还是记录一下，虽然两三天之后就忘记了，但是毕竟方便自己看。</p>
+<p>第一种，配置我们的路由器，里面有一个虚拟服务设置，只要配置内网 ip 就可以了，但是很不幸地是我们的网ip好像不是公网ip。导致我完美的配置依旧没有生效。</p>
+<p>第二种，就是使用工具，利用一些内网穿透的工具，像什么花生壳…之类的。反正用了工具就是很简单，草。</p>
+]]></content>
+      <categories>
+        <category>奇巧淫技</category>
+      </categories>
+      <tags>
+        <tag>http</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>学了一个月，什么是Hyperledger Fabric</title>
     <url>/2021/10/23/%E5%AD%A6%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%88%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AFHyperledger-Fabric/</url>
     <content><![CDATA[]]></content>
@@ -143,6 +403,17 @@
       </categories>
       <tags>
         <tag>Fabric</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学了两个月，什么是区块链</title>
+    <url>/2021/10/23/%E5%AD%A6%E4%BA%86%E4%B8%A4%E4%B8%AA%E6%9C%88%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AF%E5%8C%BA%E5%9D%97%E9%93%BE/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>区块链</category>
+      </categories>
+      <tags>
+        <tag>区块链</tag>
       </tags>
   </entry>
   <entry>
@@ -164,14 +435,251 @@
       </tags>
   </entry>
   <entry>
-    <title>学了两个月，什么是区块链</title>
-    <url>/2021/10/23/%E5%AD%A6%E4%BA%86%E4%B8%A4%E4%B8%AA%E6%9C%88%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AF%E5%8C%BA%E5%9D%97%E9%93%BE/</url>
-    <content><![CDATA[]]></content>
+    <title>我奶奶都懂 HTPPS</title>
+    <url>/2021/10/26/%E6%88%91%E5%A5%B6%E5%A5%B6%E9%83%BD%E6%87%82-HTPPS/</url>
+    <content><![CDATA[<h1 id="我奶奶都懂HTTPS"><a href="#我奶奶都懂HTTPS" class="headerlink" title="我奶奶都懂HTTPS"></a>我奶奶都懂HTTPS</h1><p><img src="t0198c41bad7f0e2cde.jpg" alt="t0198c41bad7f0e2cde"></p>
+<h2 id="HTTPS-概述"><a href="#HTTPS-概述" class="headerlink" title="HTTPS 概述"></a>HTTPS 概述</h2><p>HTTPS（全称：Hyper Text Transfer Protocol over <strong>Secure Socket Layer</strong> 或 Hypertext Transfer Protocol Secure，超文本传输安全协议），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。</p>
+<p>就是在 HTTP 之下加进去了 SSL ，HTTPS 的安全基础就是 SSL 。 因此加密的详细内容就需要SSL</p>
+<p>HTTPS: URL表明它使用了HTTP，但HTTPS存在不同于HTTP的默认端口及一个加密/身份验证层（在HTTP与TCP之间）。</p>
+<p>HTTP默认采用80作为通讯端口，对于传输采用不加密的方式；HTTPS默认采用443，对于传输的数据进行加密传输。目前主流的网站基本上开始默认采用HTTPS作为通信方式。</p>
+<h2 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h2><p>对称加密算法的加密和解密都是用<strong>同一个密钥</strong>。</p>
+<p>如果通信双方都各自持有同一个密钥，且没有别人知道，则两方的通信安全是可以被保证的（除非密钥被破解）。</p>
+<p>然而，最大的问题就是这个密钥怎么让传输的双方知晓，同时不被别人知道。如果由服务器生成一个密钥并传输给浏览器，这个传输过程中密钥被别人劫持，之后他就能用密钥解开双方传输的任何内容。<br>如果浏览器内部预存了网站A的密钥，且可以确保除了浏览器和网站A，不会有任何外人知道该密钥，那理论上用对称加密是可以的。这样，浏览器只要预存好世界上所有HTTPS网站的密钥就可以了。显然，这样做是不现实的。<br>怎么办？解决这个问题，我们就需要非对称加密。</p>
+<p><img src="image-20211026145006146.png" alt="image-20211026145006146"></p>
+<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>非对称加密算法需要<strong>一组密钥对</strong>，分别是<strong>公钥</strong>和<strong>私钥</strong>，这两个密钥是成对出现的。</p>
+<p><strong>公钥加密的内容需要对应的私钥解密，私钥加密的内容需要对应的公钥解密</strong>。私钥由服务器自己保存，<strong>公钥发送给客户端</strong>。</p>
+<p>客户端拿到公钥后可以对请求进行加密后发送给服务端，这时候就算中间被截获，没有私钥也无法解密发送的内容，这样确保了<strong>客户端发送到服务端数据的安全</strong>。</p>
+<p><img src="image-20211026145013673.png" alt="image-20211026145013673"></p>
+<h2 id="非对称加密改良"><a href="#非对称加密改良" class="headerlink" title="非对称加密改良"></a>非对称加密改良</h2><p><img src="image-20211026145021337.png" alt="image-20211026145021337"></p>
+<p>通过一组公钥私钥，已经可以保证单个方向传输的安全性，那用两组公钥私钥，是不是就能保证双向传输都安全了？请看下面的过程：</p>
+<ol>
+<li>某网站拥有用于非对称加密的<strong>公钥A1、私钥A2</strong>；浏览器拥有用于非对称加密的<strong>公钥B1、私钥B2</strong>。</li>
+<li>浏览器向网站服务器请求，服务器把公钥A1明文传输给浏览器。</li>
+<li>浏览器把公钥B1明文传输给服务器。</li>
+<li>之后浏览器向服务器传输的所有东西都用公钥A1加密，服务器收到后用私钥A2解密。由于只有服务器拥有私钥A2进行解密，所以能保证这条数据的安全。</li>
+<li>服务器向浏览器传输的所有东西都用公钥B1加密，浏览器收到后用私钥B2解密。同上也可以保证这条数据的安全。</li>
+</ol>
+<p>可见确实可行。抛开这里面仍有的漏洞不谈（下文会讲），HTTPS的加密却没使用这种方案，为什么？最主要的原因是非对称加密算法非常耗时，特别是加密解密一些较大数据的时候有些力不从心。而对称加密快很多。那我们能不能运用非对称加密的特性解决前面提到的对称加密的问题？</p>
+<h2 id="非对称加密-对称加密"><a href="#非对称加密-对称加密" class="headerlink" title="非对称加密 + 对称加密"></a>非对称加密 + 对称加密</h2><p><img src="image-20211026145028945.png" alt="image-20211026145028945"></p>
+<p>既然非对称加密耗时，我们考虑是否可以采用非对称加密+对称加密结合的方式，而且要尽量减少非对称加密的次数。<br>非对称加密、解密各只需一次的方法：</p>
+<ol>
+<li>某网站拥有用于非对称加密的公钥A1、私钥A2。</li>
+<li>浏览器向网站服务器请求，服务器把公钥A1明文给传输浏览器。</li>
+<li>浏览器随机生成一个用于对称加密的密钥X，用<strong>公钥A1加密</strong>后传给服务器。</li>
+<li>服务器拿到后<strong>用私钥A2解密得到密钥X</strong>。</li>
+<li>这样<strong>双方就都拥有密钥X了，且别人无法知道它</strong>。之后双方所有数据都用密钥X加密解密即可。</li>
+</ol>
+<p>HTTPS基本就是采用了这种方案。但还是有漏洞的。</p>
+<h2 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h2><p><img src="image-20211026145038305.png" alt="image-20211026145038305"></p>
+<p>中间人的确无法得到浏览器生成的对称密钥X，这个密钥本身被公钥A1加密，只有服务器才能用私钥A2进行解密。然而中间人却完全不需要拿到私钥A2就能劫持信息，请看：</p>
+<ol>
+<li>某网站拥有用于非对称加密的公钥A1、私钥A2。</li>
+<li>浏览器向网站服务器请求，服务器把公钥A1明文传输给浏览器。</li>
+<li>中间人劫持到公钥A1，保存下来，把数据包中的公钥A1替换成自己伪造的公钥B1（它当然也拥有公钥B1对应的私钥B2）。</li>
+<li>浏览器随机生成一个用于对称加密的密钥X，用公钥B1（浏览器不知道公钥被替换了）加密后传给服务器。</li>
+<li>中间人劫持后用私钥B2解密得到密钥X，再用公钥A1加密后传给服务器。</li>
+<li>服务器拿到后用私钥A2解密得到密钥X。</li>
+</ol>
+<p>这样在双方都不会发现异常的情况下，中间人得到了对称密钥X。根本原因是浏览器无法确认自己收到的公钥是不是网站自己的。那么下一步就是解决这个问题：如何证明浏览器收到的公钥一定是该网站的公钥？</p>
+<h2 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h2><p>现实生活中，如果想证明某身份证号一定是小明的，怎么办？看身份证。这里政府机构起到了“公信”的作用，身份证是由它颁发的，它本身的权威可以对一个人的身份信息作出证明。互联网中也有这么一个公信机构，<strong>CA 机构</strong>。</p>
+<p>网站在使用HTTPS前，需要向“<strong>CA机构</strong>”申请颁发一<strong>数字证书</strong>，数字证书里有<strong>证书持有者、证书持有者的公钥等信息</strong>。服务器把证书传输给浏览器，浏览器从证书里取公钥就可以了。然而这里又有一个显而易见的问题：证书本身的传输过程中，如何防止被篡改？即如何证明证书本身的真实性？数字证书怎么防伪呢？</p>
+<p>服务器提交自己的基本信息想CA机构提出申请，CA机构在给服务器颁发证书的时候，会连同<strong>数字证书</strong>以及<strong>根据证书计算的摘要</strong>一同发送给服务器，且这个摘要是需要<strong>经过CA机构自己的私钥进行加密</strong>的。申请流程如下：</p>
+<p><img src="image-20211026145047559.png" alt="image-20211026145047559"></p>
+<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>我们把证书内容生成一份“签名”，比对证书内容和签名是否一致就能察觉是否被篡改。这种技术就叫数字签名。<br>下图中左侧是数字签名的制作过程，右侧是验证过程</p>
+<p><img src="image-20211026145056986.png" alt="image-20211026145056986"></p>
+<p>数字签名的制作过程：</p>
+<ol>
+<li>CA拥有非对称加密的私钥和公钥。</li>
+<li>CA对证书明文信息进行hash。</li>
+<li>对hash后的值<strong>用私钥加密</strong>，得到数字签名。</li>
+</ol>
+<p>明文和数字签名共同组成了数字证书，这样一份数字证书就可以颁发给网站了。<br>那浏览器拿到服务器传来的数字证书后，如何验证它是不是真的？（有没有被篡改、掉包）</p>
+<p>浏览器验证过程：</p>
+<ol>
+<li>拿到证书，得到明文T1，数字签名S1。</li>
+<li>用CA机构的公钥对S1解密（由于是浏览器信任的机构，所以浏览器保有它的公钥。详情见下文），得到S2。</li>
+<li>用证书里说明的hash算法对明文T1进行hash得到T2。</li>
+<li>比较S2是否等于T2，等于则表明证书可信。</li>
+</ol>
+<p>这里需要注意一点，一个是<strong>CA的公钥</strong>，内置在客户端，用来解密数字签名！另一个是<strong>目标服务器的公钥</strong>，在数字证书内容里，用来协商对称密钥！</p>
+<p><strong>为什么这样可以证明证书可信？</strong><br>假设中间人篡改了证书的原文，由于他没有CA机构的私钥，所以无法得到此时加密后签名，无法相应地篡改签名。浏览器收到该证书后会发现原文和签名解密后的值不一致，则说明证书已被篡改，证书不可信，从而终止向服务器传输信息，防止信息泄露给中间人。</p>
+<p><strong>既然不可能篡改，那如果整个证书被掉包呢？</strong><br>假设有另一个网站B也拿到了CA机构认证的证书，它想搞垮网站A，想劫持网站A的信息。于是它成为中间人拦截到了A传给浏览器的证书，然后替换成自己的证书，传给浏览器，之后浏览器就会错误地拿到B的证书里的公钥了，会导致上文提到的漏洞。<br>其实这并不会发生，因为证书里包含了网站A的信息，包括域名，浏览器把证书里的域名与自己请求的域名比对一下就知道有没有被掉包了。</p>
+<p><strong>制作数字签名时为什么需要hash一次</strong>？<br>最显然的是性能问题，前面我们已经说了非对称加密效率较差，证书信息一般较长，比较耗时。而hash后得到的是固定长度的信息（比如用md5算法hash后可以得到固定的128位的值），这样加密解密就会快很多。当然除此之外也有安全上的原因。</p>
+<p><strong>HTTPS必须在每次请求中都要先在SSL/TLS层进行握手传输密钥吗？</strong><br>显然每次请求都经历一次密钥传输过程非常耗时，那怎么达到只传输一次呢？用session就可以。<br>服务器会为每个浏览器（或客户端软件）维护一个session ID，在TSL握手阶段传给浏览器，浏览器生成好密钥传给服务器后，服务器会把该密钥存到相应的session ID下，之后浏览器每次请求都会携带session ID，服务器会根据session ID找到相应的密钥并进行解密加密操作，这样就不必要每次重新制作、传输密钥了</p>
+<h2 id="HTTPS-工作原理"><a href="#HTTPS-工作原理" class="headerlink" title="HTTPS 工作原理"></a>HTTPS 工作原理</h2><p><img src="image-20211026145107011.png" alt="image-20211026145107011"></p>
+<ol>
+<li>client向server发送请求<a href="https://baidu.com,然后连接到server的443端口./">https://baidu.com，然后连接到server的443端口。</a></li>
+<li>服务端必须要有一套数字证书，可以自己制作，也可以向组织申请。区别就是自己颁发的证书需要客户端验证通过，才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面，这套证书其实就是一对公钥和私钥。</li>
+<li><strong>传送证书</strong><br>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构，过期时间、服务端的公钥，第三方证书认证机构(CA)的签名，服务端的域名信息等内容。</li>
+<li><strong>客户端解析证书</strong><br>这部分工作是由客户端的TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警告框，提示证书存在问题。如果证书没有问题，那么就生成一个随机值（密钥）。然后用证书对该随机值进行加密。</li>
+<li><strong>传送加密信息</strong><br>这部分传送的是用证书加密后的密钥（随机值），目的就是让服务端得到这个密钥（随机值），以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</li>
+<li><strong>服务端加密信息</strong><br>服务端用私钥解密，得到了客户端传过来的密钥（随机值），然后把内容通过该值进行对称加密。</li>
+<li><strong>传输加密后的信息</strong><br>这部分信息是服务端用密钥（随机值）对称加密后的信息，可以在客户端被还原。</li>
+<li><strong>客户端解密信息</strong><br>客户端用之前生成的密钥（随机值）解密服务端传过来的信息，于是获取了解密后的内容。</li>
+</ol>
+<h2 id="自签名证书-和-SpringBoot单双向认证配置及测试"><a href="#自签名证书-和-SpringBoot单双向认证配置及测试" class="headerlink" title="自签名证书 和 SpringBoot单双向认证配置及测试"></a>自签名证书 和 SpringBoot单双向认证配置及测试</h2><h3 id="下载和安装OpenSSL"><a href="#下载和安装OpenSSL" class="headerlink" title="下载和安装OpenSSL"></a>下载和安装OpenSSL</h3><p>下载其他人做的便捷版安装包  <a href="http://slproweb.com/products/Win32OpenSSL.html">http://slproweb.com/products/Win32OpenSSL.html</a></p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>配置环境变量，老生常谈，这里简单贴一下配置OPENSSL_HOME</p>
+<p>测试命令：</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">openssl <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="生成根证书私钥"><a href="#生成根证书私钥" class="headerlink" title="生成根证书私钥"></a>生成根证书私钥</h3><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">openssl genrsa -aes256 -<span class="keyword">out</span> <span class="keyword">private</span>/cakey.pem <span class="number">1024</span></span><br><span class="line"></span><br><span class="line">命令含义如下：</span><br><span class="line"></span><br><span class="line">genrsa	使用RSA算法产生私钥</span><br><span class="line">-aes256	使用<span class="number">256</span>位密钥的AES算法对私钥进行加密</span><br><span class="line">-<span class="keyword">out</span>	输出文件的路径</span><br><span class="line"><span class="number">1024</span>	指定私钥长度</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成证书请求（ca-csr"><a href="#生成证书请求（ca-csr" class="headerlink" title="生成证书请求（ca.csr)"></a>生成证书请求（ca.csr)</h3><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">openssl req -<span class="keyword">new</span> -key <span class="keyword">private</span><span class="regexp">/cakey.pem -out private/</span>ca.csr -subj “<span class="regexp">/C=CN/</span>ST=ZHEJIANG<span class="regexp">/L=HANGZHOU/</span>O=TEST<span class="regexp">/OU=mygroup/</span>CN=TEST”</span><br><span class="line"></span><br><span class="line">该命令含义如下：</span><br><span class="line">req		执行证书签发命令</span><br><span class="line">-<span class="keyword">new</span>	新证书签发请求</span><br><span class="line">-key	指定私钥路径</span><br><span class="line">-out	输出的csr文件的路径</span><br><span class="line">-subj	证书相关的用户信息(subject的缩写)</span><br><span class="line"></span><br><span class="line">备注：这里需要输入私钥密码；</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查证书请求信息"><a href="#检查证书请求信息" class="headerlink" title="检查证书请求信息"></a>检查证书请求信息</h3><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">openssl req -<span class="built_in">text</span> -<span class="keyword">in</span> ca.csr -noout</span><br></pre></td></tr></table></figure>
+
+<h3 id="自签发根证书"><a href="#自签发根证书" class="headerlink" title="自签发根证书"></a>自签发根证书</h3><figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">openssl x509 -req -days 365 -sha1 -extensions v3_ca -signkey private/cakey.pem -in private/ca.csr -out certs/ca.cer</span><br><span class="line"></span><br><span class="line">该命令的含义如下：</span><br><span class="line">x509		生成x509格式证书</span><br><span class="line"><span class="deletion">-req		输入csr文件</span></span><br><span class="line"><span class="deletion">-days		证书的有效期（天）</span></span><br><span class="line"><span class="deletion">-sha1		证书摘要采用sha1算法</span></span><br><span class="line"><span class="deletion">-extensions	 按照openssl.cnf文件中配置的v3_ca项添加扩展</span></span><br><span class="line"><span class="deletion">-signkey	 签发证书的私钥</span></span><br><span class="line"><span class="deletion">-in			要输入的csr文件</span></span><br><span class="line"><span class="deletion">-out		输出的cer证书文件</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p> 其他操作：  <a href="https://www.cxyzjd.com/article/skytering/103247128">https://www.cxyzjd.com/article/skytering/103247128</a>   </p>
+<p>SpringBoot配置文件：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">443</span></span><br><span class="line"></span><br><span class="line">server.ssl.enabled=<span class="keyword">true</span></span><br><span class="line">server.ssl.key-store= src/main/resources/server.jks</span><br><span class="line">server.ssl.key-store-password=Lzr20000306</span><br><span class="line">server.ssl.key-store-type=JKS</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<p><img src="C:\Users\13375\OneDrive\文档\学习\image-20210825213838151.png" alt="image-20210825213838151"></p>
+<p>1、如果客户端想验证服务端证书，客户端需要安装服务端的公钥文件(cer)(或者服务端证书是官方CA颁发的，客户端可以直接联网认证)，因为服务端会将自己的随机数等信息使用自己的私钥加密之后发给客户端，而客户端要想解开这些数据，必须持有服务端的公钥才可以，之后服务端验证通过。</p>
+<p>2、服务端想验证客户端证书，则需要将客户端的证书的公钥文件放到服务端trustStore信任库中，当客户端请求访问服务端时，会使用自己的私钥加密随机数、ssl版本等信息发送给服务端，服务端只有持有客户端的公钥才能解开这些数据，验证才能通过。</p>
+<p><img src="C:\Users\13375\OneDrive\文档\学习\image-20210825214437945.png" alt="image-20210825214437945"></p>
+<p>相关概念：</p>
+<p>1.kestore(密钥库)和truststore(信任库)的区别：</p>
+<p>​        Keystore，用来存放服务端证书，可以看成一个放key的库，key就是公钥，私钥，数字签名等组成的一个信息。</p>
+<p>​        Truststore是放服务端信任的客户端证书的一个store，里存放的是只包含公钥的数字证书，代表了可以信任的客户端证书，     而keystore是包含私钥的。</p>
+<p>2.证书文件 – cer文件和pfx文件的区别  <a href="https://www.cnblogs.com/lthxk-yl/archive/2013/06/03/3115273.html">https://www.cnblogs.com/lthxk-yl/archive/2013/06/03/3115273.html</a></p>
+<p>作为文件形式存在的证书一般有这几种格式：</p>
+<p>1)、带有私钥的证书</p>
+<p>​            由Public Key Cryptography Standards #12，PKCS#12标准定义，包含了公钥和私钥的二进制格式的证书形式，以pfx作 为证书文件后缀名。</p>
+<p>2)、二进制编码的证书</p>
+<p>​            证书中没有私钥，只包含公钥，DER 编码二进制格式的证书文件，以cer作为证书文件后缀名。</p>
+<p>3)、Base64编码的证书</p>
+<p>​            证书中没有私钥，只包含公钥，BASE64 编码格式的证书文件，也是以cer作为证书文件后缀名。</p>
+<p>链接： <a href="https://blog.csdn.net/weixin_41917987/article/details/80988197?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control">https://blog.csdn.net/weixin_41917987/article/details/80988197?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control</a></p>
+]]></content>
       <categories>
-        <category>区块链</category>
+        <category>奇巧淫技</category>
       </categories>
       <tags>
-        <tag>区块链</tag>
+        <tag>http</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阅后即焚（二）</title>
+    <url>/2021/10/25/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="阅后即焚（二）"><a href="#阅后即焚（二）" class="headerlink" title="阅后即焚（二）"></a>阅后即焚（二）</h1><p><img src="t013bded924a0683af3.jpg" alt="t013bded924a0683af3"></p>
+<p>相寻梦里路，飞雨落花中。                   ——  晏几道</p>
+<p>很满足现在的生活，虽然因为疫情导致不能够去自己想去的地方。但是，似乎每天就这样的和舒服的人一起聊聊天，吹吹牛逼，也是真的不错。昨天晚上做了美梦，好久没有像现在记住这个梦很清晰的感觉了，只能说“小小美梦，大大知足”了。我不算什么大报复的人，只想着平平淡淡就好了……</p>
+]]></content>
+      <categories>
+        <category>阅后即焚</category>
+      </categories>
+      <tags>
+        <tag>emo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阅后即焚（三）</title>
+    <url>/2021/10/26/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="阅后即焚（三）"><a href="#阅后即焚（三）" class="headerlink" title="阅后即焚（三）"></a>阅后即焚（三）</h1><p><img src="t012cde4a5058c156b7.jpg" alt="t012cde4a5058c156b7">  </p>
+<p>人啊！还是得学习，每一个人可能学习的条件，学习得快慢，学习的时间，都是不一样的。但是，我觉得只要是在学习，应该就不负此生了！   </p>
+<p>最近，我发现自己真的有点想家了，和家人一视频通话就会两个多小时，没什么话了也不想挂断。真脆弱啊！</p>
+]]></content>
+      <categories>
+        <category>阅后即焚</category>
+      </categories>
+      <tags>
+        <tag>emo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阅后即焚（五）</title>
+    <url>/2021/11/01/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%BA%94%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="阅后即焚（五）"><a href="#阅后即焚（五）" class="headerlink" title="阅后即焚（五）"></a>阅后即焚（五）</h1><p><img src="t018876a3f70d817127.jpg" alt="t018876a3f70d817127"></p>
+<p>这是两天的快乐，很快乐！！！！！！！！</p>
+<p>和小赵聊了好久，很开心！十一月了啊，时间过得飞快，有点像是快乐推着过日子。</p>
+<p>今天和小陈讨论一下我的近况，说是有点在像吃狗粮，很开心却夹杂着一些算是担忧的东西，自己控制不住的想，倒是有点忧来忧去的意思了。为什么担忧呢？大概有几点吧，其一便是这种日子会持续多久呢？其二她对我感觉呢？其三未来呢？其四，没有了，想不到了。</p>
+<p>今天看了陶白白的星座分析，之前我一直是弃之以鼻的，“我命由我不由天”，讲真，星座这东西大多数还是一群的共性特征进行总结，它囊括的点有很多，说的也是很含糊，和算命算我去当兵会有很好的发展一样。挑好的给长辈听，自然万事大吉。转念一想，既然是共性，应该她也会这样吧。</p>
+<p>很不巧的事情发生了，我忘记了她的生日。她之前和我说，“你生日我还给你发祝福呢，你没有回我，我记仇了”。老脸一红，现在连的生日都忘记了，真是该死！看了看大致的月份星座，记住了一大堆，一大坨如何。害，去他的，看不下去，她是她，真的如何不都是妄想嘛。</p>
+<p>还是很对不住，忘记了生日！淦</p>
+<p>和小陈分享，一派胡言乱语，似乎成了长性。但，回想起来之间的故事，想想真的很幸福！</p>
+<p>遛弯，互送礼物，定时闹钟……真一切都是在我的身上发生的吗？我真的有这么幸运吗？在我看来怕是自己疯了，而都是这么真真切的存在着。</p>
+<p>关于担忧，不想去想清楚，想明白问题就不是我了。一个巨大的迷宫，身边的一个个物品全都变大，不给我留下一丝空间，抬头看看互相拥挤的出来的缝隙，无法呼吸，头疼欲裂。这是小时的噩梦，我不想。似乎和之前的文笔不尽相似，是我的好心情了。</p>
+<p>“慢慢来”</p>
+<p>这应该就是我最好的方法，不尽感谢！</p>
+]]></content>
+      <categories>
+        <category>阅后即焚</category>
+      </categories>
+      <tags>
+        <tag>emo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阅后即焚（四）</title>
+    <url>/2021/10/29/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="阅后即焚（四）"><a href="#阅后即焚（四）" class="headerlink" title="阅后即焚（四）"></a>阅后即焚（四）</h1><p><img src="t01ef885bbe6f31d21d.jpg" alt="t01ef885bbe6f31d21d"></p>
+<hr>
+<p>　　<code>感情</code>这东西很神奇，最近又开始在晚上想很多，想和她的未来，想自己真的可以配上她吗，会有什么样的结果。这种感觉好受也不好受，过着平庸的生活却有着这些很奇妙的幻想啊！</p>
+<p>　　有时候想些这样的事情，真的好累。</p>
+<p>　　正值秋天，这周的天气真的好棒！每天都有太阳，有微风，拖了把椅子坐在窗前，晒着太阳，傻傻的等待着消息回复。看着窗外的明媚，想着心里的故事，似乎可以一直这样真的很好啊！前两天她和我说，想和我出去溜溜弯，心里很开心，我是一个内敛的人，至少在她的面前是这样的。活脱脱一个闷骚的男生，有的话我真的不知道怎么表达，心里也很珍惜这一段关系，害怕自己的某一句，某一个过分的举动，伤害到了这段感情。</p>
+<hr>
+<p>　　*我视她如珍宝… *🚬</p>
+<hr>
+<p>　　又是这样的一个下午，想着未来，想着一些虚无缥缈。她给我带来的感觉，我不知是否得当，但是要是想描述的话，和我第一次追女生的感觉是一模一样。胆小怯懦，不可言喻。应该是不得当的，至少这样的对比是不值当的。第一次见她是什么样的呢，问自己这个问题，怎么在酒桌上的情场高手，当遇到了却不知道用什么言语来形容了呢？确实，用什么描述呢。那是一场集体活动军训，不是一个专业，学校的安排是不同院系在一起集训。就这样我们被分在了同一个小组里，当看她的第一秒，我就和旁边的好友说道“真好看啊！”没错，很俗套的遇见，被吸引，想表现自己。现在想想，就算记性在不好的我，也觉得很好看！</p>
+<p>　　<em>枯燥的训练项目，令大家生厌，但她依旧每天带着笑容，我不敢直视，那是心中的太阳！</em></p>
+<p>　　在一次的无聊的等待期间，大家玩起了真心话，那也是我第一次和她说话。轮到我说自己的真心话，阐述了高中时候是怎么把女生气哭的，怎么样自己不知所措，就和她坐着一起哭的。描述了自己追高中女孩子，追了三年多依旧没有什么回应的真心话。我也不知道，自己怎么就在那时候说了这些酒桌上的茶余饭后的故事，可能就是想把自己的故事和她分享，让她对于我有点兴趣吧。仅仅这样罢了。</p>
+<p>　　当时她问我“那如果那个女孩子回来找你，你还会怎么样的面对？”，不知道为什么，对于这个问题还是记忆满深刻的，“如果她回来，我依旧会接受，无论她经历了什么”。真的，那时候或者说，半年前我依旧是这样想的，对于那段感情，尽管不美好，我还是不会去忘记。青春的痕迹，不似伤害在身体上留下了痕迹，它在心里让我珍藏。写到这，倒是显得我很渣男了，为什么口头说着喜欢，心里面还在想着另一段的感情？要是这么问，我也不知道应该如何回复了，这就是我吧，对于这些事情，很难遗忘。</p>
+<p>　　不知道我这样回答给了她算是怎么样的感觉，没有在继续问下去了。不在言语了。我想应该到此为止了，毕竟这番话出来应该就是“渣男”石锤了。</p>
+<p>　　后来啊，班长一直怂恿我主动一些，为什么有感觉却不想表达呢？嗯，我害怕！没有什么多余的借口，单单是因为自己害怕。“我这么让你怕吗？”讲真的，还真有一点。这种感觉很奇怪就像是自己心里有什么很柔软的地方，不想展现出来，不想让他们触碰一样！她在我心里一直是如此的完美的，白月光，朱砂痣。我又是一个如此肮脏的人，一直信奉着，“只要两个人互相靠近，就一定会有伤害”。我不想存在这样的伤害，就会主动的离开，不去有什么进一步的关系导致我们的关系如何如何的。这就是我心里怕，以及最为柔软的地方。</p>
+<p>　　在这个时间，我打破了所有的懦弱的想法。曾有朋友对我说“既然你觉得你们之间是存在缘分的，那又为什么选择放弃，选择离开，你不去抓住这份缘分，未来可能真的就再也找不到了！”是很有道理的一段话，我想让自己逐渐变得更好，不想让自己身边的人一个个离开，我想拥她入怀，抓住这份缘分。</p>
+<p>　　命运啊，我真的有多希望你能听到我这番话，帮我一把，从这深渊之中把我救出，得到一份属于自己的爱。不求这份爱的天长地久，珍惜这个过程，就已经很知足了。</p>
+<p>　　回归上文，在班长的鼓励下，那时候我开始和她交流，发现我们的爱好是如何的相似，之间的观念是那么的想像，就好像世界上真的就是在等着她来到一样。过了一段时间，我发现自己有一些无趣，觉得我要是一个女生也会觉得自己很无趣。我是一个保守派，至少这样看来没有什么问题的，不会说话，不会浪漫，不会有什么对于爱意的表达，每天就是问候，聊聊自己的生活。也就是这样了，她会听我的这番唠叨，听我的故事，和我分享她的世界。由此滋生的是我对于自己的复面情绪，对于自己行为一切一切的否认，我一直以来不认为自己是一个“好人”，有很多的很多的毛病，甚至有些小人得志的意味，我想做一个真正的自己，却一直不能做成自己。只能越发觉得自己真的有一些差劲。</p>
+<p>　　选择了逃离，这是我常用的一个办法了，“逃避虽然可耻，但是却很有效果”。我选择了淡出她的世界，看来也就是这个程度了，也就到这了，在她的心里应该算是留下一个好的印象，就这样的不体面的不辞而别。我不在联系她，那时候的想法真的很多单纯，愚蠢。</p>
+<p>我想有一个人和我聊聊天说说话，和我分享她的生活，她的世界。但是，我却在刚有起色的时候，选择了逃离。</p>
+<p>什么狗屁想法，这一切的来源只不过全是我自己罢了，自作自受罢了。</p>
+<p>　　没有什么华丽的词藻，只是很平淡地把自己内心的一切想法，一五一十地全全托出。我喜欢听毛不易的《平凡的一天》，那是我真的渴求的日子，平平凡凡地度过自己的生活，就是仅仅而已。</p>
+<p>　　之前的一些故事到这里大致就一一告落了，我和她在那时就没有什么了联系，开始了结束了一场由自己主导主演的电影，也认清了自己的软弱。这场称不上喜剧还是悲剧的故事，一顿操作下，没有了结尾。</p>
+<p>　　前些日子她突然找我问一个学校的问题，那个时候，我想起了以前的日子，一段没有结束的日子。我想应该好好地面对自己了，真心地去面对她了。再一次开始了和她的联系，我想紧紧地抓住这份缘分，这次我不会想有没有什么结果了，我只想和她好好地做一次朋友，做一次真正的自己，直视自己，直视她，表达自己的想法感觉。</p>
+<p>　　一点点地变化，一点点地不敷衍回复一个“确实”，一点点地和她分享我的生活，一点点地了解她的生活。一开始我还有点控制不住自己的感情，想把整个人都拿出来让她了解，感谢她的理性，感谢她对于我的一些问题的指出，这么说起来倒是有一点老师的感觉了。也确实这样的感觉，目前我觉得很棒！我不能有什么奢望，不是害怕得不到什么回馈，我真的真的只是害怕失去这个朋友，失去这个和我聊得来的人……</p>
+<p>​        写出来这么多，心里也真是很舒服呢，就到这里吧，变成一个更好的自己，让她接受的一个自己。</p>
+<p>　　晚安，好梦！☽</p>
+<hr>
+<p>用一首歌词作为结尾吧！</p>
+<blockquote>
+<p>And when i think<br>当我想起</p>
+<p>of everything that we did together<br>那些我们一起的时光</p>
+<p>Somewhere in Verona<br>在维罗那的某处</p>
+<p>The sun set over our time together<br>一起度过日落时分</p>
+<p>Thinking it over<br>几番回想</p>
+<p>So young and sentimental<br>如此年轻，如此多情</p>
+<p>Our hearts so gentle<br>我们的心却是那么温柔</p>
+<p>Such a shame we had to drift apart<br>多遗憾我们不得不渐行渐远</p>
+<p>Oh…<br>Oh…</p>
+<p>but I can’t help just wonder<br>总情不自禁地去想</p>
+<p>Could we really last forever?<br>我们能一直走下去吗</p>
+<p>I watch the sunset and something’s telling me that I gotta get up and chase it<br>我看着日落，某种声音告诉我，我得奋起去追逐</p>
+<p>Day of transit<br>车上奔波的一天</p>
+<p>The gentle weight of your head on my shoulder<br>感受你将头轻轻靠在我肩膀上的重量</p>
+<p>I wake you at the last stop<br>在最后一站把你唤醒</p>
+<p>Your sleepy eyes in the gloomy weather<br>阴郁天气里，你惺忪的睡眼</p>
+<p>Raining in Florence<br>佛罗伦萨那场雨</p>
+<p>Your cold hands and your wet hair<br>你冰凉的手掌和淋湿的头发</p>
+<p>While we’re cursing<br>我们抱怨着</p>
+<p>Cheap umbrellas trying to get home<br>撑着廉价的雨伞想要赶回家</p>
+<p>Now we’re written in history<br>现在那都是我们的回忆了</p>
+<p>We close the book we opened up<br>我们打开了这本书，又亲手把它合上</p>
+<p>There will always be a place in my heart<br>但我的心里永远有一块位置属于你</p>
+<p>But baby can’t you see we were meant to fall apart…<br>亲爱的，难道你不知道我们注定要分离…</p>
+<p>We gave it up<br>我们放弃了</p>
+<p>Who would have thought love wasn’t enough<br>谁又能曾想到，只有爱是不够的</p>
+<p>In the end we’d say:<br>最终我们只能告别</p>
+<p>“Bye my love, guess I’ll see you someday…”<br>再见了，我的爱，可能某天我们还会遇见…</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>阅后即焚</category>
+      </categories>
+      <tags>
+        <tag>emo</tag>
       </tags>
   </entry>
   <entry>
@@ -311,514 +819,6 @@
       </categories>
       <tags>
         <tag>Fabric</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Xshell、Idea与虚拟机Ubuntu连接</title>
-    <url>/2021/10/24/Xshell%E3%80%81Idea%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E8%BF%9E%E6%8E%A5/</url>
-    <content><![CDATA[<h1 id="Xshell、Idea与虚拟机Ubuntu连接"><a href="#Xshell、Idea与虚拟机Ubuntu连接" class="headerlink" title="Xshell、Idea与虚拟机Ubuntu连接"></a>Xshell、Idea与虚拟机Ubuntu连接</h1><h2 id="一、安装-Ubuntu-虚拟机"><a href="#一、安装-Ubuntu-虚拟机" class="headerlink" title="一、安装 Ubuntu 虚拟机"></a>一、安装 Ubuntu 虚拟机</h2><p>默认VMware的网路是NAT模式，保持不变即可。获取宿主机以及虚拟机 IP 地址。</p>
-<h2 id="二、建立-IP-映射"><a href="#二、建立-IP-映射" class="headerlink" title="二、建立 IP 映射"></a>二、建立 IP 映射</h2><p>将<strong>宿主机</strong>和<strong>虚拟机</strong>的IP映射起来。</p>
-<p>打开VMware的<strong>虚拟网络编辑器</strong>（编辑&gt;虚拟网络编辑器）：</p>
-<p><img src="image-20211024092338034.png" alt="image-20211024092338034"></p>
-<p>选择 <strong>VMnet8 <strong>，点击</strong>更改设置</strong></p>
-<p><img src="image-20211024092359845.png" alt="image-20211024092359845"></p>
-<p>选择 <strong>VMnet8</strong> ，点击 <strong>NAT 设置</strong></p>
-<p><img src="image-20211024092422869.png" alt="image-20211024092422869"></p>
-<p>点击<strong>添加</strong></p>
-<p><img src="image-20211024092439004.png" alt="image-20211024092439004"></p>
-<ol>
-<li>主机端口，填写默认 22 即可</li>
-<li>填入之前查到的虚拟机 IP 地址</li>
-<li>虚拟机端口，填写默认的 22 即可</li>
-</ol>
-<p>相当于将 <strong>宿主机 IP （192.168.80.106:22）</strong> 与<strong>虚拟机 IP （192.168.240.129:22)</strong> 建立起了映射关系。</p>
-<h2 id="三、配置虚拟机SSH"><a href="#三、配置虚拟机SSH" class="headerlink" title="三、配置虚拟机SSH"></a>三、配置虚拟机SSH</h2><ol>
-<li><strong>安装openssh-client：</strong>sudo apt-get install openssh-client</li>
-<li><strong>安装openssh-server：</strong>sudo apt-get install openssh-server</li>
-<li><strong>启动ssh-server：</strong>sudo /etc/init.d/ssh restart</li>
-<li><strong>确认ssh-server工作正常：</strong>netstat -tpl （看到ssh表示工作正常）</li>
-</ol>
-<h2 id="四、配置虚拟机防火墙"><a href="#四、配置虚拟机防火墙" class="headerlink" title="四、配置虚拟机防火墙"></a>四、配置虚拟机防火墙</h2><p>启用22端口并重启防火墙：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> firewall-cmd --permanent --add-port=22/tcp</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> firewall-cmd --reload</span></span><br></pre></td></tr></table></figure>
-
-<p>或者直接关闭防火墙：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> systemctl stop firewalld.service</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="五、使用-shell-连接虚拟机"><a href="#五、使用-shell-连接虚拟机" class="headerlink" title="五、使用 shell 连接虚拟机"></a>五、使用 shell 连接虚拟机</h2><p><img src="image-20211024092805617.png" alt="image-20211024092805617"></p>
-<h2 id="六、配置-Idea-连接虚拟机"><a href="#六、配置-Idea-连接虚拟机" class="headerlink" title="六、配置 Idea 连接虚拟机"></a>六、配置 Idea 连接虚拟机</h2><h3 id="在-Idea-上面点击如下菜单：Tools—Deployment—Configuration…"><a href="#在-Idea-上面点击如下菜单：Tools—Deployment—Configuration…" class="headerlink" title="在 Idea 上面点击如下菜单：Tools—Deployment—Configuration…"></a>在 Idea 上面点击如下菜单：Tools—Deployment—Configuration…</h3><p><img src="image-20211024093004450.png" alt="image-20211024093004450"></p>
-<h3 id="新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK"><a href="#新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK" class="headerlink" title="新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK"></a>新增一台虚拟机，输入名称，选择SFTP协议，输入IP地址、代码路径、账号密码，点击OK</h3><p><img src="image-20211024093047226.png" alt="image-20211024093047226"></p>
-<h3 id="点击Tools—Deployment—Browse-RemoteHost"><a href="#点击Tools—Deployment—Browse-RemoteHost" class="headerlink" title="点击Tools—Deployment—Browse RemoteHost"></a>点击Tools—Deployment—Browse RemoteHost</h3><p><img src="image-20211024093145068.png" alt="image-20211024093145068"></p>
-<h3 id="右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机"><a href="#右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机" class="headerlink" title="右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机"></a>右侧会出现对应的代码路径，修改完代码之后，可以点击右上角的upload图标，将代码上传到虚拟机</h3><p><img src="image-20211024093210893.png" alt="image-20211024093210893"></p>
-<h3 id="点击Tools—Start-SSH-session…可以打开远程界面"><a href="#点击Tools—Start-SSH-session…可以打开远程界面" class="headerlink" title="点击Tools—Start SSH session…可以打开远程界面"></a>点击Tools—Start SSH session…可以打开远程界面</h3><p><img src="image-20211024093255417.png" alt="image-20211024093255417"></p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这样就可以在宿主机连接到虚拟机进行代码编辑，并且上传了。</p>
-]]></content>
-      <categories>
-        <category>奇巧淫技</category>
-      </categories>
-      <tags>
-        <tag>ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>阅后即焚（二）</title>
-    <url>/2021/10/25/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="阅后即焚（二）"><a href="#阅后即焚（二）" class="headerlink" title="阅后即焚（二）"></a>阅后即焚（二）</h1><p><img src="t013bded924a0683af3.jpg" alt="t013bded924a0683af3"></p>
-<p>相寻梦里路，飞雨落花中。                   ——  晏几道</p>
-<p>很满足现在的生活，虽然因为疫情导致不能够去自己想去的地方。但是，似乎每天就这样的和舒服的人一起聊聊天，吹吹牛逼，也是真的不错。昨天晚上做了美梦，好久没有像现在记住这个梦很清晰的感觉了，只能说“小小美梦，大大知足”了。我不算什么大报复的人，只想着平平淡淡就好了……</p>
-]]></content>
-      <categories>
-        <category>阅后即焚</category>
-      </categories>
-      <tags>
-        <tag>emo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Fabric-Go-SDk 学习（一）</title>
-    <url>/2021/10/25/Fabric-Go-SDk-%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="Fabric-Go-SDk-学习（一）"><a href="#Fabric-Go-SDk-学习（一）" class="headerlink" title="Fabric-Go-SDk 学习（一）"></a>Fabric-Go-SDk 学习（一）</h1><p><img src="t012bfb923747f02480.jpg" alt="t012bfb923747f02480"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为最近公司让我去学习 Hyperledger Fabric 并且用这个玩应儿和他的 Go SDK 做一个区块链浏览器，所以就有了这一阶段的学习。惯例吐槽一顿，按理说，Fabric本身都是用 Golang 开发的，那么 fabric-sdk-go 作为其亲儿子，功能应该是最为完善的，哈哈哈，事与愿违，Golang 版本的 sdk 反而是最不完备的，开发进度滞后，功能缺失。只能说，文档全是代码，一句介绍就完事了，真是有够简介的呢，草！</p>
-<p>网上有较多的学习方式都是借鉴 nodejs 版本的 sdk ，但是，我也没有深入的学习了解。换句话来说就是，有什么需求，我就去完成什么样的功能，石锤的工具人了!</p>
-<h2 id="大致说明"><a href="#大致说明" class="headerlink" title="大致说明"></a>大致说明</h2><p>GO SDK 还有很多的包，包里面也有乱七八糟的功能：</p>
-<ul>
-<li>pkg/fabsdk：主 package，主要用来生成 fabsdk 以及各种其他 pkg 使用的 option context (上下文)， 这些上下文由下面列出的客户端软件包使用。</li>
-<li>pkg/client/channel：主要用来调用、查询链码，或者注册链码事件，提供频道交易相关功能。</li>
-<li>pkg/client/resmgmt：主要用来 fabric 网络的管理，比如创建、加入通道，安装、实例化和升级链码。</li>
-<li>pkg/client/event：配合 channel 模块来进行链码事件注册和过滤。</li>
-<li>pkg/client/ledger：主要用来账本的查询，查询区块、交易、配置等。</li>
-<li>pkg/client/msp：主要用来管理 fabric 的成员关系，身份管理相关功能。</li>
-</ul>
-<p>一般情况的时候，使用这几个包就差不多完事了，够用！</p>
-<h2 id="大致开发流程"><a href="#大致开发流程" class="headerlink" title="大致开发流程"></a>大致开发流程</h2><ol>
-<li>使用配置实例化 fabsdk 实例。</li>
-<li>使用 fabsdk 实例，基于用户和组织创建上下文</li>
-<li>使用 New func 创建客户端实例，传递上下文。</li>
-<li>使用每个客户提供的功能。</li>
-<li>调用 fabsdk.Close（）来释放资源和缓存。</li>
-</ol>
-<p>用官网给的一个例子：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestLedgerClientQueries</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	<span class="comment">// Using shared SDK instance to increase test speed.</span></span><br><span class="line">	sdk := mainSDK</span><br><span class="line">	testSetup := mainTestSetup</span><br><span class="line"></span><br><span class="line">	<span class="comment">//prepare contexts</span></span><br><span class="line">	org1AdminChannelContext := sdk.ChannelContext(testSetup.ChannelID, fabsdk.WithUser(org1AdminUser), fabsdk.WithOrg(org1Name))</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Ledger client</span></span><br><span class="line">	client, err := ledger.New(org1AdminChannelContext)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		t.Fatalf(<span class="string">&quot;Failed to create new resource management client: %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ledgerInfo, err := client.QueryInfo()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		t.Fatalf(<span class="string">&quot;QueryInfo return error: %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>就可发现真的很好的说明了上面的过程，good！</p>
-<h2 id="Go-SDK-包的学习"><a href="#Go-SDK-包的学习" class="headerlink" title="Go SDK 包的学习"></a>Go SDK 包的学习</h2><p>只是一个大概的说明，具体的功能还是直接去查官网。</p>
-<h3 id="pkg-fabsdk-fabsdk-包"><a href="#pkg-fabsdk-fabsdk-包" class="headerlink" title="pkg/fabsdk fabsdk 包"></a>pkg/fabsdk fabsdk 包</h3><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>主 package，主要用来生成 fabsdk 以及各种其他 pkg 使用的 option context (上下文)， 这些上下文由下面列出的客户端软件包使用。</p>
-<p>官网：<a href="https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/fabsdk">https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/fabsdk</a></p>
-<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><ol>
-<li><code>var ErrAnonymousIdentity = errors.New(&quot;missing credentials&quot;)</code> ：当身份创建选项既不包含用户名也不包含身份时，将返回ErrAnonymousIdentity。</li>
-</ol>
-<h4 id="类型-ContextOption"><a href="#类型-ContextOption" class="headerlink" title="类型 ContextOption"></a>类型 ContextOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> ContextOption <span class="function"><span class="keyword">func</span><span class="params">(s *identityOptions)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><code>type ContextOption func(s *identityOptions) error: ContextOption</code>：提供用于创建会话的参数（主要来自结构标识/用户）。</li>
-<li><code>func WithIdentity(signingIdentity msp.SigningIdentity) ContextOption</code>： WithIdentity 使用预先构造的身份对象作为会话的凭证。</li>
-<li><code>func WithOrg(org string) ContextOption</code>： WithOrg 使用指定的组织。</li>
-<li><code>func WithUser(username string) ContextOption</code>：WithUser 使用指定用户加载标识/身份。</li>
-</ol>
-<h4 id="类型-FabricSDK"><a href="#类型-FabricSDK" class="headerlink" title="类型 FabricSDK"></a>类型 FabricSDK</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> FabricSDK <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// contains filtered or unexported fields</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>FabricSDK 为 SDK 管理的客户端提供访问（和上下文）。</li>
-<li><code>func New(configProvider core.ConfigProvider, opts ...Option) (*FabricSDK, error)</code>： New 根据提供的选项集初始化 SDK ， ConfigOptions提供应用程序配置。</li>
-<li><code>func (sdk *FabricSDK) ChannelContext(channelID string, options ...ContextOption) contextApi.ChannelProvider</code>：ChannelContext 创建并返回频道上下文。</li>
-<li><code>func (sdk *FabricSDK) Close()</code>：关闭释放 SDK 维护的缓存和连接。</li>
-<li><code>func (sdk *FabricSDK) Config() (core.ConfigBackend, error)</code>：Config 返回所有 SDK 配置类型使用的配置后端。</li>
-<li><code>func (sdk *FabricSDK) Context(options ...ContextOption) contextApi.ClientProvider</code>： Context 创建并返回具有所有必需提供者的上下文客户端。</li>
-</ol>
-<h4 id="类型-Option"><a href="#类型-Option" class="headerlink" title="类型 Option"></a>类型 Option</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Option <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><code>type Option func(opts *options) error</code>：选项配置 SDK。</li>
-<li><code>func WithCorePkg(core sdkApi.CoreProviderFactory) Option</code>：WithCorePkg 将核心实现注入 SDK。</li>
-<li><code>func WithCryptoSuiteConfig(cryptoConfigs ...interface&#123;&#125;) Option</code>： WithCryptoSuiteConfig 向 SDK 注入。CryptoSuiteConfig 接口，它接受 CryptoSuiteConfig 的完整接口或每个实现 CryptoSuiteConfig 的一个（或多个）功能的子接口列表。</li>
-<li><code>func WithEndpointConfig(endpointConfigs ...interface&#123;&#125;) Option</code>：WithEndpointConfig 向 SDK 注入EndpointConfig 接口，它接受 EndpointConfig 的完整接口或每个实现 EndpointConfig 的一个（或多个）功能的子接口列表。</li>
-<li><code>func WithIdentityConfig(identityConfigs ...interface&#123;&#125;) Option</code>： WithIdentityConfig 向 SDK 注入IdentityConfig 接口，它接受 IdentityConfig 的完整接口或每个实现 IdentityConfig 的一个（或多个）功能的子接口列表。</li>
-<li><code>func WithLoggerPkg(logger api.LoggerProvider) Option</code>： WithLoggerPkg 将日志记录器实现注入到 SDK 中。</li>
-<li><code>func WithMSPPkg(msp sdkApi.MSPProviderFactory) Option</code>： WithMSPPkg 将 MSP 实现注入 SDK。</li>
-<li><code>func WithServicePkg(service sdkApi.ServiceProviderFactory) Option</code>： WithServicePkg 将服务实现注入 SDK。</li>
-</ol>
-<h3 id="pkg-client-channel-channel-包"><a href="#pkg-client-channel-channel-包" class="headerlink" title="pkg/client/channel channel 包"></a>pkg/client/channel channel 包</h3><h4 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h4><p>主要用来调用、查询链码，或者注册链码事件，提供频道交易相关功能。</p>
-<p>官网：<a href="https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/client/channel">https://pkg.go.dev/github.com/hyperledger/fabric-sdk-go@v1.0.0/pkg/client/channel</a></p>
-<p>允许访问 Fabric 网络上的通道。通道客户端实例提供了一个处理程序来与指定通道上的对等点进行交互。通道客户端可以在特定通道上查询链码、执行链码和注册/取消注册链码事件。需要与多个通道交互的应用程序应该为每个通道创建一个单独的通道客户端实例。</p>
-<h4 id="类型-Client"><a href="#类型-Client" class="headerlink" title="类型 Client"></a>类型 Client</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Client <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// contains filtered or unexported fields</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>客户端可以访问Fabric网络上的通道。通道客户端实例提供处理程序以与指定通道上的对等方交互。 需要与多个通道交互的应用程序应为每个通道创建一个单独的通道客户端实例。 通道客户端仅支持非管理功能。</p>
-<ol>
-<li><code>func New(channelProvider context.ChannelProvider, opts ...ClientOption) (*Client, error)</code>：New 返回一个 Client 实例。通道客户端可以在特定通道上查询链码、执行链码和注册/取消注册链码事件。</li>
-<li><code>func (cc *Client) Execute(request Request, options ...RequestOption) (Response, error)</code>：Execute （执行）使用请求和可选请求选项准备和执行事务。参数：请求包含有关强制链代码ID和功能的信息， options 包含可选的请求选项。返回：来自 peer 的提案回复。</li>
-<li><code>func (cc *Client) InvokeHandler(handler invoke.Handler, request Request, options ...RequestOption) (Response, error)</code>：InvokeHandler （调用处理程序）使用提供的请求和可选请求选项来调用处理程序。参数：<br>要调用的处理程序，请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
-<li><code>func (cc *Client) Query(request Request, options ...RequestOption) (Response, error)</code>：Query （查询）使用请求和可选请求选项查询链代码。参数：请求包含有关强制链代码 ID 和功能的信息，options 包含可选的请求选项。返回：来自peer的提案回复。</li>
-<li><code>func (cc *Client) RegisterChaincodeEvent(chainCodeID string, eventFilter string) (fab.Registration, &lt;-chan *fab.CCEvent, error)</code>：RegisterChaincodeEvent（注册链码事件）注册链代码事件。 不再需要注册时，必须调用取消注册。参数：chaincodeID 是要为其接收事件的链代码 ID ，eventFilter 是要为其接收事件的 chaincode 事件过滤器（正则表达式）。返回：注册和用于接收事件的频道。 调用取消注册时，通道将关闭。</li>
-<li><code>func (cc *Client) UnregisterChaincodeEvent(registration fab.Registration)</code>：UnregisterChaincodeEvent（注销链码事件）删除给定的链码事件注册并关闭事件通道。参数：RegisterChaincodeEvent 方法返回的句柄。</li>
-</ol>
-<h4 id="类型-RequestOption"><a href="#类型-RequestOption" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> ClientOption <span class="function"><span class="keyword">func</span><span class="params">(*Client)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
-
-<p>ClientOption 描述了 New 构造函数的功能参数</p>
-<h4 id="类型-Request"><a href="#类型-Request" class="headerlink" title="类型 Request"></a>类型 Request</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Request <span class="keyword">struct</span> &#123;</span><br><span class="line">	ChaincodeID  <span class="keyword">string</span></span><br><span class="line">	Fcn          <span class="keyword">string</span></span><br><span class="line">	Args         [][]<span class="keyword">byte</span></span><br><span class="line">	TransientMap <span class="keyword">map</span>[<span class="keyword">string</span>][]<span class="keyword">byte</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// InvocationChain contains meta-data that&#x27;s used by some Selection Service implementations</span></span><br><span class="line">	<span class="comment">// to choose endorsers that satisfy the endorsement policies of all chaincodes involved</span></span><br><span class="line">	<span class="comment">// in an invocation chain (i.e. for CC-to-CC invocations).</span></span><br><span class="line">	<span class="comment">// Each chaincode may also be associated with a set of private data collection names</span></span><br><span class="line">	<span class="comment">// which are used by some Selection Services (e.g. Fabric Selection) to exclude endorsers</span></span><br><span class="line">	<span class="comment">// that do NOT have read access to the collections.</span></span><br><span class="line">	<span class="comment">// The invoked chaincode (specified by ChaincodeID) may optionally be added to the invocation</span></span><br><span class="line">	<span class="comment">// chain along with any collections, otherwise it may be omitted.</span></span><br><span class="line">	InvocationChain []*fab.ChaincodeCall</span><br><span class="line">	IsInit          <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Request 包含查询和执行调用事务的参数。</p>
-<h4 id="类型-RequestOption-1"><a href="#类型-RequestOption-1" class="headerlink" title="类型 RequestOption"></a>类型 RequestOption</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> RequestOption <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Client, opts *requestOptions)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
-
-<p>每个 Opts 参数的 RequestOption func。</p>
-<ol>
-<li><code>func WithBeforeRetry(beforeRetry retry.BeforeRetryHandler) RequestOption</code>：WithBeforeRetry （重试前）指定在重试尝试之前调用的函数。</li>
-<li><code>func WithChaincodeFilter(ccFilter invoke.CCFilter) RequestOption</code>：WithChaincodeFilter （链码过滤器）添加了一个链代码过滤器，用于计算额外的背书人。</li>
-<li><code>func WithParentContext(parentContext reqContext.Context) RequestOption</code>：WithParentContext（带父上下文）封装了 grpc 父上下文。</li>
-<li></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Go</category>
-      </categories>
-      <tags>
-        <tag>Fabric</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>阅后即焚（三）</title>
-    <url>/2021/10/26/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="阅后即焚（三）"><a href="#阅后即焚（三）" class="headerlink" title="阅后即焚（三）"></a>阅后即焚（三）</h1><p><img src="t012cde4a5058c156b7.jpg" alt="t012cde4a5058c156b7">  </p>
-<p>人啊！还是得学习，每一个人可能学习的条件，学习得快慢，学习的时间，都是不一样的。但是，我觉得只要是在学习，应该就不负此生了！   </p>
-<p>最近，我发现自己真的有点想家了，和家人一视频通话就会两个多小时，没什么话了也不想挂断。真脆弱啊！</p>
-]]></content>
-      <categories>
-        <category>阅后即焚</category>
-      </categories>
-      <tags>
-        <tag>emo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我奶奶都懂 HTPPS</title>
-    <url>/2021/10/26/%E6%88%91%E5%A5%B6%E5%A5%B6%E9%83%BD%E6%87%82-HTPPS/</url>
-    <content><![CDATA[<h1 id="我奶奶都懂HTTPS"><a href="#我奶奶都懂HTTPS" class="headerlink" title="我奶奶都懂HTTPS"></a>我奶奶都懂HTTPS</h1><p><img src="t0198c41bad7f0e2cde.jpg" alt="t0198c41bad7f0e2cde"></p>
-<h2 id="HTTPS-概述"><a href="#HTTPS-概述" class="headerlink" title="HTTPS 概述"></a>HTTPS 概述</h2><p>HTTPS（全称：Hyper Text Transfer Protocol over <strong>Secure Socket Layer</strong> 或 Hypertext Transfer Protocol Secure，超文本传输安全协议），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。</p>
-<p>就是在 HTTP 之下加进去了 SSL ，HTTPS 的安全基础就是 SSL 。 因此加密的详细内容就需要SSL</p>
-<p>HTTPS: URL表明它使用了HTTP，但HTTPS存在不同于HTTP的默认端口及一个加密/身份验证层（在HTTP与TCP之间）。</p>
-<p>HTTP默认采用80作为通讯端口，对于传输采用不加密的方式；HTTPS默认采用443，对于传输的数据进行加密传输。目前主流的网站基本上开始默认采用HTTPS作为通信方式。</p>
-<h2 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h2><p>对称加密算法的加密和解密都是用<strong>同一个密钥</strong>。</p>
-<p>如果通信双方都各自持有同一个密钥，且没有别人知道，则两方的通信安全是可以被保证的（除非密钥被破解）。</p>
-<p>然而，最大的问题就是这个密钥怎么让传输的双方知晓，同时不被别人知道。如果由服务器生成一个密钥并传输给浏览器，这个传输过程中密钥被别人劫持，之后他就能用密钥解开双方传输的任何内容。<br>如果浏览器内部预存了网站A的密钥，且可以确保除了浏览器和网站A，不会有任何外人知道该密钥，那理论上用对称加密是可以的。这样，浏览器只要预存好世界上所有HTTPS网站的密钥就可以了。显然，这样做是不现实的。<br>怎么办？解决这个问题，我们就需要非对称加密。</p>
-<p><img src="image-20211026145006146.png" alt="image-20211026145006146"></p>
-<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>非对称加密算法需要<strong>一组密钥对</strong>，分别是<strong>公钥</strong>和<strong>私钥</strong>，这两个密钥是成对出现的。</p>
-<p><strong>公钥加密的内容需要对应的私钥解密，私钥加密的内容需要对应的公钥解密</strong>。私钥由服务器自己保存，<strong>公钥发送给客户端</strong>。</p>
-<p>客户端拿到公钥后可以对请求进行加密后发送给服务端，这时候就算中间被截获，没有私钥也无法解密发送的内容，这样确保了<strong>客户端发送到服务端数据的安全</strong>。</p>
-<p><img src="image-20211026145013673.png" alt="image-20211026145013673"></p>
-<h2 id="非对称加密改良"><a href="#非对称加密改良" class="headerlink" title="非对称加密改良"></a>非对称加密改良</h2><p><img src="image-20211026145021337.png" alt="image-20211026145021337"></p>
-<p>通过一组公钥私钥，已经可以保证单个方向传输的安全性，那用两组公钥私钥，是不是就能保证双向传输都安全了？请看下面的过程：</p>
-<ol>
-<li>某网站拥有用于非对称加密的<strong>公钥A1、私钥A2</strong>；浏览器拥有用于非对称加密的<strong>公钥B1、私钥B2</strong>。</li>
-<li>浏览器向网站服务器请求，服务器把公钥A1明文传输给浏览器。</li>
-<li>浏览器把公钥B1明文传输给服务器。</li>
-<li>之后浏览器向服务器传输的所有东西都用公钥A1加密，服务器收到后用私钥A2解密。由于只有服务器拥有私钥A2进行解密，所以能保证这条数据的安全。</li>
-<li>服务器向浏览器传输的所有东西都用公钥B1加密，浏览器收到后用私钥B2解密。同上也可以保证这条数据的安全。</li>
-</ol>
-<p>可见确实可行。抛开这里面仍有的漏洞不谈（下文会讲），HTTPS的加密却没使用这种方案，为什么？最主要的原因是非对称加密算法非常耗时，特别是加密解密一些较大数据的时候有些力不从心。而对称加密快很多。那我们能不能运用非对称加密的特性解决前面提到的对称加密的问题？</p>
-<h2 id="非对称加密-对称加密"><a href="#非对称加密-对称加密" class="headerlink" title="非对称加密 + 对称加密"></a>非对称加密 + 对称加密</h2><p><img src="image-20211026145028945.png" alt="image-20211026145028945"></p>
-<p>既然非对称加密耗时，我们考虑是否可以采用非对称加密+对称加密结合的方式，而且要尽量减少非对称加密的次数。<br>非对称加密、解密各只需一次的方法：</p>
-<ol>
-<li>某网站拥有用于非对称加密的公钥A1、私钥A2。</li>
-<li>浏览器向网站服务器请求，服务器把公钥A1明文给传输浏览器。</li>
-<li>浏览器随机生成一个用于对称加密的密钥X，用<strong>公钥A1加密</strong>后传给服务器。</li>
-<li>服务器拿到后<strong>用私钥A2解密得到密钥X</strong>。</li>
-<li>这样<strong>双方就都拥有密钥X了，且别人无法知道它</strong>。之后双方所有数据都用密钥X加密解密即可。</li>
-</ol>
-<p>HTTPS基本就是采用了这种方案。但还是有漏洞的。</p>
-<h2 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h2><p><img src="image-20211026145038305.png" alt="image-20211026145038305"></p>
-<p>中间人的确无法得到浏览器生成的对称密钥X，这个密钥本身被公钥A1加密，只有服务器才能用私钥A2进行解密。然而中间人却完全不需要拿到私钥A2就能劫持信息，请看：</p>
-<ol>
-<li>某网站拥有用于非对称加密的公钥A1、私钥A2。</li>
-<li>浏览器向网站服务器请求，服务器把公钥A1明文传输给浏览器。</li>
-<li>中间人劫持到公钥A1，保存下来，把数据包中的公钥A1替换成自己伪造的公钥B1（它当然也拥有公钥B1对应的私钥B2）。</li>
-<li>浏览器随机生成一个用于对称加密的密钥X，用公钥B1（浏览器不知道公钥被替换了）加密后传给服务器。</li>
-<li>中间人劫持后用私钥B2解密得到密钥X，再用公钥A1加密后传给服务器。</li>
-<li>服务器拿到后用私钥A2解密得到密钥X。</li>
-</ol>
-<p>这样在双方都不会发现异常的情况下，中间人得到了对称密钥X。根本原因是浏览器无法确认自己收到的公钥是不是网站自己的。那么下一步就是解决这个问题：如何证明浏览器收到的公钥一定是该网站的公钥？</p>
-<h2 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h2><p>现实生活中，如果想证明某身份证号一定是小明的，怎么办？看身份证。这里政府机构起到了“公信”的作用，身份证是由它颁发的，它本身的权威可以对一个人的身份信息作出证明。互联网中也有这么一个公信机构，<strong>CA 机构</strong>。</p>
-<p>网站在使用HTTPS前，需要向“<strong>CA机构</strong>”申请颁发一<strong>数字证书</strong>，数字证书里有<strong>证书持有者、证书持有者的公钥等信息</strong>。服务器把证书传输给浏览器，浏览器从证书里取公钥就可以了。然而这里又有一个显而易见的问题：证书本身的传输过程中，如何防止被篡改？即如何证明证书本身的真实性？数字证书怎么防伪呢？</p>
-<p>服务器提交自己的基本信息想CA机构提出申请，CA机构在给服务器颁发证书的时候，会连同<strong>数字证书</strong>以及<strong>根据证书计算的摘要</strong>一同发送给服务器，且这个摘要是需要<strong>经过CA机构自己的私钥进行加密</strong>的。申请流程如下：</p>
-<p><img src="image-20211026145047559.png" alt="image-20211026145047559"></p>
-<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>我们把证书内容生成一份“签名”，比对证书内容和签名是否一致就能察觉是否被篡改。这种技术就叫数字签名。<br>下图中左侧是数字签名的制作过程，右侧是验证过程</p>
-<p><img src="image-20211026145056986.png" alt="image-20211026145056986"></p>
-<p>数字签名的制作过程：</p>
-<ol>
-<li>CA拥有非对称加密的私钥和公钥。</li>
-<li>CA对证书明文信息进行hash。</li>
-<li>对hash后的值<strong>用私钥加密</strong>，得到数字签名。</li>
-</ol>
-<p>明文和数字签名共同组成了数字证书，这样一份数字证书就可以颁发给网站了。<br>那浏览器拿到服务器传来的数字证书后，如何验证它是不是真的？（有没有被篡改、掉包）</p>
-<p>浏览器验证过程：</p>
-<ol>
-<li>拿到证书，得到明文T1，数字签名S1。</li>
-<li>用CA机构的公钥对S1解密（由于是浏览器信任的机构，所以浏览器保有它的公钥。详情见下文），得到S2。</li>
-<li>用证书里说明的hash算法对明文T1进行hash得到T2。</li>
-<li>比较S2是否等于T2，等于则表明证书可信。</li>
-</ol>
-<p>这里需要注意一点，一个是<strong>CA的公钥</strong>，内置在客户端，用来解密数字签名！另一个是<strong>目标服务器的公钥</strong>，在数字证书内容里，用来协商对称密钥！</p>
-<p><strong>为什么这样可以证明证书可信？</strong><br>假设中间人篡改了证书的原文，由于他没有CA机构的私钥，所以无法得到此时加密后签名，无法相应地篡改签名。浏览器收到该证书后会发现原文和签名解密后的值不一致，则说明证书已被篡改，证书不可信，从而终止向服务器传输信息，防止信息泄露给中间人。</p>
-<p><strong>既然不可能篡改，那如果整个证书被掉包呢？</strong><br>假设有另一个网站B也拿到了CA机构认证的证书，它想搞垮网站A，想劫持网站A的信息。于是它成为中间人拦截到了A传给浏览器的证书，然后替换成自己的证书，传给浏览器，之后浏览器就会错误地拿到B的证书里的公钥了，会导致上文提到的漏洞。<br>其实这并不会发生，因为证书里包含了网站A的信息，包括域名，浏览器把证书里的域名与自己请求的域名比对一下就知道有没有被掉包了。</p>
-<p><strong>制作数字签名时为什么需要hash一次</strong>？<br>最显然的是性能问题，前面我们已经说了非对称加密效率较差，证书信息一般较长，比较耗时。而hash后得到的是固定长度的信息（比如用md5算法hash后可以得到固定的128位的值），这样加密解密就会快很多。当然除此之外也有安全上的原因。</p>
-<p><strong>HTTPS必须在每次请求中都要先在SSL/TLS层进行握手传输密钥吗？</strong><br>显然每次请求都经历一次密钥传输过程非常耗时，那怎么达到只传输一次呢？用session就可以。<br>服务器会为每个浏览器（或客户端软件）维护一个session ID，在TSL握手阶段传给浏览器，浏览器生成好密钥传给服务器后，服务器会把该密钥存到相应的session ID下，之后浏览器每次请求都会携带session ID，服务器会根据session ID找到相应的密钥并进行解密加密操作，这样就不必要每次重新制作、传输密钥了</p>
-<h2 id="HTTPS-工作原理"><a href="#HTTPS-工作原理" class="headerlink" title="HTTPS 工作原理"></a>HTTPS 工作原理</h2><p><img src="image-20211026145107011.png" alt="image-20211026145107011"></p>
-<ol>
-<li>client向server发送请求<a href="https://baidu.com,然后连接到server的443端口./">https://baidu.com，然后连接到server的443端口。</a></li>
-<li>服务端必须要有一套数字证书，可以自己制作，也可以向组织申请。区别就是自己颁发的证书需要客户端验证通过，才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面，这套证书其实就是一对公钥和私钥。</li>
-<li><strong>传送证书</strong><br>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构，过期时间、服务端的公钥，第三方证书认证机构(CA)的签名，服务端的域名信息等内容。</li>
-<li><strong>客户端解析证书</strong><br>这部分工作是由客户端的TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警告框，提示证书存在问题。如果证书没有问题，那么就生成一个随机值（密钥）。然后用证书对该随机值进行加密。</li>
-<li><strong>传送加密信息</strong><br>这部分传送的是用证书加密后的密钥（随机值），目的就是让服务端得到这个密钥（随机值），以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</li>
-<li><strong>服务端加密信息</strong><br>服务端用私钥解密，得到了客户端传过来的密钥（随机值），然后把内容通过该值进行对称加密。</li>
-<li><strong>传输加密后的信息</strong><br>这部分信息是服务端用密钥（随机值）对称加密后的信息，可以在客户端被还原。</li>
-<li><strong>客户端解密信息</strong><br>客户端用之前生成的密钥（随机值）解密服务端传过来的信息，于是获取了解密后的内容。</li>
-</ol>
-<h2 id="自签名证书-和-SpringBoot单双向认证配置及测试"><a href="#自签名证书-和-SpringBoot单双向认证配置及测试" class="headerlink" title="自签名证书 和 SpringBoot单双向认证配置及测试"></a>自签名证书 和 SpringBoot单双向认证配置及测试</h2><h3 id="下载和安装OpenSSL"><a href="#下载和安装OpenSSL" class="headerlink" title="下载和安装OpenSSL"></a>下载和安装OpenSSL</h3><p>下载其他人做的便捷版安装包  <a href="http://slproweb.com/products/Win32OpenSSL.html">http://slproweb.com/products/Win32OpenSSL.html</a></p>
-<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>配置环境变量，老生常谈，这里简单贴一下配置OPENSSL_HOME</p>
-<p>测试命令：</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">openssl <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="生成根证书私钥"><a href="#生成根证书私钥" class="headerlink" title="生成根证书私钥"></a>生成根证书私钥</h3><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">openssl genrsa -aes256 -<span class="keyword">out</span> <span class="keyword">private</span>/cakey.pem <span class="number">1024</span></span><br><span class="line"></span><br><span class="line">命令含义如下：</span><br><span class="line"></span><br><span class="line">genrsa	使用RSA算法产生私钥</span><br><span class="line">-aes256	使用<span class="number">256</span>位密钥的AES算法对私钥进行加密</span><br><span class="line">-<span class="keyword">out</span>	输出文件的路径</span><br><span class="line"><span class="number">1024</span>	指定私钥长度</span><br></pre></td></tr></table></figure>
-
-<h3 id="生成证书请求（ca-csr"><a href="#生成证书请求（ca-csr" class="headerlink" title="生成证书请求（ca.csr)"></a>生成证书请求（ca.csr)</h3><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">openssl req -<span class="keyword">new</span> -key <span class="keyword">private</span><span class="regexp">/cakey.pem -out private/</span>ca.csr -subj “<span class="regexp">/C=CN/</span>ST=ZHEJIANG<span class="regexp">/L=HANGZHOU/</span>O=TEST<span class="regexp">/OU=mygroup/</span>CN=TEST”</span><br><span class="line"></span><br><span class="line">该命令含义如下：</span><br><span class="line">req		执行证书签发命令</span><br><span class="line">-<span class="keyword">new</span>	新证书签发请求</span><br><span class="line">-key	指定私钥路径</span><br><span class="line">-out	输出的csr文件的路径</span><br><span class="line">-subj	证书相关的用户信息(subject的缩写)</span><br><span class="line"></span><br><span class="line">备注：这里需要输入私钥密码；</span><br></pre></td></tr></table></figure>
-
-<h3 id="检查证书请求信息"><a href="#检查证书请求信息" class="headerlink" title="检查证书请求信息"></a>检查证书请求信息</h3><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">openssl req -<span class="built_in">text</span> -<span class="keyword">in</span> ca.csr -noout</span><br></pre></td></tr></table></figure>
-
-<h3 id="自签发根证书"><a href="#自签发根证书" class="headerlink" title="自签发根证书"></a>自签发根证书</h3><figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">openssl x509 -req -days 365 -sha1 -extensions v3_ca -signkey private/cakey.pem -in private/ca.csr -out certs/ca.cer</span><br><span class="line"></span><br><span class="line">该命令的含义如下：</span><br><span class="line">x509		生成x509格式证书</span><br><span class="line"><span class="deletion">-req		输入csr文件</span></span><br><span class="line"><span class="deletion">-days		证书的有效期（天）</span></span><br><span class="line"><span class="deletion">-sha1		证书摘要采用sha1算法</span></span><br><span class="line"><span class="deletion">-extensions	 按照openssl.cnf文件中配置的v3_ca项添加扩展</span></span><br><span class="line"><span class="deletion">-signkey	 签发证书的私钥</span></span><br><span class="line"><span class="deletion">-in			要输入的csr文件</span></span><br><span class="line"><span class="deletion">-out		输出的cer证书文件</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p> 其他操作：  <a href="https://www.cxyzjd.com/article/skytering/103247128">https://www.cxyzjd.com/article/skytering/103247128</a>   </p>
-<p>SpringBoot配置文件：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">443</span></span><br><span class="line"></span><br><span class="line">server.ssl.enabled=<span class="keyword">true</span></span><br><span class="line">server.ssl.key-store= src/main/resources/server.jks</span><br><span class="line">server.ssl.key-store-password=Lzr20000306</span><br><span class="line">server.ssl.key-store-type=JKS</span><br></pre></td></tr></table></figure>
-
-<p>测试：</p>
-<p><img src="C:\Users\13375\OneDrive\文档\学习\image-20210825213838151.png" alt="image-20210825213838151"></p>
-<p>1、如果客户端想验证服务端证书，客户端需要安装服务端的公钥文件(cer)(或者服务端证书是官方CA颁发的，客户端可以直接联网认证)，因为服务端会将自己的随机数等信息使用自己的私钥加密之后发给客户端，而客户端要想解开这些数据，必须持有服务端的公钥才可以，之后服务端验证通过。</p>
-<p>2、服务端想验证客户端证书，则需要将客户端的证书的公钥文件放到服务端trustStore信任库中，当客户端请求访问服务端时，会使用自己的私钥加密随机数、ssl版本等信息发送给服务端，服务端只有持有客户端的公钥才能解开这些数据，验证才能通过。</p>
-<p><img src="C:\Users\13375\OneDrive\文档\学习\image-20210825214437945.png" alt="image-20210825214437945"></p>
-<p>相关概念：</p>
-<p>1.kestore(密钥库)和truststore(信任库)的区别：</p>
-<p>​        Keystore，用来存放服务端证书，可以看成一个放key的库，key就是公钥，私钥，数字签名等组成的一个信息。</p>
-<p>​        Truststore是放服务端信任的客户端证书的一个store，里存放的是只包含公钥的数字证书，代表了可以信任的客户端证书，     而keystore是包含私钥的。</p>
-<p>2.证书文件 – cer文件和pfx文件的区别  <a href="https://www.cnblogs.com/lthxk-yl/archive/2013/06/03/3115273.html">https://www.cnblogs.com/lthxk-yl/archive/2013/06/03/3115273.html</a></p>
-<p>作为文件形式存在的证书一般有这几种格式：</p>
-<p>1)、带有私钥的证书</p>
-<p>​            由Public Key Cryptography Standards #12，PKCS#12标准定义，包含了公钥和私钥的二进制格式的证书形式，以pfx作 为证书文件后缀名。</p>
-<p>2)、二进制编码的证书</p>
-<p>​            证书中没有私钥，只包含公钥，DER 编码二进制格式的证书文件，以cer作为证书文件后缀名。</p>
-<p>3)、Base64编码的证书</p>
-<p>​            证书中没有私钥，只包含公钥，BASE64 编码格式的证书文件，也是以cer作为证书文件后缀名。</p>
-<p>链接： <a href="https://blog.csdn.net/weixin_41917987/article/details/80988197?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control">https://blog.csdn.net/weixin_41917987/article/details/80988197?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control</a></p>
-]]></content>
-      <categories>
-        <category>奇巧淫技</category>
-      </categories>
-      <tags>
-        <tag>http</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker 学习</title>
-    <url>/2021/10/27/docker-%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p><img src="image-20211028122117944.png" alt="image-20211028122117944"></p>
-<p><img src="image-20211028122203718.png" alt="image-20211028122203718"></p>
-<p><img src="image-20211028122244522.png" alt="image-20211028122244522"></p>
-<p><img src="image-20211028122332456.png" alt="image-20211028122332456"></p>
-<p><img src="image-20211028122413431.png" alt="image-20211028122413431"></p>
-<p><img src="image-20211028122515705.png" alt="image-20211028122515705"></p>
-<p><img src="image-20211028122451207.png" alt="image-20211028122451207"></p>
-<p><img src="image-20211028122614820.png" alt="image-20211028122614820"></p>
-<p><img src="image-20211028122643174.png" alt="image-20211028122643174"></p>
-<p><img src="image-20211028122718547.png" alt="image-20211028122718547"></p>
-<p><img src="image-20211028122800278.png" alt="image-20211028122800278"></p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>阅后即焚（四）</title>
-    <url>/2021/10/29/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="阅后即焚（四）"><a href="#阅后即焚（四）" class="headerlink" title="阅后即焚（四）"></a>阅后即焚（四）</h1><p><img src="t01ef885bbe6f31d21d.jpg" alt="t01ef885bbe6f31d21d"></p>
-<hr>
-<p>　　<code>感情</code>这东西很神奇，最近又开始在晚上想很多，想和她的未来，想自己真的可以配上她吗，会有什么样的结果。这种感觉好受也不好受，过着平庸的生活却有着这些很奇妙的幻想啊！</p>
-<p>　　有时候想些这样的事情，真的好累。</p>
-<p>　　正值秋天，这周的天气真的好棒！每天都有太阳，有微风，拖了把椅子坐在窗前，晒着太阳，傻傻的等待着消息回复。看着窗外的明媚，想着心里的故事，似乎可以一直这样真的很好啊！前两天她和我说，想和我出去溜溜弯，心里很开心，我是一个内敛的人，至少在她的面前是这样的。活脱脱一个闷骚的男生，有的话我真的不知道怎么表达，心里也很珍惜这一段关系，害怕自己的某一句，某一个过分的举动，伤害到了这段感情。</p>
-<hr>
-<p>　　*我视她如珍宝… *🚬</p>
-<hr>
-<p>　　又是这样的一个下午，想着未来，想着一些虚无缥缈。她给我带来的感觉，我不知是否得当，但是要是想描述的话，和我第一次追女生的感觉是一模一样。胆小怯懦，不可言喻。应该是不得当的，至少这样的对比是不值当的。第一次见她是什么样的呢，问自己这个问题，怎么在酒桌上的情场高手，当遇到了却不知道用什么言语来形容了呢？确实，用什么描述呢。那是一场集体活动军训，不是一个专业，学校的安排是不同院系在一起集训。就这样我们被分在了同一个小组里，当看她的第一秒，我就和旁边的好友说道“真好看啊！”没错，很俗套的遇见，被吸引，想表现自己。现在想想，就算记性在不好的我，也觉得很好看！</p>
-<p>　　<em>枯燥的训练项目，令大家生厌，但她依旧每天带着笑容，我不敢直视，那是心中的太阳！</em></p>
-<p>　　在一次的无聊的等待期间，大家玩起了真心话，那也是我第一次和她说话。轮到我说自己的真心话，阐述了高中时候是怎么把女生气哭的，怎么样自己不知所措，就和她坐着一起哭的。描述了自己追高中女孩子，追了三年多依旧没有什么回应的真心话。我也不知道，自己怎么就在那时候说了这些酒桌上的茶余饭后的故事，可能就是想把自己的故事和她分享，让她对于我有点兴趣吧。仅仅这样罢了。</p>
-<p>　　当时她问我“那如果那个女孩子回来找你，你还会怎么样的面对？”，不知道为什么，对于这个问题还是记忆满深刻的，“如果她回来，我依旧会接受，无论她经历了什么”。真的，那时候或者说，半年前我依旧是这样想的，对于那段感情，尽管不美好，我还是不会去忘记。青春的痕迹，不似伤害在身体上留下了痕迹，它在心里让我珍藏。写到这，倒是显得我很渣男了，为什么口头说着喜欢，心里面还在想着另一段的感情？要是这么问，我也不知道应该如何回复了，这就是我吧，对于这些事情，很难遗忘。</p>
-<p>　　不知道我这样回答给了她算是怎么样的感觉，没有在继续问下去了。不在言语了。我想应该到此为止了，毕竟这番话出来应该就是“渣男”石锤了。</p>
-<p>　　后来啊，班长一直怂恿我主动一些，为什么有感觉却不想表达呢？嗯，我害怕！没有什么多余的借口，单单是因为自己害怕。“我这么让你怕吗？”讲真的，还真有一点。这种感觉很奇怪就像是自己心里有什么很柔软的地方，不想展现出来，不想让他们触碰一样！她在我心里一直是如此的完美的，白月光，朱砂痣。我又是一个如此肮脏的人，一直信奉着，“只要两个人互相靠近，就一定会有伤害”。我不想存在这样的伤害，就会主动的离开，不去有什么进一步的关系导致我们的关系如何如何的。这就是我心里怕，以及最为柔软的地方。</p>
-<p>　　在这个时间，我打破了所有的懦弱的想法。曾有朋友对我说“既然你觉得你们之间是存在缘分的，那又为什么选择放弃，选择离开，你不去抓住这份缘分，未来可能真的就再也找不到了！”是很有道理的一段话，我想让自己逐渐变得更好，不想让自己身边的人一个个离开，我想拥她入怀，抓住这份缘分。</p>
-<p>　　命运啊，我真的有多希望你能听到我这番话，帮我一把，从这深渊之中把我救出，得到一份属于自己的爱。不求这份爱的天长地久，珍惜这个过程，就已经很知足了。</p>
-<p>　　回归上文，在班长的鼓励下，那时候我开始和她交流，发现我们的爱好是如何的相似，之间的观念是那么的想像，就好像世界上真的就是在等着她来到一样。过了一段时间，我发现自己有一些无趣，觉得我要是一个女生也会觉得自己很无趣。我是一个保守派，至少这样看来没有什么问题的，不会说话，不会浪漫，不会有什么对于爱意的表达，每天就是问候，聊聊自己的生活。也就是这样了，她会听我的这番唠叨，听我的故事，和我分享她的世界。由此滋生的是我对于自己的复面情绪，对于自己行为一切一切的否认，我一直以来不认为自己是一个“好人”，有很多的很多的毛病，甚至有些小人得志的意味，我想做一个真正的自己，却一直不能做成自己。只能越发觉得自己真的有一些差劲。</p>
-<p>　　选择了逃离，这是我常用的一个办法了，“逃避虽然可耻，但是却很有效果”。我选择了淡出她的世界，看来也就是这个程度了，也就到这了，在她的心里应该算是留下一个好的印象，就这样的不体面的不辞而别。我不在联系她，那时候的想法真的很多单纯，愚蠢。</p>
-<p>我想有一个人和我聊聊天说说话，和我分享她的生活，她的世界。但是，我却在刚有起色的时候，选择了逃离。</p>
-<p>什么狗屁想法，这一切的来源只不过全是我自己罢了，自作自受罢了。</p>
-<p>　　没有什么华丽的词藻，只是很平淡地把自己内心的一切想法，一五一十地全全托出。我喜欢听毛不易的《平凡的一天》，那是我真的渴求的日子，平平凡凡地度过自己的生活，就是仅仅而已。</p>
-<p>　　之前的一些故事到这里大致就一一告落了，我和她在那时就没有什么了联系，开始了结束了一场由自己主导主演的电影，也认清了自己的软弱。这场称不上喜剧还是悲剧的故事，一顿操作下，没有了结尾。</p>
-<p>　　前些日子她突然找我问一个学校的问题，那个时候，我想起了以前的日子，一段没有结束的日子。我想应该好好地面对自己了，真心地去面对她了。再一次开始了和她的联系，我想紧紧地抓住这份缘分，这次我不会想有没有什么结果了，我只想和她好好地做一次朋友，做一次真正的自己，直视自己，直视她，表达自己的想法感觉。</p>
-<p>　　一点点地变化，一点点地不敷衍回复一个“确实”，一点点地和她分享我的生活，一点点地了解她的生活。一开始我还有点控制不住自己的感情，想把整个人都拿出来让她了解，感谢她的理性，感谢她对于我的一些问题的指出，这么说起来倒是有一点老师的感觉了。也确实这样的感觉，目前我觉得很棒！我不能有什么奢望，不是害怕得不到什么回馈，我真的真的只是害怕失去这个朋友，失去这个和我聊得来的人……</p>
-<p>​        写出来这么多，心里也真是很舒服呢，就到这里吧，变成一个更好的自己，让她接受的一个自己。</p>
-<p>　　晚安，好梦！☽</p>
-<hr>
-<p>用一首歌词作为结尾吧！</p>
-<blockquote>
-<p>And when i think<br>当我想起</p>
-<p>of everything that we did together<br>那些我们一起的时光</p>
-<p>Somewhere in Verona<br>在维罗那的某处</p>
-<p>The sun set over our time together<br>一起度过日落时分</p>
-<p>Thinking it over<br>几番回想</p>
-<p>So young and sentimental<br>如此年轻，如此多情</p>
-<p>Our hearts so gentle<br>我们的心却是那么温柔</p>
-<p>Such a shame we had to drift apart<br>多遗憾我们不得不渐行渐远</p>
-<p>Oh…<br>Oh…</p>
-<p>but I can’t help just wonder<br>总情不自禁地去想</p>
-<p>Could we really last forever?<br>我们能一直走下去吗</p>
-<p>I watch the sunset and something’s telling me that I gotta get up and chase it<br>我看着日落，某种声音告诉我，我得奋起去追逐</p>
-<p>Day of transit<br>车上奔波的一天</p>
-<p>The gentle weight of your head on my shoulder<br>感受你将头轻轻靠在我肩膀上的重量</p>
-<p>I wake you at the last stop<br>在最后一站把你唤醒</p>
-<p>Your sleepy eyes in the gloomy weather<br>阴郁天气里，你惺忪的睡眼</p>
-<p>Raining in Florence<br>佛罗伦萨那场雨</p>
-<p>Your cold hands and your wet hair<br>你冰凉的手掌和淋湿的头发</p>
-<p>While we’re cursing<br>我们抱怨着</p>
-<p>Cheap umbrellas trying to get home<br>撑着廉价的雨伞想要赶回家</p>
-<p>Now we’re written in history<br>现在那都是我们的回忆了</p>
-<p>We close the book we opened up<br>我们打开了这本书，又亲手把它合上</p>
-<p>There will always be a place in my heart<br>但我的心里永远有一块位置属于你</p>
-<p>But baby can’t you see we were meant to fall apart…<br>亲爱的，难道你不知道我们注定要分离…</p>
-<p>We gave it up<br>我们放弃了</p>
-<p>Who would have thought love wasn’t enough<br>谁又能曾想到，只有爱是不够的</p>
-<p>In the end we’d say:<br>最终我们只能告别</p>
-<p>“Bye my love, guess I’ll see you someday…”<br>再见了，我的爱，可能某天我们还会遇见…</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>阅后即焚</category>
-      </categories>
-      <tags>
-        <tag>emo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>阅后即焚（五）</title>
-    <url>/2021/11/01/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%BA%94%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="阅后即焚（五）"><a href="#阅后即焚（五）" class="headerlink" title="阅后即焚（五）"></a>阅后即焚（五）</h1><p><img src="t018876a3f70d817127.jpg" alt="t018876a3f70d817127"></p>
-<p>这是两天的快乐，很快乐！！！！！！！！</p>
-<p>和小赵聊了好久，很开心！十一月了啊，时间过得飞快，有点像是快乐推着过日子。</p>
-<p>今天和小陈讨论一下我的近况，说是有点在像吃狗粮，很开心却夹杂着一些算是担忧的东西，自己控制不住的想，倒是有点忧来忧去的意思了。为什么担忧呢？大概有几点吧，其一便是这种日子会持续多久呢？其二她对我感觉呢？其三未来呢？其四，没有了，想不到了。</p>
-<p>今天看了陶白白的星座分析，之前我一直是弃之以鼻的，“我命由我不由天”，讲真，星座这东西大多数还是一群的共性特征进行总结，它囊括的点有很多，说的也是很含糊，和算命算我去当兵会有很好的发展一样。挑好的给长辈听，自然万事大吉。转念一想，既然是共性，应该她也会这样吧。</p>
-<p>很不巧的事情发生了，我忘记了她的生日。她之前和我说，“你生日我还给你发祝福呢，你没有回我，我记仇了”。老脸一红，现在连的生日都忘记了，真是该死！看了看大致的月份星座，记住了一大堆，一大坨如何。害，去他的，看不下去，她是她，真的如何不都是妄想嘛。</p>
-<p>还是很对不住，忘记了生日！淦</p>
-<p>和小陈分享，一派胡言乱语，似乎成了长性。但，回想起来之间的故事，想想真的很幸福！</p>
-<p>遛弯，互送礼物，定时闹钟……真一切都是在我的身上发生的吗？我真的有这么幸运吗？在我看来怕是自己疯了，而都是这么真真切的存在着。</p>
-<p>关于担忧，不想去想清楚，想明白问题就不是我了。一个巨大的迷宫，身边的一个个物品全都变大，不给我留下一丝空间，抬头看看互相拥挤的出来的缝隙，无法呼吸，头疼欲裂。这是小时的噩梦，我不想。似乎和之前的文笔不尽相似，是我的好心情了。</p>
-<p>“慢慢来”</p>
-<p>这应该就是我最好的方法，不尽感谢！</p>
-]]></content>
-      <categories>
-        <category>阅后即焚</category>
-      </categories>
-      <tags>
-        <tag>emo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>内网穿透，外网访问虚拟机web服务</title>
-    <url>/2021/10/31/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BAweb%E6%9C%8D%E5%8A%A1/</url>
-    <content><![CDATA[<h1 id="内网穿透，外网访问虚拟机web服务"><a href="#内网穿透，外网访问虚拟机web服务" class="headerlink" title="内网穿透，外网访问虚拟机web服务"></a>内网穿透，外网访问虚拟机web服务</h1><p><img src="t01a43701d07df28985.jpg" alt="t01a43701d07df28985"></p>
-<h2 id="什么是内网穿透"><a href="#什么是内网穿透" class="headerlink" title="什么是内网穿透"></a>什么是内网穿透</h2><p>简单的说，就是想要外网访问内网的服务。</p>
-<p>内网穿透，即NAT（Network Address Translator）穿透，是<strong>指计算机在内网（局域网）内使用私有IP地址，在连接外网（互联网）时使用全局IP地址的技术</strong>。该技术被普遍使用在有多台主机但只通过一个公有IP地址访问的私有网络中。</p>
-<p>举个例子：配置了一个服务器 Server A，在同一个局域网，就可以通过自己的笔记本使用SSH连接，当不在统一局域网，就没有办法直接使用SSH连接了，这个时候就需要进行NAT穿透，可以使用SSH连接Server A。</p>
-<h2 id="NAT原理解析"><a href="#NAT原理解析" class="headerlink" title="NAT原理解析"></a>NAT原理解析</h2><p>NAT（Network Address Translation，网络地址转换），也叫做网络掩蔽或者IP掩蔽。NAT是一种网络地址翻译技术，主要是将内部的私有IP地址（private IP）转换成可以在公网使用的公网IP（public IP）。</p>
-<ul>
-<li>当信息由局域网向因特网传递时，<strong>源地址从专有地址转换为公用地址</strong>。由路由器跟踪每个连接上的目的地址和端口。</li>
-<li>当数据返回路由器时，通过记录的连接跟踪数据来决定该转发给内部网的哪个主机；如果此时如果有多个公用地址可用，当数据包返回时，则会客户机的端口号可以用来分解数据包。</li>
-</ul>
-<p><img src="image-20211031111401720.png" alt="image-20211031111401720"></p>
-<p><strong>首先NAT路由器将发送源地址从私有IP地址(10.0.0.10)转换为全局的IP地址 (202.244.174.37)再发送数据</strong></p>
-<p><strong>当数据从地址163.221.120.9发过来时，NAT路由器将目标地址从原句IP地址(202.244.174.37)先转换成私有IP地址10.0.0.10以后再转发</strong></p>
-<h2 id="NAT实现方式及主要类型"><a href="#NAT实现方式及主要类型" class="headerlink" title="NAT实现方式及主要类型"></a>NAT实现方式及主要类型</h2><p>1.NAT实现方式</p>
-<p>1）静态NAT：也就是静态地址转换。是指一个公网IP对应一个私有IP，是一对一的转换，同时注意，这里只进行了IP转换，而没有进行端口的转换。举个栗子：</p>
-<p><img src="image-20211031111539684.png" alt="image-20211031111539684"></p>
-<p>2）NAPT：端口多路复用技术。与静态NAT的差别是，NAPT不但要转换IP地址，还要进行传输层的端口转换。具体的表现形式就是，对外只有一个公网IP，通过端口来区别不同私有IP主机的数据。再举个栗子。</p>
-<p><img src="image-20211031111608403.png" alt="image-20211031111608403"></p>
-<h2 id="NAT的主要类型"><a href="#NAT的主要类型" class="headerlink" title="NAT的主要类型"></a>NAT的主要类型</h2><p>对于NAPT我们主要分为两大类：锥型NAT和对称型NAT。</p>
-<p>其中锥型NAT又分：完全锥型，受限锥型和端口受限锥型。</p>
-<p>概括的说：对称型NAT是一个请求对应一个端口；锥型NAT（非对称NAT）是多个请求（外部发向内部）对应一个端口，只要源IP端口不变，无论发往的目的IP是否相同，在NAT上都映射为同一个端口，形象的看起来就像锥子一样。下面分别介绍这四种类型及其差异。</p>
-<h3 id="client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果client-192-168-0-3-100-又给-2-2-2-2-2222-发送数据，路由器该怎么处理呢"><a href="#client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果client-192-168-0-3-100-又给-2-2-2-2-2222-发送数据，路由器该怎么处理呢" class="headerlink" title="client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果client(192.168.0.3, 100)又给(2.2.2.2, 2222)发送数据，路由器该怎么处理呢?"></a>client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果client(192.168.0.3, 100)又给(2.2.2.2, 2222)发送数据，路由器该怎么处理呢?</h3><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>,  复用旧的映射关系(<span class="number">8.8.8.8</span>, <span class="number">800</span>)&lt;---&gt;(<span class="number">192.168.0.3</span>, <span class="number">100</span>)和(<span class="number">2.2.2.2</span>, <span class="number">2222</span>)通信, 这就是锥型(Cone) NAT---（分为下面的<span class="number">3</span>个小类）</span><br><span class="line"></span><br><span class="line"><span class="attribute">2</span>,  创建新的映射关系(<span class="number">8.8.8.8</span>, <span class="number">801</span>)&lt;---&gt;(<span class="number">192.168.0.3</span>, <span class="number">100</span>)和(<span class="number">2.2.2.2</span>, <span class="number">2222</span>)通信, 这就是对称型NAT</span><br></pre></td></tr></table></figure>
-
-<p>注: (8.8.8.8, 801)只是举例，到底用什么端口取决于路由器的端口管理策略，总之是另外的一个端口，有的路由器有多个公网IP，不同的IP也会参与到这个映射关系中。</p>
-<h3 id="client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果这个时候路由器-8-8-8-8-在800端口上收到从另外一台server-2-2-2-2-2222-发来的数据，是不是应该转发给-192-168-0-3-100-呢？"><a href="#client-192-168-0-3-100-和server-1-1-1-1-1111-在路由器上建立好映射关系后，如果这个时候路由器-8-8-8-8-在800端口上收到从另外一台server-2-2-2-2-2222-发来的数据，是不是应该转发给-192-168-0-3-100-呢？" class="headerlink" title="client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果这个时候路由器(8.8.8.8)在800端口上收到从另外一台server(2.2.2.2, 2222)发来的数据，是不是应该转发给(192.168.0.3, 100)呢？"></a>client(192.168.0.3, 100)和server(1.1.1.1, 1111)在路由器上建立好映射关系后，如果这个时候路由器(8.8.8.8)在800端口上收到从另外一台server(2.2.2.2, 2222)发来的数据，是不是应该转发给(192.168.0.3, 100)呢？</h3><p>有四种情况:</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">1</span>, 无条件转发给(<span class="number">192.168.0.3</span>, <span class="number">100</span>)， 这就是全锥型(Full Cone)NAT。</span><br><span class="line"></span><br><span class="line"><span class="attribute">2</span>, 如果(<span class="number">192.168.0.3</span>, <span class="number">100</span>)之前给(<span class="number">2.2.2.2</span>)发送过数据，则转发， 这就是受限锥型(Restricted Cone)。</span><br><span class="line"></span><br><span class="line"><span class="attribute">3</span>, 如果(<span class="number">192.168.0.3</span>, <span class="number">100</span>)之前给(<span class="number">2.2.2.2</span>, <span class="number">2222</span>)发送过数据，则转发， 这就是端口受限锥型(Port Restricted Cone)。</span><br><span class="line"></span><br><span class="line"><span class="attribute">4</span>, 丢弃报文，拒绝转发, 这就是对称型NAT。</span><br></pre></td></tr></table></figure>
-
-<p>从上面也描述也可以看出，安全性系数, 对称型 &gt; 端口受限锥型 &gt; 受限锥型 &gt; 全锥型</p>
-<p><img src="image-20211031131731042.png" alt="image-20211031131731042"></p>
-<h3 id="（一）完全圆锥型NAT-Full-Cane-NAT"><a href="#（一）完全圆锥型NAT-Full-Cane-NAT" class="headerlink" title="（一）完全圆锥型NAT (Full Cane NAT)"></a>（一）完全圆锥型NAT (Full Cane NAT)</h3><p> <strong>完全圆锥型的NAT,将从同一内部IP地址和端口来的所有请求，都映射到相同的外部IP地址和端口。而且，任何外部主机通过向映射的外部地址发送报文，可以实现和内部主机进行通信。</strong></p>
-<p>这是一种<strong>比较宽松的策略</strong>，<strong>只要建立了内部网络的IP地址和端口与公网IP地址和端口的映射关系，则所有Internet上的主机都可以访问该NAT之后的主机！！！</strong> </p>
-<p><img src="image-20211031131815110.png" alt="image-20211031131815110"></p>
-<p>在图中，对称型NAT会将内网地址{X:y}转换成公网地址{A:b}<strong>并绑定为{X:y}|{A:b}&lt;一&gt;{P:q}<strong>。这就意味着NAT只允许地址{A:b}接收来自{P:q}的分组，将它转给{X:y} 。</strong>当客户机请求一个不同的公网地址{M:n}时，NAT会新分配一个外部端口{<a href="https://www.baidu.com/s?wd=C:&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd">C:</a>d}</strong> 。 </p>
-<h3 id="（二）受限圆锥型NAT-Restricted-Cone-NAT-–IP受限"><a href="#（二）受限圆锥型NAT-Restricted-Cone-NAT-–IP受限" class="headerlink" title="（二）受限圆锥型NAT ( Restricted Cone NAT)–IP受限"></a>（二）受限圆锥型NAT ( Restricted Cone NAT)–IP受限</h3><p>受限圆锥型NAT也是将从相同的内部IP地址和端口来的所有请求，映射到相同的公网IP地址和端口。</p>
-<p>但是与完全圆锥型NAT不同，当且仅当内网主机之前己经向公网主机(假设IP地址为P)发送过数据分组，此公网主机才能够向内网主机发送数据分组。</p>
-<p><img src="image-20211031131914766.png" alt="image-20211031131914766"></p>
-<p>在图中，<strong>NAT会将内网地址{x:y}映射成公网地址{A:b〕并绑定，只有源地址为P的分组才能和此内网主机通信。</strong></p>
-<h3 id="（三）端口受限圆锥型NAT-Port-Restricted-Cone-NAT-–IP-port受限"><a href="#（三）端口受限圆锥型NAT-Port-Restricted-Cone-NAT-–IP-port受限" class="headerlink" title="（三）端口受限圆锥型NAT ( Port Restricted Cone NAT)–IP+port受限"></a>（三）端口受限圆锥型NAT ( Port Restricted Cone NAT)–IP+port受限</h3><p>类似于受限圆锥型NAT，但更严格。<strong>端口受限圆锥型NAT增加了端口号的限制，当且仅当内网主机之前已经向公网主机发送了数据分组，公网主机才能和此内网主机通信。</strong></p>
-<p><img src="image-20211031131946606.png" alt="image-20211031131946606"></p>
-<p>在图中，NAT会将内网地址{X:y}映射成公网地址{A:b}并绑定，<strong>由于内网主机之前己经分别与地址为M,端口为n的公网主机以及地址为P,端口为q的公网主机通信</strong>，所以<strong>只有来自这两个公网地址和端口的分组才能到达内网主机</strong>。</p>
-<h3 id="（四）对称型NAT-CSymmetric-NAT-—-重点理解"><a href="#（四）对称型NAT-CSymmetric-NAT-—-重点理解" class="headerlink" title="（四）对称型NAT CSymmetric NAT)—-重点理解"></a>（四）对称型NAT CSymmetric NAT)—-重点理解</h3><p>对称型NAT把从<strong>同一内网地址和端口****到相同的地址和端口的所有请求</strong>，<strong>都映射到同一个公网地址和端口</strong>。</p>
-<p>如果<strong>同一个内网主机，用相同的内网地址和端口向另一个地址发送数据分组，则会使用不同的映射</strong>，<strong>而且公网主机只有在接收到数据分组后，才能向与发送分组的内网主机进行通信</strong>。可见，对称性NAT是所有NAT类型中限制最为严格的。</p>
-<p><img src="image-20211031132014799.png" alt="image-20211031132014799"></p>
-<p>在图中，对称型NAT会将内网地址{X:y}转换成公网地址{A:b}<strong>并绑定为{X:y}|{A:b}&lt;一&gt;{P:q}<strong>。这就意味着NAT只允许地址{A:b}接收来自{P:q}的分组，将它转给{X:y} 。</strong>当客户机请求一个不同的公网地址{M:n}时，NAT会新分配一个外部端口{<a href="https://www.baidu.com/s?wd=C:&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd">C:</a>d}</strong> 。 </p>
-<h2 id="判断过程"><a href="#判断过程" class="headerlink" title="判断过程"></a>判断过程</h2><p>1.首先是我们的客户端，向服务端的第一IP地址和端口，发送一个请求;之后服务端回送一个响应（包含客户端的官网IP和端口信息）给客户端。如果回来这个地址（响应信息中获取得到的IP地址）和我们之前发送的地址（NAT内网地址）是一致的，那就是公网的。如果不一致说明我们是在NAT之后，这是第一次检测。**—-检测是公网主机还是位于NAT网关后面的内网主机（不用太考虑下图中的客户端的端口信息）**</p>
-<p><img src="image-20211031132136229.png" alt="image-20211031132136229"></p>
-<p>2.再接下来就是<strong>检测是对称型还是限制性NAT</strong>。首先，如左图所示客户端向服务器第一个IP地址发送了一个请求 ，然后再如右图所示，客户端向服务端第二个IP地址发送一个请求。<strong>如果两次回复的响应中的主机公网IP地址和端口与上次回来的公网IP地址与端口是不一样的，它就是对称型NAT；如果一样还需要进一步判断。</strong></p>
-<p><img src="image-20211031132155049.png" alt="image-20211031132155049"></p>
-<p>3.接下来检测<strong>是否是完全锥型NAT</strong>。是否再接下来就是客户端向服务端第一个IP地址发送了一个请求 ，然后它通过第二个IP地址给我回一个请求，如果可以接收到，就表示为完全椎型，否则不是完全椎型。<strong>（不用太考虑下图中的客户端的端口信息）</strong></p>
-<p><img src="image-20211031132210313.png" alt="image-20211031132210313"></p>
-<p>4.紧接着再发送一个请求到第一个这个地址，那么它用这个地址的第二个端口向我回消息，如果这时候我是能收到的，说明是<strong>IP地址限制锥型NAT</strong>，如果不能收到说明是<strong>端口限制锥型</strong>。</p>
-<p><img src="image-20211031132245443.png" alt="image-20211031132245443"></p>
-<p>以上就是我们NAT检测基本的一个过程。</p>
-<h2 id="个人实践总结"><a href="#个人实践总结" class="headerlink" title="个人实践总结"></a>个人实践总结</h2><p>因为之前使用 Fabric 一直在虚拟机里面使用，就懒得在服务器配置一遍了，然后就想着使用内网穿透的这个方式和他们进行网络测试。就有了两种尝试，上面我也是看别人的整理，感觉还是记录一下，虽然两三天之后就忘记了，但是毕竟方便自己看。</p>
-<p>第一种，配置我们的路由器，里面有一个虚拟服务设置，只要配置内网 ip 就可以了，但是很不幸地是我们的网ip好像不是公网ip。导致我完美的配置依旧没有生效。</p>
-<p>第二种，就是使用工具，利用一些内网穿透的工具，像什么花生壳…之类的。反正用了工具就是很简单，草。</p>
-]]></content>
-      <categories>
-        <category>奇巧淫技</category>
-      </categories>
-      <tags>
-        <tag>http</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Drive my car</title>
-    <url>/2021/10/31/Drive-my-car/</url>
-    <content><![CDATA[<h1 id="Drive-my-car-always-on-the-way"><a href="#Drive-my-car-always-on-the-way" class="headerlink" title="Drive my car always on the way"></a>Drive my car always on the way</h1><p><img src="image-20211031205023907.png" alt="image-20211031205023907"></p>
-<hr>
-<blockquote>
-<p>生き残った二人ははじめて同一フレーム内で距離を無化し、触れあうことになる。<br>幸存下来的两人第一次在同一个框架内消除距离，触碰彼此。</p>
-</blockquote>
-<p>要是问起我看了这个电影有什么感受的话，其实我也有一些搞不清楚。倒是开始对于一直坚信的爱情观念产生出了一些的怀疑，曾以为两个相爱的人都会对于彼此包容以及理解，我有很过分的想法，“如果你不在爱我，就去寻找你的爱情，我不会有一丝的阻拦！”。这部电影里的男主就是这样做的，他发现了妻子的出轨但是他并没有去质问，他相信他们之间的爱情是真挚，深情的。就和我认为的一致，妻子在等待，等待着丈夫的质问，他的愤怒。但是，他没有！“和平常一样地爱她”。</p>
-<p>虽然这部电影的核心出发点是背叛，但这个故事真正的精髓在于，我们生活中的任何希望，终归还是来源于彼此相互的信任。</p>
-<p>要是问我对于上面的看法怎么想，其实我真有一些搞不清楚了……</p>
-<p><img src="image-20211031205802990.png" alt="image-20211031205802990"></p>
-<p>可能就真的是：</p>
-<blockquote>
-<p>在极度失望、极度悲观面前，</p>
-<p>人还是要坚忍地生活下去。</p>
-</blockquote>
-<p>今天得知草东的鼓手离开了，第一时间的想法就是他们音乐怎么办，还能听到好的作品吗。看起来真的有一些自私呢！</p>
-]]></content>
-      <categories>
-        <category>电影</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
       </tags>
   </entry>
 </search>
