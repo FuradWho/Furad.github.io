@@ -6,7 +6,7 @@
   <link href="http://www.furadwho.top/atom.xml" rel="self"/>
   
   <link href="http://www.furadwho.top/"/>
-  <updated>2021-11-03T02:50:20.441Z</updated>
+  <updated>2021-11-03T13:30:48.239Z</updated>
   <id>http://www.furadwho.top/</id>
   
   <author>
@@ -21,11 +21,22 @@
     <link href="http://www.furadwho.top/2021/11/03/Fabric-%E8%B4%A6%E5%8F%B7%E4%BD%93%E7%B3%BB/"/>
     <id>http://www.furadwho.top/2021/11/03/Fabric-%E8%B4%A6%E5%8F%B7%E4%BD%93%E7%B3%BB/</id>
     <published>2021-11-03T02:50:20.000Z</published>
-    <updated>2021-11-03T02:50:20.441Z</updated>
+    <updated>2021-11-03T13:30:48.239Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Fabric-账号体系"><a href="#Fabric-账号体系" class="headerlink" title="Fabric 账号体系"></a>Fabric 账号体系</h1><h2 id="Fabric-账号简介"><a href="#Fabric-账号简介" class="headerlink" title="Fabric 账号简介"></a>Fabric 账号简介</h2><p>Fabric 的账号体系是 Fabric 的重要的组成部分，由于 Fabric 是基于证书而不是传统的户名名和密码形式，所以会有所不同。</p><p>在任何非开放系统中都需要通过账号和密码对系统人口进行相关的管理。联盟链的特点是用户非授权时不能接入区块链，所以 Fabric 系统中存在一套授权体系，称为 Fabric 的账号体系。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Fabric-账号体系&quot;&gt;&lt;a href=&quot;#Fabric-账号体系&quot; class=&quot;headerlink&quot; title=&quot;Fabric 账号体系&quot;&gt;&lt;/a&gt;Fabric 账号体系&lt;/h1&gt;&lt;h2 id=&quot;Fabric-账号简介&quot;&gt;&lt;a href=&quot;#Fabric</summary>
+      
     
     
     
+    <category term="Hyperledger Fabric" scheme="http://www.furadwho.top/categories/Hyperledger-Fabric/"/>
     
+    
+    <category term="Fabric" scheme="http://www.furadwho.top/tags/Fabric/"/>
     
   </entry>
   

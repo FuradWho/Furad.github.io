@@ -824,6 +824,14 @@
   <entry>
     <title>Fabric 账号体系</title>
     <url>/2021/11/03/Fabric-%E8%B4%A6%E5%8F%B7%E4%BD%93%E7%B3%BB/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="Fabric-账号体系"><a href="#Fabric-账号体系" class="headerlink" title="Fabric 账号体系"></a>Fabric 账号体系</h1><h2 id="Fabric-账号简介"><a href="#Fabric-账号简介" class="headerlink" title="Fabric 账号简介"></a>Fabric 账号简介</h2><p>Fabric 的账号体系是 Fabric 的重要的组成部分，由于 Fabric 是基于证书而不是传统的户名名和密码形式，所以会有所不同。</p>
+<p>在任何非开放系统中都需要通过账号和密码对系统人口进行相关的管理。联盟链的特点是用户非授权时不能接入区块链，所以 Fabric 系统中存在一套授权体系，称为 Fabric 的账号体系。</p>
+]]></content>
+      <categories>
+        <category>Hyperledger Fabric</category>
+      </categories>
+      <tags>
+        <tag>Fabric</tag>
+      </tags>
   </entry>
 </search>
