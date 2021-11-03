@@ -852,6 +852,7 @@
 
 <p>在配置文件中PerrOrgs节点Template子节点中有个属Count,Count表示当前组织包含Peer节点的数目，同时也会成生成相应数目的配置文件。例子中给出的组织Org1设置的Peer节点数为4，cryptogen模块根据配置文件会给组织Org1生成4个Peer节点所有需要的账号。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/106125941">https://zhuanlan.zhihu.com/p/106125941</a></p>
+<p><a href="http://www.868qkl.com/jiaocheng/559.html">http://www.868qkl.com/jiaocheng/559.html</a></p>
 ]]></content>
       <categories>
         <category>Hyperledger Fabric</category>
