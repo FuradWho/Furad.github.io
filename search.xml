@@ -826,6 +826,32 @@
     <url>/2021/11/03/Fabric-%E8%B4%A6%E5%8F%B7%E4%BD%93%E7%B3%BB/</url>
     <content><![CDATA[<h1 id="Fabric-账号体系"><a href="#Fabric-账号体系" class="headerlink" title="Fabric 账号体系"></a>Fabric 账号体系</h1><h2 id="Fabric-账号简介"><a href="#Fabric-账号简介" class="headerlink" title="Fabric 账号简介"></a>Fabric 账号简介</h2><p>Fabric 的账号体系是 Fabric 的重要的组成部分，由于 Fabric 是基于证书而不是传统的户名名和密码形式，所以会有所不同。</p>
 <p>在任何非开放系统中都需要通过账号和密码对系统人口进行相关的管理。联盟链的特点是用户非授权时不能接入区块链，所以 Fabric 系统中存在一套授权体系，称为 Fabric 的账号体系。</p>
+<p>Fabric 中的账号实际上是根据 PKI 规范生成的一组证书和秘钥文件 。</p>
+<p>cryptogen 模块生成的文件中就包含Fabric 账号相关的证书文件，Fabric 中每条交易都会加上发起者的标签（签名证书），同时用发起人的私钥进行加密。如果交易需要其他组织的节点提供背书功能，那么背书节点也会在交易中加入自己的签名。这样每一笔交易的操作过程会非常清晰并且不可篡改。</p>
+<p>一个完整的Fabric账号的结构：</p>
+<ul>
+<li>msp：主要存放签名用的证书文件和加密用的私钥文件<ul>
+<li>admincerts：管理员证书</li>
+<li>cacerts：根CA服务器的证书</li>
+<li>keystore：节点或者账号的私钥</li>
+<li>signcerts：符合x.509的节点或者用户证书文件</li>
+<li>tlscacerts：TLS根CA的证书</li>
+</ul>
+</li>
+<li>tls：存放加密通信相关的证书文件<ul>
+<li>ca.crt</li>
+<li>server.crt</li>
+<li>server.key</li>
+</ul>
+</li>
+</ul>
+<h2 id="基于cryptogen的账户管理体系"><a href="#基于cryptogen的账户管理体系" class="headerlink" title="基于cryptogen的账户管理体系"></a>基于cryptogen的账户管理体系</h2><p>cryptogen模块是创建Fabric账号的方式之一。cryptogen模块会根据配置文件的定义生成相关数据的配置文件。</p>
+<p>cryptogen模块通过一个配合可以部分解决需要引入新的组织，或者组织中需要增加新的账号和用户。</p>
+<p>通过 cryptogen 模块 子命令 owtemplate 显示默认的模板。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">Orderer rOrgs:</span></span><br><span class="line"><span class="attr">Name:</span> <span class="string">Orderer</span></span><br><span class="line"><span class="string">Domain:http://example.com</span></span><br><span class="line"><span class="attr">Specs:</span></span><br><span class="line"><span class="string">Hosename:orderer</span></span><br><span class="line"><span class="attr">PeerOrgs:</span></span><br><span class="line">	<span class="string">Name:Org1</span></span><br><span class="line">	<span class="string">Domain:http://org1.example.com</span></span><br><span class="line">	<span class="attr">Template:</span></span><br><span class="line">	<span class="string">Count:1</span></span><br><span class="line">	<span class="attr">Users:</span></span><br><span class="line">	<span class="string">Count:1</span></span><br><span class="line">	<span class="string">Name:Org2</span></span><br><span class="line">	<span class="string">Domain:http://org2.example.com</span></span><br><span class="line">	<span class="attr">Template:</span></span><br><span class="line">	<span class="string">Count:1</span></span><br><span class="line">	<span class="attr">Users:</span></span><br><span class="line">	<span class="string">Count:1</span></span><br></pre></td></tr></table></figure>
+
+<p>在配置文件中PerrOrgs节点Template子节点中有个属Count,Count表示当前组织包含Peer节点的数目，同时也会成生成相应数目的配置文件。例子中给出的组织Org1设置的Peer节点数为4，cryptogen模块根据配置文件会给组织Org1生成4个Peer节点所有需要的账号。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/106125941">https://zhuanlan.zhihu.com/p/106125941</a></p>
 ]]></content>
       <categories>
         <category>Hyperledger Fabric</category>
