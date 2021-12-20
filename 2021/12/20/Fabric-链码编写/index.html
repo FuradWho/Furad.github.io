@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Fabric 链码编写 | FuradWho</title>
+  <meta name="description" content="Fabric 链码编写1.编写链码定义项目目录结构：  chaincode：编写链码逻辑文件 model：定义结构体 test：链码测试文件 main.go：主函数定义 edu 结构体，主要包含我们上链的数据结构：  12345678910111213141516171819202122232425262728293031package educationtype Education struct">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fabric 链码编写">
+<meta property="og:url" content="http://www.furadwho.top/2021/12/20/Fabric-%E9%93%BE%E7%A0%81%E7%BC%96%E5%86%99/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Fabric 链码编写1.编写链码定义项目目录结构：  chaincode：编写链码逻辑文件 model：定义结构体 test：链码测试文件 main.go：主函数定义 edu 结构体，主要包含我们上链的数据结构：  12345678910111213141516171819202122232425262728293031package educationtype Education struct">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-20T07:00:34.000Z">
+<meta property="article:modified_time" content="2021-12-20T07:02:01.534Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Fabric">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.furadwho.top/2021/12/20/Fabric-%E9%93%BE%E7%A0%81%E7%BC%96%E5%86%99/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/FuradWho" target="_blank">
+          <img class="img-circle img-rotate" src="/../images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">FuradWho</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">新时代搬砖人</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/FuradWho" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>这世上每个人的说话方式都如此拐弯抹角、闪烁其词，如此不负责任、如此微妙复杂。他们总是徒劳无功地严加防范，无时无刻不费尽心机，这让我困惑不解，最终只得随波逐流，用搞笑的办法蒙混过关，抑或默默颔首，任凭对方行事，即采取败北者的消极态度。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hyperledger-Fabric/">Hyperledger Fabric</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A5%87%E5%B7%A7%E6%B7%AB%E6%8A%80/">奇巧淫技</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E5%BD%B1/">电影</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%B2%E8%B0%88/">闲谈</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A/">阅后即焚</a><span class="category-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Fabric/" style="font-size: 13.67px;">Fabric</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/emo/" style="font-size: 14px;">emo</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 13.33px;">go</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/http/" style="font-size: 13.33px;">http</a> <a href="/tags/say/" style="font-size: 13px;">say</a> <a href="/tags/ubuntu/" style="font-size: 13px;">ubuntu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E7%94%B5%E5%BD%B1/" style="font-size: 13.33px;">电影</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Fabric-链码编写" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Fabric 链码编写
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/20/Fabric-%E9%93%BE%E7%A0%81%E7%BC%96%E5%86%99/" class="article-date">
+	  <time datetime="2021-12-20T07:00:34.000Z" itemprop="datePublished">2021-12-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Hyperledger-Fabric/">Hyperledger Fabric</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Fabric/" rel="tag">Fabric</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/12/20/Fabric-%E9%93%BE%E7%A0%81%E7%BC%96%E5%86%99/" class="leancloud_visitors"  data-flag-title="Fabric 链码编写">0</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/20/Fabric-%E9%93%BE%E7%A0%81%E7%BC%96%E5%86%99/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.4k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 14(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Fabric-链码编写"><a href="#Fabric-链码编写" class="headerlink" title="Fabric 链码编写"></a>Fabric 链码编写</h1><h2 id="1-编写链码"><a href="#1-编写链码" class="headerlink" title="1.编写链码"></a>1.编写链码</h2><p><strong>定义项目目录结构：</strong></p>
+<ul>
+<li>chaincode：编写链码逻辑文件</li>
+<li>model：定义结构体</li>
+<li>test：链码测试文件</li>
+<li>main.go：主函数<br><strong>定义 edu 结构体，主要包含我们上链的数据结构：</strong></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> education</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Education <span class="keyword">struct</span> &#123;</span><br><span class="line">   ObjectType  <span class="keyword">string</span> <span class="string">`json:&quot;docType&quot;`</span></span><br><span class="line">   UserName    <span class="keyword">string</span> <span class="string">`json:&quot;userName&quot;`</span>    <span class="comment">// 姓名</span></span><br><span class="line">   Sex         <span class="keyword">string</span> <span class="string">`json:&quot;Sex&quot;`</span>         <span class="comment">// 性别</span></span><br><span class="line">   UserNation  <span class="keyword">string</span> <span class="string">`json:&quot;UserNation&quot;`</span>  <span class="comment">// 民族</span></span><br><span class="line">   UserIdCard  <span class="keyword">string</span> <span class="string">`json:&quot;UserIdCard&quot;`</span>  <span class="comment">// 身份证号</span></span><br><span class="line">   UserAddress <span class="keyword">string</span> <span class="string">`json:&quot;UserAddress&quot;`</span> <span class="comment">// 籍贯</span></span><br><span class="line">   BirthDay    <span class="keyword">string</span> <span class="string">`json:&quot;BirthDay&quot;`</span>    <span class="comment">// 出生日期</span></span><br><span class="line"></span><br><span class="line">   UserEnterTime  <span class="keyword">string</span> <span class="string">`json:&quot;UserEnterTime&quot;`</span>  <span class="comment">// 入学日期</span></span><br><span class="line">   GraduationDate <span class="keyword">string</span> <span class="string">`json:&quot;GraduationDate&quot;`</span> <span class="comment">// 毕（结）业日期</span></span><br><span class="line">   UserSchool     <span class="keyword">string</span> <span class="string">`json:&quot;UserSchool&quot;`</span>     <span class="comment">// 学校名称</span></span><br><span class="line">   UserMajor      <span class="keyword">string</span> <span class="string">`json:&quot;UserMajor&quot;`</span>      <span class="comment">// 专业</span></span><br><span class="line">   QuaType        <span class="keyword">string</span> <span class="string">`json:&quot;QuaType&quot;`</span>        <span class="comment">// 学历类别</span></span><br><span class="line">   Length         <span class="keyword">string</span> <span class="string">`json:&quot;Length&quot;`</span>         <span class="comment">// 学制</span></span><br><span class="line">   Mode           <span class="keyword">string</span> <span class="string">`json:&quot;Mode&quot;`</span>           <span class="comment">// 学习形式</span></span><br><span class="line">   Level          <span class="keyword">string</span> <span class="string">`json:&quot;Level&quot;`</span>          <span class="comment">// 层次</span></span><br><span class="line">   Graduation     <span class="keyword">string</span> <span class="string">`json:&quot;Graduation&quot;`</span>     <span class="comment">// 毕（结）业</span></span><br><span class="line">   CertNo         <span class="keyword">string</span> <span class="string">`json:&quot;CertNo&quot;`</span>         <span class="comment">// 证书编号</span></span><br><span class="line"></span><br><span class="line">   Photo <span class="keyword">string</span> <span class="string">`json:&quot;Photo&quot;`</span> <span class="comment">// 照片</span></span><br><span class="line"></span><br><span class="line">   Historys []HistoryItem <span class="comment">// 当前 edu 的历史记录</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> HistoryItem <span class="keyword">struct</span> &#123;</span><br><span class="line">   TxId      <span class="keyword">string</span></span><br><span class="line">   Education Education</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>eduChaincode.go 文件，主要负责链码的业务逻辑。主要声明 <code>Init(stub shim.ChaincodeStubInterface)、Invoke(stub shim.ChaincodeStubInterface)</code> 函数，完成对链码初始化及调用的相关实现 ：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EducationChaincode 定义一个链码结构体</span></span><br><span class="line"><span class="keyword">type</span> EducationChaincode <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Init 实现 Init 方法，进行链码初始化</span></span><br><span class="line"><span class="comment">// 链码升级的时候也要调用这个方法。当写一个用来升级已存在的链码的时候，请确保合理更改 Init 方法。当链码没有东西可以初始化，可以直接定义一个空的方法。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *EducationChaincode)</span> <span class="title">Init</span><span class="params">(stub shim.ChaincodeStubInterface)</span> <span class="title">peer</span>.<span class="title">Response</span></span> &#123;</span><br><span class="line">   <span class="keyword">return</span> shim.Success(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Invoke 实现 Invoke 方法，进行链码的调用。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *EducationChaincode)</span> <span class="title">Invoke</span><span class="params">(stub shim.ChaincodeStubInterface)</span> <span class="title">peer</span>.<span class="title">Response</span></span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 通过 stub 的 GetFunctionAndParameters() 方法提取本次调用的交易中所指定的参数.其中第一个 function 为交易参数中的第一个参数，params 为从第二个参数开始的所有参数。</span></span><br><span class="line">   fun, args := stub.GetFunctionAndParameters()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> fun == <span class="string">&quot;addEdu&quot;</span> &#123;</span><br><span class="line">      <span class="comment">// 添加信息</span></span><br><span class="line">      <span class="keyword">return</span> e.addEdu(stub, args)</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> fun == <span class="string">&quot;queryEduInfoByUserIdCard&quot;</span> &#123;</span><br><span class="line">      <span class="comment">// 根据身份证号码查询详情</span></span><br><span class="line">      <span class="keyword">return</span> e.queryEduInfoByUserIdCard(stub, args)</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> fun == <span class="string">&quot;updateEdu&quot;</span> &#123;</span><br><span class="line">      <span class="comment">// 根据证书编号更新信息</span></span><br><span class="line">      <span class="keyword">return</span> e.updateEdu(stub, args)</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> fun == <span class="string">&quot;delEdu&quot;</span> &#123;</span><br><span class="line">      <span class="comment">// 根据证书编号删除信息</span></span><br><span class="line">      <span class="keyword">return</span> e.delEdu(stub, args)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// shim.Error() 此函数将创建并返回一个状态为 ERROR 的 Response 消息。</span></span><br><span class="line">   <span class="keyword">return</span> shim.Error(<span class="string">&quot;指定的函数名称错误&quot;</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建 eduChaincode.go 文件，该文件实现了使用链码相关的 API 对分类账本状态进行具体操作的各个函数：</p>
+<ul>
+<li><strong>PutEdu：</strong>实现将指定的对象序列化后保存至分类账本中</li>
+<li><strong>GetEduInfo：</strong>根据指定的 Key（身份证号码）查询对应的状态，反序列后将对象返回</li>
+<li><strong>addEdu：</strong>接收对象并调用 <code>PutEdu</code> 函数实现保存状态的功能</li>
+<li><strong>queryEduInfoByEntityID：</strong>根据指定的身份证号码（Key）查询状态</li>
+<li><strong>updateEdu：</strong>实现对状态进行编辑功能</li>
+<li><strong>delEdu：</strong>从分类账本中删除状态<br>PutEdu 函数 ： 保存用户数据</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PutEdu 保存数据</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">PutEdu</span><span class="params">(stub shim.ChaincodeStubInterface, edu education.Education)</span> <span class="params">([]<span class="keyword">byte</span>, <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">   edu.ObjectType = DOC_TYPE</span><br><span class="line">   <span class="comment">// json 进行 edu 结构体编码成 json 字符串</span></span><br><span class="line">   marshal, err := json.Marshal(edu)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">nil</span>, <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// stub 的 PutState() 函数将尝试在账本中添加或更新一堆键值。key 为 UserIdCard，value 为 edu</span></span><br><span class="line">   <span class="comment">// (实际上，这些值是发起了相应的交易，一直得等到区块链网络中，到最后的 peer 节点验证确认之后，才会写入账本。但是一般情况下，正常操作可以认为这一步会成功)</span></span><br><span class="line">   err = stub.PutState(edu.UserIdCard, marshal)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">nil</span>, <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> marshal, <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>GetEduInfo 读取数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// GetEduInfo 读取数据</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetEduInfo</span><span class="params">(stub shim.ChaincodeStubInterface, UserIdCard <span class="keyword">string</span>)</span> <span class="params">(education.Education, <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 声明一个 edu 结构体变量</span></span><br><span class="line">   <span class="keyword">var</span> edu education.Education</span><br><span class="line"></span><br><span class="line">   <span class="comment">// stub 的 GetState() 函数将根据 key 获取数据。</span></span><br><span class="line">   b, err := stub.GetState(UserIdCard)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> edu, <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 判断是否获取到了数据</span></span><br><span class="line">   <span class="keyword">if</span> b == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> edu, <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// json 进行 []byte 解码成 edu 结构体</span></span><br><span class="line">   err = json.Unmarshal(b, &amp;edu)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> edu, <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> edu, <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>addEdu  添加信息</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加信息</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *EducationChaincode)</span> <span class="title">addEdu</span><span class="params">(stub shim.ChaincodeStubInterface, args []<span class="keyword">string</span>)</span> <span class="title">peer</span>.<span class="title">Response</span></span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 判断参数是否符合条件</span></span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">2</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;input parameter error!&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 声明一个 edu 结构体变量</span></span><br><span class="line">   <span class="keyword">var</span> edu education.Education</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 将参数解码成结构体</span></span><br><span class="line">   err := json.Unmarshal([]<span class="keyword">byte</span>(args[<span class="number">0</span>]), &amp;edu)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;unmarshal has error!&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 调用 GetEduInfo() 方法 判断用户信息是否存在。</span></span><br><span class="line">   _, exist := GetEduInfo(stub, edu.UserIdCard)</span><br><span class="line">   <span class="keyword">if</span> exist &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;entity has exist!&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 保存用户信息</span></span><br><span class="line">   _, saveFlag := PutEdu(stub, edu)</span><br><span class="line">   <span class="keyword">if</span> !saveFlag &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;save edu has error!&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 设定当这个交易在 Committer 处被认证通过， 写入到区块时发送的事件(event)</span></span><br><span class="line">   err = stub.SetEvent(args[<span class="number">1</span>], []<span class="keyword">byte</span>&#123;&#125;)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> shim.Success([]<span class="keyword">byte</span>(<span class="string">&quot;save edu success!&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>queryEduInfoByUserIdCard  根据身份证号码查询详情（溯源）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据身份证号码查询详情（溯源）</span></span><br><span class="line"><span class="comment">// args: UserIdCard</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *EducationChaincode)</span> <span class="title">queryEduInfoByUserIdCard</span><span class="params">(stub shim.ChaincodeStubInterface, args []<span class="keyword">string</span>)</span> <span class="title">peer</span>.<span class="title">Response</span></span> &#123;</span><br><span class="line">   <span class="comment">// 判断参数是否符合条件</span></span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">1</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;给定的参数个数不符合要求&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 根据身份证号码查询 edu 状态</span></span><br><span class="line">   b, err := stub.GetState(args[<span class="number">0</span>])</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;根据身份证号码查询信息失败&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> b == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;根据身份证号码没有查询到相关的信息&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 对查询到的状态进行反序列化</span></span><br><span class="line">   <span class="keyword">var</span> edu education.Education</span><br><span class="line">   err = json.Unmarshal(b, &amp;edu)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;反序列化 edu 信息失败&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 获取历史变更数据</span></span><br><span class="line">   iterator, err := stub.GetHistoryForKey(edu.UserIdCard)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;根据指定的身份证号码查询对应的历史变更数据失败&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">defer</span> iterator.Close()</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 迭代处理</span></span><br><span class="line">   <span class="keyword">var</span> historys []education.HistoryItem</span><br><span class="line">   <span class="keyword">var</span> hisEdu education.Education</span><br><span class="line">   <span class="comment">// 遍历历史记录</span></span><br><span class="line">   <span class="keyword">for</span> iterator.HasNext() &#123;</span><br><span class="line">      hisData, err := iterator.Next()</span><br><span class="line">      <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> shim.Error(<span class="string">&quot;获取 edu 的历史变更数据失败&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> historyItem education.HistoryItem</span><br><span class="line">      historyItem.TxId = hisData.TxId</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 对查询到的历史记录进行反序列化</span></span><br><span class="line">      err = json.Unmarshal(hisData.Value, &amp;hisEdu)</span><br><span class="line">      <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> shim.Error(<span class="string">&quot;反序列化 edu 信息失败&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> hisData.Value == <span class="literal">nil</span> &#123;</span><br><span class="line">         <span class="keyword">var</span> empty education.Education</span><br><span class="line">         historyItem.Education = empty</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         historyItem.Education = hisEdu</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 保存历史记录</span></span><br><span class="line">      historys = <span class="built_in">append</span>(historys, historyItem)</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   edu.Historys = historys</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 返回</span></span><br><span class="line">   result, err := json.Marshal(edu)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;序列化 edu 信息时发生错误&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> shim.Success(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>updateEdu 根据身份证号更新信息</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据身份证号更新信息</span></span><br><span class="line"><span class="comment">// args: educationObject</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *EducationChaincode)</span> <span class="title">updateEdu</span><span class="params">(stub shim.ChaincodeStubInterface, args []<span class="keyword">string</span>)</span> <span class="title">peer</span>.<span class="title">Response</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">2</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;给定的参数个数不符合要求&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> info education.Education</span><br><span class="line">   err := json.Unmarshal([]<span class="keyword">byte</span>(args[<span class="number">0</span>]), &amp;info)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;反序列化 edu 信息失败&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 根据身份证号码查询信息</span></span><br><span class="line">   result, bl := GetEduInfo(stub, info.UserIdCard)</span><br><span class="line">   <span class="keyword">if</span> !bl &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;根据身份证号码查询信息时发生错误&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 根据新的数据把旧数据进行覆盖</span></span><br><span class="line">   result.UserEnterTime = info.UserEnterTime</span><br><span class="line">   result.GraduationDate = info.GraduationDate</span><br><span class="line">   result.UserSchool = info.UserSchool</span><br><span class="line">   result.UserMajor = info.UserMajor</span><br><span class="line">   result.QuaType = info.QuaType</span><br><span class="line">   result.Length = info.Length</span><br><span class="line">   result.Mode = info.Mode</span><br><span class="line">   result.Level = info.Level</span><br><span class="line">   result.Graduation = info.Graduation</span><br><span class="line">   result.CertNo = info.CertNo</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 保存当前新数据</span></span><br><span class="line">   _, bl = PutEdu(stub, result)</span><br><span class="line">   <span class="keyword">if</span> !bl &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;保存信息信息时发生错误&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   err = stub.SetEvent(args[<span class="number">1</span>], []<span class="keyword">byte</span>&#123;&#125;)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> shim.Success([]<span class="keyword">byte</span>(<span class="string">&quot;信息更新成功&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>delEdu 根据身份证号删除信息（暂不对外提供）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据身份证号删除信息（暂不对外提供）</span></span><br><span class="line"><span class="comment">// args: UserIdCard</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *EducationChaincode)</span> <span class="title">delEdu</span><span class="params">(stub shim.ChaincodeStubInterface, args []<span class="keyword">string</span>)</span> <span class="title">peer</span>.<span class="title">Response</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">2</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;给定的参数个数不符合要求&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*var edu Education</span></span><br><span class="line"><span class="comment">     result, bl := GetEduInfo(stub, info.UserIdCard)</span></span><br><span class="line"><span class="comment">     err := json.Unmarshal(result, &amp;edu)</span></span><br><span class="line"><span class="comment">     if err != nil &#123;</span></span><br><span class="line"><span class="comment">         return shim.Error(&quot;反序列化信息时发生错误&quot;)</span></span><br><span class="line"><span class="comment">     &#125;*/</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 此方法将从账本中删去相应的记录，但是不要忘了这是在区块链里，该方法将会产生相应的交易，之后将写入区块链。</span></span><br><span class="line">   err := stub.DelState(args[<span class="number">0</span>])</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(<span class="string">&quot;删除信息时发生错误&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   err = stub.SetEvent(args[<span class="number">1</span>], []<span class="keyword">byte</span>&#123;&#125;)</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> shim.Error(err.Error())</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> shim.Success([]<span class="keyword">byte</span>(<span class="string">&quot;信息删除成功&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-链码-API"><a href="#2-链码-API" class="headerlink" title="2.链码 API"></a>2.链码 API</h2><p>shim.ChaincodeStubInterface 提供了一系列 API，可以分为四类： 账本状态交互 API、交易信息相关 API、参数读取 API、其他 API。</p>
+<h3 id="账本状态交互-API"><a href="#账本状态交互-API" class="headerlink" title="账本状态交互 API"></a>账本状态交互 API</h3><p>fabric 记录的数据，我们称之为状态(state),这些以键值对(key-value)的形式存储。而账本状态交互 API 可以对账本状态进行操作，相应的，方法会更新交易提案的读写集。</p>
+<table>
+<thead>
+<tr>
+<th align="left">API</th>
+<th align="left">方法格式</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">GetState</td>
+<td align="left">GetState(key string) ([]byte, error)</td>
+<td align="left">负责查询账本，返回指定键对应的值</td>
+</tr>
+<tr>
+<td align="left">PutState</td>
+<td align="left">PutState(key string, value []byte) error</td>
+<td align="left">尝试在账本中添加或更新一对键值。 这一对键值会被添 加到写集合中，等待 Committer 进一步的验证，验证通 过后会真正写入到账本</td>
+</tr>
+<tr>
+<td align="left">GetStateByRange</td>
+<td align="left">GetStateByRange(startKey, endKey string) (StateQuerylteratorlnterface,error)</td>
+<td align="left">查询指定范围内的键值，startKey、endKey 分别 指定起始(包括)和终止(不包括)，当为空时默认是最大范围 。 返回结果是一个迭代器 StateQuerylteratorlnterface 结构， 可以按照字典序迭代每个键值对, 最后需调用 Close()方 法关闭</td>
+</tr>
+<tr>
+<td align="left">GetStateByPartialCompositeKey</td>
+<td align="left">GetStateByPartialCompositeKey (objectType string, keys []string) (StateQuerylteratorlnterface, error)</td>
+<td align="left">根据局部的复合键(前缀)返回所有匹配的键值。 返回结 果也是一个迭代器 StateQuerylteratorlnterface 结构，可以按照字典序迭代每个键值对，最后需调用 C lose()方法关闭</td>
+</tr>
+<tr>
+<td align="left">GetHistoryForKey</td>
+<td align="left">GetHistoryForKey(key string) (History Querylteratorlnterface, error)</td>
+<td align="left">返回某个键的所有历史值 。 需要在节点配置中打开历史数据库特性 (Iedger.history.enableHistoryDatabase= true)</td>
+</tr>
+<tr>
+<td align="left">GetQueryResult</td>
+<td align="left">GetQueryResult(query string) (State Querylteratorlnterface, error)</td>
+<td align="left">对(支持富查询功能的)状态数据库进行富查询( rich query)。 返回结果为迭代器结构 StateQueryIteratorInterface。 注意该方法不会被 Committer 重新执行进行验证，因此， 不应该用于更新账本状态的交易中 。 目前仅有 CouchDB 类型的状态数据库支持富查询</td>
+</tr>
+</tbody></table>
+<h3 id="交易信息相关-API"><a href="#交易信息相关-API" class="headerlink" title="交易信息相关 API"></a>交易信息相关 API</h3><p>此类 API 可以获取到与交易自身相关的数据。用户对链码的调用会产生一系列的交易提案，这些 API 支持查询当前交易提案的一些属性。</p>
+<table>
+<thead>
+<tr>
+<th align="left">API</th>
+<th align="left">方法格式</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">GetTxID</td>
+<td align="left">GetTxID() string</td>
+<td align="left">该方法返回交易提案中指定的交易 ID。一般情况下， 交易 ID 是在客户端生成提案时候产生的数字摘要，由 Nonce 随机串和签名者身份信息，一起进行 SHA256 哈希运行生成</td>
+</tr>
+<tr>
+<td align="left">GetTxTimestamp</td>
+<td align="left">GetTxTimestamp() (*timestamp. Timestamp, error)</td>
+<td align="left">返回交易被创建时的客户端打上的时间戳 。 这个时间戳 是 直接从交易 ChannelHeader 中提取的，所以在所有背书节点 (endorsers)处看到的值都相同</td>
+</tr>
+<tr>
+<td align="left">GetBinding</td>
+<td align="left">GetBinding() ([]byte，eπor)</td>
+<td align="left">返回交易的 binding 信息。<br>注意:交易的 binding 信息是将交易提案的 nonse、Creator、epoch 等信息组合起来，再进行晗希得到的数字摘要</td>
+</tr>
+<tr>
+<td align="left">GetSignecjProposal</td>
+<td align="left">GetSignedProposal()(*pb.SignedProposal, eηor)</td>
+<td align="left">返回该 stub 的 SignedProposal 结构，包括了跟交易提案相 关的所有数据</td>
+</tr>
+<tr>
+<td align="left">GetCreator</td>
+<td align="left">GetCreator() ([]byte, eπor)</td>
+<td align="left">返回该交易的提交者的身份信息，从 signedProposal 中的 SignatureHeader.Creator 提取</td>
+</tr>
+<tr>
+<td align="left">GetTransient</td>
+<td align="left">GetTransient()(map[string][]byte, error)</td>
+<td align="left">返回交易中带有的 一 些临时信息，从 ChaincodeProposalPayload.transient 域提取，可以存放一 些应用相关的保密信息，这些信息不会被写到账本中</td>
+</tr>
+</tbody></table>
+<h3 id="参数读取-API"><a href="#参数读取-API" class="headerlink" title="参数读取 API"></a>参数读取 API</h3><p>调用链码事支持传入若干参数，参数可通过 API 读取。</p>
+<table>
+<thead>
+<tr>
+<th align="left">API</th>
+<th align="left">方法格式</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">GetArgs</td>
+<td align="left">GetArgs() [][]byte</td>
+<td align="left">提取调用链码时交易 Proposal 中指定的参数，以字节串 (ByteArray)数组形式返回。 可以在 Init 或 Invoke 方法中使用。 这些参数从 ChaincodeSpec 结构中的 Input 域直接提取</td>
+</tr>
+<tr>
+<td align="left">GetArgsSlice</td>
+<td align="left">GetArgsSlice() ([]byte, error)</td>
+<td align="left">提取调用链码时交易 Proposal 中指定的参数，以字节串形式返回</td>
+</tr>
+<tr>
+<td align="left">GetFunctionAndParameters</td>
+<td align="left">GetFunctionAndParameters()(string, []string)</td>
+<td align="left">这是链码开发者和用户约定俗成的习惯，即在 Init/Invoke 方法中编写实现若干子函数，用户调用时以第一个参数作为函数名 ， 链码中的代码根据函数名称可以仅执行对应的分支处理逻辑</td>
+</tr>
+<tr>
+<td align="left">GetStringArgs</td>
+<td align="left">GetStringArgs() []string</td>
+<td align="left">提取调用链码时交易 Proposal 中指定的参数，以 字 符串 (String) 数组形式返回</td>
+</tr>
+</tbody></table>
+<h3 id="其他-API"><a href="#其他-API" class="headerlink" title="其他 API"></a>其他 API</h3><p>上面是常用的 API，同时还有一些辅助 API</p>
+<table>
+<thead>
+<tr>
+<th align="left">API</th>
+<th align="left">方法格式</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CreateCompositeKey</td>
+<td align="left">CreateCompositeKey(objectType string, attributes []string) (string, error)</td>
+<td align="left">给定一组属性( attributes)，该 API 将这些属性组合起来构造返回一个复合键 。 返回的复合键可以被 PutState 等方法使用 。objectType 和 attributes 只允许合法的 utf8 字符串，并且不能包含 U+OOOO 和 U+10FFFF</td>
+</tr>
+<tr>
+<td align="left">SplitCompositeKey</td>
+<td align="left">SplitCompositeKey(compositeKey string) (string, []string, error)</td>
+<td align="left">该方法与 CreateCompositeKey 方法相对，给定一个复合键，将其拆分为构造复合键时所用的属性</td>
+</tr>
+<tr>
+<td align="left">InvokeChaincode</td>
+<td align="left">InvokeChaincode(chaincodeName string, args [][]byte, channel string) pb.Response</td>
+<td align="left">调用另一个链码中的 Invoke 方法，如果被调用链码在同一个通道内，则添加其读写集合信息到调用交易; 否则执行调用但不影响读写集合信息 。 如果 channel 为空 ，则默认为当前通道。 目前仅限于读操作，同时不会生成新的交易</td>
+</tr>
+<tr>
+<td align="left">SetEvent</td>
+<td align="left">SetEvent(name string, payload []byte) error</td>
+<td align="left">设定当这个交易在 Committer 处被认证通过， 写入到 区块时发送的事件( event)</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.furadwho.top/2021/12/20/Fabric-%E9%93%BE%E7%A0%81%E7%BC%96%E5%86%99/" title="Fabric 链码编写" target="_blank" rel="external">http://www.furadwho.top/2021/12/20/Fabric-链码编写/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/FuradWho" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/../images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/FuradWho" target="_blank"><span class="text-dark">FuradWho</span><small class="ml-1x">新时代搬砖人</small></a></h3>
+        <div>个人简介</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/12/12/%E9%98%85%E5%90%8E%E5%8D%B3%E7%84%9A%EF%BC%88%E4%B8%83%EF%BC%89/" title="阅后即焚（七）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/FuradWho" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+    <script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:www.furadwho.top ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: true,
+    appId: 'gTxyYlP8yvxBqOoFf0GLjr51-gzGzoHsz',
+    appKey: 'nzJbS7typWsPXiJO7lTdAag4',
+    placeholder: '说点什么...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
