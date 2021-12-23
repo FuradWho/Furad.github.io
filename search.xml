@@ -1299,6 +1299,12 @@
     <title>Go json 解析</title>
     <url>/2021/12/08/Go-json-%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>go</tag>
+      </tags>
   </entry>
   <entry>
     <title>Go net/http 解析</title>
@@ -1515,6 +1521,17 @@
       </categories>
       <tags>
         <tag>Fabric</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go 学习（二）</title>
+    <url>/2021/12/23/Go-%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="Go-学习（二）"><a href="#Go-学习（二）" class="headerlink" title="Go 学习（二）"></a>Go 学习（二）</h1>]]></content>
+      <categories>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>go</tag>
       </tags>
   </entry>
 </search>
